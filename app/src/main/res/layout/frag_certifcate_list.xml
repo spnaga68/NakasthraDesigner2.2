@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp8"
+            android:padding="@dimen/dp3"
+            android:text="@string/welcome_to_frd"
+            android:textSize="@dimen/sp16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
+    <View
+            android:id="@+id/titleLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            android:layout_width="@dimen/dp70"
+            android:layout_height="@dimen/dp_2"
+
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitle"/>
+
+    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+            android:text="@string/valid_upto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/validDateLabel"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingRight="@dimen/dp_10"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:textSize="@dimen/sp_18"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/alert_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"/>
+
+    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+            tools:text="23d : 34m :00s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/validDate"
+            app:layout_constraintTop_toBottomOf="@+id/validDateLabel"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:textSize="@dimen/sp_18"
+            android:gravity="center"
+
+            android:textColor="@color/alert_color"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/validDateLabel"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/validDateLabel"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_24"
+            app:layout_constraintTop_toBottomOf="@+id/titleLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <include
+            android:visibility="gone"
+            android:id="@+id/layoutLoading"
+        layout="@layout/layout_loading"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

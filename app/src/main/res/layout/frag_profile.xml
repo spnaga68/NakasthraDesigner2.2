@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="data"
+                type="pasu.nakshatraDesigners.signIn.data.SignUpDetail"/>
+
+        <variable
+                name="profileViewModel"
+                type="pasu.nakshatraDesigners.viewModel.ProfileViewModel"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/scrollView2" android:layout_marginBottom="60dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/constraintLayout">
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwdLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fname"
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:drawableStart="@drawable/ic_perm_identity_black_24dp"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:text="@{data.name}"
+                        android:visibility="visible"
+                        android:maxLength="@integer/fnameLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/LastNameLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/lname"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/pwdLay">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:drawableStart="@drawable/ic_perm_identity_black_24dp"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/lnameLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+
+                    android:layout_below="@+id/LastNameLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/LastNameLay">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="@{data.email}"
+                        android:drawableStart="@drawable/ic_email_black_24dp"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/emailLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneEdtLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phn_no"
+
+                    android:layout_below="@+id/emailLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/emailLay">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:drawableStart="@drawable/ic_mobileno"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:focusable="false"
+                        android:drawableTint="#a3a3a3"
+                        android:focusableInTouchMode="false"
+                        android:text="@{data.phone}"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/phNoLength"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addressLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+
+                    android:layout_below="@+id/phoneEdtLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/phoneEdtLay">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="@{data.address}"
+                        android:drawableStart="@drawable/ic_edit_location_black_24dp"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/emailLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/cityLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city"
+
+                    android:layout_below="@+id/addressLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/addressLay" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="@{data.city}"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/emailLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/stateLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/state"
+
+                    android:layout_below="@+id/LastNameLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cityLay" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="@{data.state}"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/emailLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/postalLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pincode"
+
+                    android:layout_below="@+id/LastNameLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/stateLay" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etPostalLay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="@{data.zip}"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="@integer/emailLength"
+                />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/changePwdLay"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/changePassword"
+
+                    android:layout_below="@+id/phoneEdtLay"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/postalLay">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etChangePwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:drawableStart="@drawable/ic_password"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:drawablePadding="@dimen/dp_16"
+                        android:textColorHint="@color/hintcolor"
+                        android:visibility="visible"
+                        android:maxLength="32"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <pasu.nakshatraDesigners.utils.widgets.CustomButton
+            android:text="@string/logOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/logOut"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:type="@string/postive_button"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/save"/>
+
+    <pasu.nakshatraDesigners.utils.widgets.CustomButton
+            android:text="@string/save"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:id="@+id/save"
+            app:type="@string/postive_button"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/logOut"
+            />
+    <!--android:visibility="@{profileViewModel.showLoading ? View.VISIBLE : View.GONE}"-->
+    <include
+            android:id="@+id/layoutLoading"
+        android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            layout="@layout/layout_loading"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout></layout>

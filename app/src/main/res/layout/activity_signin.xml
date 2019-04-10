@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="data"
+                type="pasu.nakshatraDesigners.signIn.data.apiData.SignUpResponseData"/>
+
+        <variable
+                name="signInViewModel"
+                type="pasu.nakshatraDesigners.signIn.viewModel.SignInViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:id="@+id/signinlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/appbg"
+            android:orientation="vertical">
+
+
+
+        <include
+                android:id="@+id/toolbar"
+                android:layout_alignParentTop="true"
+                layout="@layout/include_header"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"/>
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_below="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <RelativeLayout
+                    android:id="@+id/bodyLay"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_gravity="top"
+
+                    android:background="@color/appbg">
+
+                <ImageView
+                        android:id="@+id/imageview"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:src="@drawable/launcher_icon"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phoneEdtLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/phoneEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+                            android:drawableStart="@drawable/ic_phone"
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/pwdLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+
+                        android:layout_below="@+id/phoneEdtLay"
+                        android:layout_width="match_parent"
+                        app:passwordToggleEnabled="true"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:drawableStart="@drawable/ic_password"
+                            android:textColor="@color/textviewcolor_dark"
+                            android:drawablePadding="@dimen/dp_10"
+                            android:imeOptions="actionDone"
+                            android:drawableTint="@color/icon_tint"
+                            android:textColorHint="@color/hintcolor"
+                            android:visibility="visible"
+                            android:maxLength="@integer/pwdLength"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:layout_below="@+id/pwdLay"
+                        android:id="@+id/signup_web"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/forgotpswdTxt"
+                        android:layout_gravity="right|center_vertical"
+                        android:text="@string/signup"
+                        android:visibility="gone"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:textColorHint="@color/hintcolor"
+                        android:textSize="18sp"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:id="@+id/forgotpswdTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/pwdLay"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="right"
+                        android:text="@string/forgotpswd"
+                        android:textColor="@color/textviewcolor_dark"
+                        android:textSize="18sp"/>
+
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                        android:id="@+id/signInButton"
+                        android:layout_width="@dimen/buttonWidth"
+                        android:layout_height="@dimen/buttonHeight"
+                        android:background="@drawable/buttonbg"
+                        android:gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_below="@id/forgotpswdTxt"
+                        android:layout_centerHorizontal="true"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/signin"
+
+                        />
+
+                <pasu.nakshatraDesigners.utils.widgets.SocialLinkView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_below="@+id/signInButton"
+                        android:layout_height="wrap_content"></pasu.nakshatraDesigners.utils.widgets.SocialLinkView>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+                android:visibility="gone"
+                android:id="@+id/layoutLoading"
+                layout="@layout/layout_loading"/>
+    </LinearLayout>
+</layout>

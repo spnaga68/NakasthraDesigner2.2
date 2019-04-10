@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/dp8"
+            android:id="@+id/guestLay"
+
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_height="80dp">
+
+        <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/btn_login"
+                android:id="@+id/login"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:layout_marginEnd="5dp"
+                app:type="@string/postive_button"
+                android:layout_height="wrap_content"/>
+
+        <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:id="@+id/register"
+                app:type="@string/negative_button"
+                android:text="@string/register"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <include
+            android:id="@+id/userLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/nav_header"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray"/>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/nav_rv_list"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+            <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                    android:layout_width="wrap_content"
+                    android:text="@string/logOut"
+                    android:id="@+id/logOut"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="5dp"
+                    app:type="@string/postive_button"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="dashboard"
+                type="pasu.nakshatraDesigners.data.DashboardResponse"/>
+
+        <variable
+                name="dashboardViewmodel"
+                type="pasu.nakshatraDesigners.viewModel.DashboardViewModel"/>
+    </data>
+
+    <!-- Use DrawerLayout as root container for activity -->
+    <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+        <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <!-- <androidx.appcompat.widget.Toolbar
+                     android:userid="@+userid/toolbar"
+                     android:layout_width="match_parent"
+                     android:layout_height="?attr/actionBarSize"
+
+                     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+     -->
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp10"
+                        android:id="@+id/menu_icon"
+                        app:srcCompat="@drawable/ic_menu"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp10"
+                        android:id="@+id/toolbarTitle"
+                        app:srcCompat="@drawable/launcher_icon"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp8"
+                        android:gravity="center"
+                        android:id="@+id/onlineclasses"
+                        android:layout_gravity="right"
+                        android:background="@drawable/rect_drawable_box"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:text="@string/online_classess"
+                        app:srcCompat="@drawable/launcher_icon"/>
+            </androidx.appcompat.widget.Toolbar>
+
+            <FrameLayout
+                    android:id="@+id/shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="05dp"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:foreground="@drawable/background_shadow"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            <!--app:navGraph="@navigation/nav_main"-->
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/nav_host_frag"
+                    android:tag="-6"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"/>
+
+        </FrameLayout>
+
+        <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+        <!--  <com.google.android.material.navigation.NavigationView
+                  android:id="@+id/nav_view"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+
+                  app:itemTextColor="@color/color_selector_navigation_item"
+                  app:itemIconTint="@color/color_selector_navigation_item"
+                  android:background="@color/nav_black"
+                  android:fitsSystemWindows="true"
+                  app:theme="@style/NavigationDrawerStyle"
+                  app:headerLayout="@layout/nav_header"
+                  app:menu="@menu/drawer_view"/>-->
+        <include
+                android:fitsSystemWindows="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                layout="@layout/drawer_layout"/>
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

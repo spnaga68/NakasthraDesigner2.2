@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="data"
+                type="pasu.nakshatraDesigners.data.SplashResponseData.SplashData"/>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/launcher_icon"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/rect_drawable_box"
+                    android:layout_margin="16dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/nameEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/emailLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/emailEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phoneEdtLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phn_no"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/phoneEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/messageEdtLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/message"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/messageEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:drawableTint="@color/icon_tint"
+                            android:imeOptions="actionDone"
+
+                            android:textColor="@color/textviewcolor_dark"
+
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <include
+                        android:visibility="gone"
+                        android:id="@+id/layoutLoading"
+                        layout="@layout/layout_loading"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                        android:layout_width="wrap_content"
+                        android:text="@string/submit"
+                        android:id="@+id/submit"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="center_horizontal"
+                        app:type="@string/postive_button"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                    android:id="@+id/addresscontactLay"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/dp_16"
+                    android:background="@drawable/rect_drawable_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:id="@+id/whatLearn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:layout_marginEnd="8dp"
+                        android:paddingTop="@dimen/dp3"
+                        android:paddingBottom="@dimen/dp3"
+                        android:text="@string/address"
+                        android:textAllCaps="true"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <View
+                        android:id="@+id/whtLine"
+                        app:layout_constraintTop_toBottomOf="@+id/whatLearn"
+                        android:layout_width="@dimen/dp70"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:background="@color/black"
+                        app:layout_constraintStart_toStartOf="@+id/whatLearn"
+                        app:layout_constraintEnd_toEndOf="@+id/whatLearn"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/addressOne"
+                        android:layout_margin="@dimen/dp8"
+                        android:drawablePadding="@dimen/dp10"
+                        android:text="@{data.address1}"
+                        android:drawableTint="@color/button_accept"
+                        tools:text="This is the dummy addresss to be display "
+                        android:drawableStart="@drawable/ic_edit_location_black_24dp"
+                        android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/addressTwo"
+                        android:layout_margin="@dimen/dp8"
+                        android:text="@{data.address2}"
+                        android:drawableTint="@color/button_reject"
+                        android:drawablePadding="@dimen/dp10"
+                        tools:text="This is the dummy addresss to be display "
+                        android:drawableStart="@drawable/ic_edit_location_black_24dp"
+                        android:layout_height="wrap_content"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:layout_marginEnd="8dp"
+                        android:paddingTop="@dimen/dp3"
+                        android:paddingBottom="@dimen/dp3"
+                        android:text="@string/callWhatsapp"
+                        android:textAllCaps="true"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <View
+                        app:layout_constraintTop_toBottomOf="@+id/whatLearn"
+                        android:layout_width="@dimen/dp70"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:background="@color/black"
+                        app:layout_constraintStart_toStartOf="@+id/whatLearn"
+                        app:layout_constraintEnd_toEndOf="@+id/whatLearn"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/call_"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/dp10"
+                            android:drawableStart="@drawable/ic_phone"
+                            android:id="@+id/add_call"
+                            tools:text="34222332"
+                            android:text="@{data.phone}"
+                            android:textColor="@color/alert_color"
+                            android:layout_marginStart="@dimen/dp10"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/whatsapp_"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/dp10"
+                            android:drawableStart="@drawable/ic_whatsapp_logo"
+                            tools:text="545414212"
+                            android:text="@{data.whatsapp}"
+                            android:id="@+id/add_whatsapp"
+                            android:textColor="@color/alert_color"
+                            android:layout_marginStart="@dimen/dp10"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                </LinearLayout>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:layout_marginEnd="8dp"
+                        android:paddingTop="@dimen/dp3"
+                        android:paddingBottom="@dimen/dp3"
+                        android:text="@string/email"
+
+                        android:textAllCaps="true"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <View
+                        app:layout_constraintTop_toBottomOf="@+id/whatLearn"
+                        android:layout_width="@dimen/dp70"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:background="@color/black"
+                        app:layout_constraintStart_toStartOf="@+id/whatLearn"
+                        app:layout_constraintEnd_toEndOf="@+id/whatLearn"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/add_email"
+                        android:layout_margin="@dimen/dp8"
+                        android:text="@{data.email}"
+                        android:drawablePadding="@dimen/dp10"
+                        tools:text="This is the dummy addresss to be display "
+                        android:drawableStart="@drawable/ic_email_black_24dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/map"
+                    android:layout_margin="@dimen/dp_16"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_marginBottom="8dp"
+                    />
+
+            <pasu.nakshatraDesigners.utils.widgets.SocialLinkView
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/dp_16"
+                    android:layout_height="wrap_content"></pasu.nakshatraDesigners.utils.widgets.SocialLinkView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

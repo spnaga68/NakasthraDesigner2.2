@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:id="@+id/reviewLay"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect_drawable_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp">
+
+    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+            android:id="@+id/txt_noOfRes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="8dp"
+            android:paddingTop="@dimen/dp3"
+            android:paddingBottom="@dimen/dp3"
+            android:text="@string/socialLinks"
+            android:textAllCaps="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+            android:id="@+id/reviewLine"
+            app:layout_constraintTop_toBottomOf="@+id/txt_noOfRes"
+            android:layout_width="@dimen/dp70"
+            android:layout_height="@dimen/dp_2"
+
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/txt_noOfRes"
+            app:layout_constraintEnd_toEndOf="@+id/txt_noOfRes"/>
+
+    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+            android:id="@+id/tvSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp8"
+            android:gravity="end"
+            android:paddingTop="@dimen/dp3"
+            android:paddingBottom="@dimen/dp3"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/txt_noOfRes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txt_noOfRes"
+            app:layout_constraintTop_toTopOf="@id/txt_noOfRes"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_margin="16dp"
+
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_noOfRes"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/rv_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal">
+
+        <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                android:text="@string/call"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_phone"
+                android:layout_weight="1"
+                android:id="@+id/callButton"
+                app:type="@string/postive_button"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/dp10"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"/>
+
+        <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                android:text="@string/whatsapp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/whatsappButton"
+                app:type="@string/postive_button"
+                android:padding="@dimen/dp10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/dp10"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableStart="@drawable/ic_whatsapp_logo"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--
+        <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="24dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="spacingWidthUniform"-->

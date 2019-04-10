@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="phoneVerificationViewModel"
+            type="pasu.nakshatraDesigners.signIn.viewModel.PhoneVerificationViewModel" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/rootFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llphone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="60dp">
+
+            <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                android:id="@+id/tvVerificationTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:padding="@dimen/dp10"
+                android:text="@string/verify_otp_msg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edPinOne"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp8"
+                android:digits="0123456789"
+                android:gravity="center|top"
+                android:hint="0"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvVerificationTitle" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edPinTwo"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp8"
+                android:digits="0123456789"
+                android:gravity="center|top"
+                android:hint="1"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="@+id/edPinOne"
+                app:layout_constraintStart_toEndOf="@id/edPinOne"
+                app:layout_constraintTop_toTopOf="@+id/edPinOne" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edPinThree"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp8"
+                android:digits="0123456789"
+                android:gravity="center|top"
+                android:hint="3"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="@+id/edPinOne"
+                app:layout_constraintStart_toEndOf="@id/edPinTwo"
+                app:layout_constraintTop_toTopOf="@+id/edPinOne" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edPinFour"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp8"
+                android:digits="0123456789"
+                android:gravity="center|top"
+                android:hint="4"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="@+id/edPinOne"
+                app:layout_constraintStart_toEndOf="@id/edPinThree"
+                app:layout_constraintTop_toTopOf="@+id/edPinOne" />
+
+            <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                android:id="@+id/tvResendOtp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:background="?android:selectableItemBackground"
+                android:padding="@dimen/dp10"
+                android:text="@string/btn_resend_otp"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edPinOne"
+                app:layout_constraintVertical_bias="0.19999999" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgRetry"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:tint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@id/tvResendOtp"
+                app:layout_constraintStart_toEndOf="@id/tvResendOtp"
+                app:layout_constraintTop_toTopOf="@id/tvResendOtp"
+                app:srcCompat="@drawable/ic_retry" />
+
+            <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                android:id="@+id/tvOtp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:gravity="center"
+                android:padding="@dimen/dp10"
+                android:text="Otp: "
+                android:textColor="@color/colorAccent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvResendOtp"
+                app:layout_constraintVertical_bias="0.19999999" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:scaleX="-1"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="15dp"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+        <include
+            android:id="@+id/progressLayout"
+            layout="@layout/layout_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{phoneVerificationViewModel.showLoadingLayout ? View.VISIBLE : View.GONE}" />
+    </FrameLayout>
+</layout>

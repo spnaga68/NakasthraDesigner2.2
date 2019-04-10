@@ -1,0 +1,157 @@
+<resources>
+    <string name="app_name">Nakshatra Designers</string>
+    <string name="phone">Mobile Number</string>
+    <string name="show">Show</string>
+    <string name="password">Password</string>
+    <string name="signup">SignUp</string>
+    <string name="forgotpswd">Forgot Password ?</string>
+    <string name="terms_condition">Terms and Conditions</string>
+    <string name="signin">SignIn</string>
+
+
+    <string name="style_text_header">text_header</string>
+    <string name="style_sub_text">text_sub_text</string>
+    <string name="header_text_font">fonts/Ubuntu-B.ttf</string>
+    <string name="sub_text_font">fonts/Ubuntu-L.ttf</string>
+    <string name="postive_button">PositiveButton</string>
+    <string name="negative_button">NegativeButton</string>
+    <string name="normal_text_font">fonts/Ubuntu-M.ttf</string>
+
+
+    <!--Account-->
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="city">city</string>
+    <string name="state">state</string>
+    <string name="pincode">Pincode</string>
+    <string name="phn_no">Phone Number</string>
+    <string name="changePassword">Change Password</string>
+    <string name="logOut">Log Out</string>
+    <string name="save">Save</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_to_frd">WELCOME TO MY FRIEND..!</string>
+    <string name="detail_here">Find your details here...</string>
+    <string name="aCertificates">Active Certificates</string>
+
+
+
+    <!--Certificates-->
+    <string name="vNum">Vehicle Num</string>
+    <string name="mobile">Mobile</string>
+    <string name="valid_upto">Classes validity</string>
+    <string name="certificates">Certificates</string>
+    <string name="view">View</string>
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_track_vehicle">Track your vehicle</string>
+    <string name="menu_certificates">Certificates</string>
+    <string name="menu_about">About</string>
+    <string name="aVehicles">Active Vehicles</string>
+    <string name="fetching">Fetching</string>
+    <string name="cancel">Cancel</string>
+
+
+
+
+<!--SignIn-->
+    <string name="hint_enter_your_phone_number">Mobile Number</string>
+    <string name="search_hint">Search…</string>
+    <string name="no_result_found">Results not found</string>
+    <string name="select_country">Select a county</string>
+    <string name="error_please_enter_phone_number">Please Enter Phone Number</string>
+    <string name="error_please_enter_name">Please Enter Name</string>
+    <string name="error_please_enter_description">Please Enter Message</string>
+    <string name="error_valid_length_phone_number">Phone Number length must be atleast 10 characters!</string>
+    <string name="error_please_enter_pin">Please enter PIN</string>
+    <string name="error_valid_password">Please Enter Valid Password</string>
+    <string name="error_valid_length_password">Password length must be atleast six characters!</string>
+    <string name="label_smssendacknowledge">We have sent you an SMS with a code to the number above. \n\nTo complete your phone number verification, please enter the 5-digit activation code.</string>
+    <string name="error_valid_code">Enter valid code</string>
+    <string name="server_error">Couldn\'t Connect to Server</string>
+    <string name="join_with_facebook">Join us with facebook</string>
+    <string name="btn_maybe_later">May be later</string>
+    <string name="about_app_intro">Get your groceries from your nearby supermarket by simple steps</string>
+    <string name="continue_mobile">Continue with mobile number</string>
+    <string name="hint_password">Enter Your Password</string>
+    <string name="get_password">Get Password</string>
+    <string name="ok">OK</string>
+    <string name="check_internet_connection">Check your internet connection to proceed further</string>
+    <string name="welcome_back">Welcome back, sign in to continue</string>
+    <string name="transition_arrow">transition_arrow</string>
+    <string name="transition_tvMoving">transition_tvMoving</string>
+    <string name="transition_ivFlag">transition_ivFlag</string>
+    <string name="transition_tvCode">transition_tvCode</string>
+    <string name="transition_tvPhoneNo">transition_tvPhoneNo</string>
+    <string name="transition_llPhone">transition_llPhone</string>
+
+    <string name="facebook_app_id">507303559780336</string>
+    <string name="fb_login_protocol_scheme">fb507303559780336</string>
+    <string name="app_desc">Only destination for your daily needs</string>
+    <string name="outlet_change_alert">Your cart contains groceries from ##old_outlet##. Do you want to discard the selection and add groceries from ##new_outlet## </string>
+
+    <string name="btn_login">Login</string>
+
+    <string name="why_phone_number_text">Why my mobile number?</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_forgot_password">Forgot password</string>
+    <string name="forgot_password_message">Did you forgot your password? Get your new one here..!</string>
+    <string name="show_pin">Show pin</string>
+    <string name="enter_pin">Enter pin number</string>
+    <string name="edit">Edit</string>
+    <string name="btn_yes">Yes</string>
+    <string name="number_correct">Is your phone number correct?</string>
+    <string name="why_need_user_number">Nakshatra Designers uses  phone number to uniquely identify customers. Others would never have access to your phone number without your consent. Keep shopping Have a Good Day!</string>
+    <string name="msg_verify_phone">Verifying %s</string>
+    <string name="hint_code">code</string>
+    <string name="btn_login_via_otp">Login</string>
+    <string name="i_m_done">Done</string>
+    <string name="didn_t_receive_the_code">Didn\'t receive the code?</string>
+    <string name="btn_resend_otp">Resend OTP</string>
+    <string name="label_enter6digit">To complete your phone number verification, please enter the 5-digit activation code.</string>
+    <string name="maximum_limit_reached">Maximum limit reached</string>
+    <string name="verify_number">Verify Mobile Number</string>
+    <string name="verify_otp_msg">Please enter OTP received via SMS to verify your mobile number.</string>
+    <string name="please_wait">Please wait</string>
+    <string name="label_please_confirm_your_country_code_and_enter_your_phone_number">Please confirm your country code and enter your phone number.</string>
+    <string name="login_by">Login By</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="pin">PIN</string>
+    <string name="label_existing_user">Existing user?</string>
+    <string name="terms_of_service">Term of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="and">and</string>
+    <string name="terms_and_conditions">By signing in, you agree to our</string>
+    <string name="str_sms">We need Read SMS permission, inorder to get OTP.</string>
+    <string name="enter_old_pwd">Old password</string>
+    <string name="enter_new_pwd">New password</string>
+    <string name="confirm_pwd">Confirm password</string>
+    <string name="retry">Retry</string>
+    <string name="app_name_provider">Nakshatra Designers Technology</string>
+    <string name="confirm_logout">Confirm Logout</string>
+    <string name="logout_msg">Are you sure, want to logout?</string>
+    <string name="first_name_validataion">Name should not be less than 3 characters</string>
+    <string name="email_validataion">Email seems to be invalid</string>
+    <string name="cant_edit_phone">You are not allowed to edit phone number</string>
+    <string name="rationale_location">This app needs access to your Location</string>
+    <string name="gps_enable">GPS is disabled in your device. Kindly enable it?</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="loading">Loading...</string>
+    <string name="guest_user">Guest User</string>
+    <string name="reviews">Customer Reviews</string>
+    <string name="whatILearn">WHAT I WILL LEARN</string>
+    <string name="online_classess">OnlineClasses</string>
+    <string name="intro_sample">INTRODUCTION AND SAMPLE VIDEOS</string>
+    <string name="socialLinks">Social Links</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="call">Call</string>
+    <string name="register">Register</string>
+    <string name="message">Message</string>
+    <string name="name">Name</string>
+    <string name="submit">Submit</string>
+    <string name="callWhatsapp">CALL / WHATSAPP</string>
+    <string name="call_">Call -</string>
+    <string name="whatsapp_">Whatsapp -</string>
+    <string name="profile">Profile</string>
+    <string name="contact_us">Contact Us</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="listItem"
+                type="pasu.nakshatraDesigners.data.VideoListItem"/>
+
+
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ViewImage"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_height="150dp"
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/imageView"
+                android:layout_gravity="top"
+android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/dp4"
+                android:scaleType="fitXY"
+                app:imageFromUrl="@{listItem.getImageUrl(context)}"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+                android:layout_marginBottom="8dp"/>
+
+
+        - <TextView
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="@dimen/dp4"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Was india "
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center|top"
+            android:layout_marginBottom="8dp"
+            android:text="@{listItem.aari_name}"
+            android:layout_gravity="center|top"
+            android:lineSpacingExtra="5sp"
+            android:letterSpacing="-0.02"
+            android:id="@+id/textViewTitle"/>
+
+
+
+    </LinearLayout>
+</layout>

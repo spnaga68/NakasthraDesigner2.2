@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_main"
+            app:startDestination="@id/dashboard">
+
+    <fragment
+            android:id="@+id/dashboard"
+            android:name="pasu.nakshatraDesigners.fragments.DashboardFrag"
+            tools:layout="@layout/frag_dash"
+            android:label="Dashboard">
+        <action
+                android:id="@+id/action_dashboardFrag_to_certificates"
+                app:destination="@id/certificates"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        <action
+                android:id="@+id/action_dashboardFrag_to_profileFrag"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                app:destination="@id/profileFrag"/>
+        <action android:id="@+id/action_dashboard_to_about" app:destination="@id/about"/>
+
+    </fragment>
+    <fragment
+            android:id="@+id/profileFrag"
+            android:name="pasu.nakshatraDesigners.fragments.ProfileFrag"
+            tools:layout="@layout/frag_profile"
+            android:label="Profile"/>
+    <fragment
+            android:id="@+id/certificates"
+            tools:layout="@layout/frag_certifcate_list"
+            android:name="pasu.nakshatraDesigners.fragments.Certificates"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:label="Certificates">
+        <action android:id="@+id/action_certificates_to_certificateDetailFrag"
+                app:destination="@id/certificateDetailFrag">
+            <argument android:name="toLoad" app:argType="string" android:defaultValue="hai"/>
+
+        </action>
+    </fragment>
+    <fragment
+            android:id="@+id/track_vehicle"
+            android:name="pasu.nakshatraDesigners.trackModule.TrackHome"
+            tools:layout="@layout/frag_track"
+            android:label="Track Your Vehicle"/>
+    <fragment
+            android:id="@+id/about"
+            android:name="pasu.nakshatraDesigners.fragments.AboutFrag"
+            tools:layout="@layout/frag_certifcate_list"
+            android:label="About us">
+        <argument android:name="toLoad" app:argType="string" android:defaultValue="www.google.com"/>
+    </fragment>
+    <fragment android:id="@+id/certificateDetailFrag" android:name="pasu.nakshatraDesigners.fragments.CertificateDetailFrag"
+              android:label="CertificateDetailFrag">
+        <argument android:name="toLoad" app:argType="string" android:defaultValue="hai"/>
+    </fragment>
+
+</navigation>

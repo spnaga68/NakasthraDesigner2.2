@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_signin"
+            app:startDestination="@id/signInActivity">
+
+    <activity
+            android:id="@+id/signInActivity"
+            tools:layout="@layout/activity_signin"
+            android:name="pasu.nakshatraDesigners.signIn.SignInActivity"
+            android:label="SignInActivity"/>
+    <activity
+            android:id="@+id/passwordActivity"
+            tools:layout="@layout/activity_password"
+            android:name="pasu.nakshatraDesigners.signIn.PasswordActivity"
+            android:label="PasswordActivity"/>
+    <activity
+            android:id="@+id/phoneVerificationActivity"
+            tools:layout="@layout/activity_phone_verification"
+            android:name="pasu.nakshatraDesigners.signIn.PhoneVerificationActivity"
+            android:label="PhoneVerificationActivity"/>
+    <fragment
+            android:id="@+id/customBottomSheetDialogFragment"
+            tools:layout="@layout/fragment_forgot_password"
+            android:name="pasu.nakshatraDesigners.signIn.fragments.CustomBottomSheetDialogFragment"
+            android:label="CustomBottomSheetDialogFragment">
+        <action
+                android:id="@+id/action_customBottomSheetDialogFragment_to_phoneVerificationActivity"
+                app:destination="@id/phoneVerificationActivity"/>
+    </fragment>
+</navigation>
