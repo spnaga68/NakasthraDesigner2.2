@@ -24,6 +24,7 @@ import pasu.nakshatraDesigners.viewModel.ViewmodelFactory
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.CountDownTimer
 import pasu.nakshatraDesigners.utils.TimeUtils.Companion.convertFromDuration
+import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 
 
 class Certificates : Fragment() {
@@ -53,7 +54,7 @@ class Certificates : Fragment() {
                 }
             }
         }
-        var expText = v.findViewById<TextView>(R.id.validDate)
+        var expText = v.findViewById<CustomTextview>(R.id.validDate)
         var expTime = 0L
         var ct = object : CountDownTimer(300000, 1000) {
 
@@ -103,7 +104,7 @@ class Certificates : Fragment() {
                     expTime = Session.getSession(EXPIRY_TIME, context).toLong()
                     ct.start()
                 }
-                v.findViewById<TextView>(R.id.validDate).text =
+                v.findViewById<CustomTextview>(R.id.validDate).text =
                     getString(R.string.valid_upto) + " " + Session.getSession(EXPIRY_TIME, context)
                 v.findViewById<ViewGroup>(R.id.layoutLoading).visibility = View.GONE
                 adapter.submitList(items)

@@ -52,11 +52,15 @@ class ProfileFrag : Fragment(), DialogOnClickInterface {
         profileViewModel.profileResponseData.observe(this, Observer { response ->
             response?.let {
                 if (response.responseCode == 400) {
-                    var data = response.data[0]
-                    data?.let {
-                        binding.data = data
-                        profileData = data
-                        updateProfileSession(profileData)
+                    if(response.data !=null && response.data.size>0) {
+                        var data = response.data[0]
+                        data?.let {
+                            binding.data = data
+                            profileData = data
+                            updateProfileSession(profileData)
+                        }
+                    }else{
+
                     }
                 } else {
                     CommonFunctions.alertDialog(

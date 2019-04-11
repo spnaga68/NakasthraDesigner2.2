@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import android.widget.ExpandableListView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
@@ -17,6 +16,7 @@ import pasu.nakshatraDesigners.fragments.Certificates
 import pasu.nakshatraDesigners.rvItemClick
 import pasu.nakshatraDesigners.utils.DisplayUtils
 import pasu.nakshatraDesigners.utils.Session
+import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 
 class NavigataionAdapter(val context: Context, val myDataSet: ArrayList<NavData>, val clickListener: rvItemClick) :
     RecyclerView.Adapter<NavigataionAdapter.MyViewHolder>() {
@@ -29,7 +29,7 @@ class NavigataionAdapter(val context: Context, val myDataSet: ArrayList<NavData>
         viewType: Int
     ): NavigataionAdapter.MyViewHolder {
         // create a new view
-        val textView = TextView(context)
+        val textView = CustomTextview(context)
         textView.layoutParams =
             ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         textView.setPadding(DisplayUtils.dpToPxInt(10))
@@ -72,5 +72,5 @@ notifyDataSetChanged()
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataSet.size
 
-    class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class MyViewHolder(val textView: CustomTextview) : RecyclerView.ViewHolder(textView)
 }

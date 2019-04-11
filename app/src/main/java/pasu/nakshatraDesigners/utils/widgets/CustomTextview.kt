@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import pasu.nakshatraDesigners.R
 import android.graphics.Typeface
 import androidx.appcompat.widget.AppCompatTextView
+import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 import androidx.core.content.ContextCompat
 
 

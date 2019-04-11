@@ -217,9 +217,9 @@ class DashboardFrag : Fragment() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.item_image_slider, container, false)
-            val cusName = view.findViewById<TextView>(R.id.customerName)
+            val cusName = view.findViewById<CustomTextview>(R.id.customerName)
             val cusRating = view.findViewById<RatingBar>(R.id.ratingBar)
-            val cusReview = view.findViewById<TextView>(R.id.reviewText)
+            val cusReview = view.findViewById<CustomTextview>(R.id.reviewText)
             cusName.text = imageArray[position].name + "-" + imageArray[position].city
             cusReview.text = imageArray[position].description
             cusRating.rating = imageArray[position].star?.toFloat() ?: 0f

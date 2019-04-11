@@ -12,11 +12,12 @@
     <string name="style_text_header">text_header</string>
     <string name="style_sub_text">text_sub_text</string>
     <string name="header_text_font">fonts/Ubuntu-B.ttf</string>
-    <string name="sub_text_font">fonts/Ubuntu-L.ttf</string>
+    <!--<string name="sub_text_font">fonts/Ubuntu-L.ttf</string>-->
+    <string name="sub_text_font">fonts/Algerian.ttf</string>
     <string name="postive_button">PositiveButton</string>
     <string name="negative_button">NegativeButton</string>
-    <string name="normal_text_font">fonts/Ubuntu-M.ttf</string>
-
+    <!--<string name="normal_text_font">fonts/Ubuntu-M.ttf</string>-->
+    <string name="normal_text_font">fonts/Algerian.ttf</string>
 
     <!--Account-->
     <string name="fname">First Name</string>
@@ -154,4 +155,7 @@
     <string name="whatsapp_">Whatsapp -</string>
     <string name="profile">Profile</string>
     <string name="contact_us">Contact Us</string>
+    <string name="testimonial">Testimonial</string>
+    <string name="price">Pricing</string>
+    <string name="material">Materials</string>
 </resources>

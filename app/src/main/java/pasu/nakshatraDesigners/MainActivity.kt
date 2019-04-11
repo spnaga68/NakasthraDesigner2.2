@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -27,6 +26,7 @@ import pasu.nakshatraDesigners.fragments.*
 import pasu.nakshatraDesigners.signIn.SignInActivity
 import pasu.nakshatraDesigners.signIn.SignupActivity
 import pasu.nakshatraDesigners.utils.*
+import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 import pub.devrel.easypermissions.EasyPermissions
 
 
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         if (alertType == logoutAlert) {
             CommonFunctions.clearLoginSession(this@MainActivity!!)
             CommonFunctions.checkUserIdAndRedirect(this@MainActivity!!)
+            finish()
         }
     }
 
@@ -70,8 +71,9 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
             override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
                 super.onFragmentResumed(fm, f)
                 Log.v("FragXX7", f.getTag() ?: "")
-                menuIcon.tag="0"
-                menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                println("Nandhini clickedID onFragmentResumed ${f.tag} ")
+//                menuIcon.tag="0"
+//                menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
                 if (f?.tag == "-6") {
                     menuIcon.tag="1"
                     menuIcon.setImageResource(R.drawable.ic_menu)
@@ -83,6 +85,33 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
                     title.setText(getString(R.string.profile))
                 }else if (f?.tag == "1000") {
                     title.setText(getString(R.string.contact_us))
+                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                    menuIcon.tag="0"
+                }else if(f?.tag == "5"){
+                    //testimonials
+                    title.setText(getString(R.string.testimonial))
+                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                    menuIcon.tag="0"
+                }else if(f?.tag == "4"){
+                    //about us
+                    title.setText(getString(R.string.menu_about))
+                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                    menuIcon.tag="0"
+                }else if(f?.tag == "3"){
+                    //pricing
+                    title.setText(getString(R.string.price))
+                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                    menuIcon.tag="0"
+                }else if(f?.tag == "2"){
+                    //Materials
+                    title.setText(getString(R.string.material))
+                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                    menuIcon.tag="0"
+                }else if(f?.tag == "1"){
+                    //online class
+                    title.setText(getString(R.string.online_classess))
+                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                    menuIcon.tag="0"
                 }
                 adapter.selectedItem = (f?.tag ?: "-6")
                 adapter.notifyDataSetChanged()
@@ -116,6 +145,45 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
             override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
                 super.onFragmentDetached(fm, f)
                 Log.v("FragXX13", f.getTag() ?: "")
+                if (f?.tag == "-6") {
+                    menuIcon.tag="1"
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    title.setText(getString(R.string.menu_dashboard))
+                } else if (f?.tag == "-9") {
+
+                    title.setText(getString(R.string.online_classess))
+                } else if (f?.tag == "-8") {
+                    title.setText(getString(R.string.profile))
+                }else if (f?.tag == "1000") {
+                    menuIcon.tag="1"
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    title.setText(getString(R.string.menu_dashboard))
+                }else if(f?.tag == "5"){
+                    //testimonials
+                    title.setText(getString(R.string.menu_dashboard))
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    menuIcon.tag="1"
+                }else if(f?.tag == "4"){
+                    //about us
+                    title.setText(getString(R.string.menu_dashboard))
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    menuIcon.tag="1"
+                }else if(f?.tag == "3"){
+                    //pricing
+                    title.setText(getString(R.string.menu_dashboard))
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    menuIcon.tag="1"
+                }else if(f?.tag == "2"){
+                    //Materials
+                    title.setText(getString(R.string.menu_dashboard))
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    menuIcon.tag="1"
+                }else if(f?.tag == "1"){
+                    //online  classses
+                    title.setText(getString(R.string.menu_dashboard))
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    menuIcon.tag="1"
+                }
             }
         }, true)
     }
@@ -124,7 +192,7 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         }
-        println("clickedID $position $data.id")
+        println("Nandhini clickedID $position $data.id")
         if (data.id == 1) {
             if (Session.getUserID(this@MainActivity).equals("")) {
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
@@ -164,7 +232,8 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
     private lateinit var toolbar: Toolbar
     private lateinit var adapter: NavigataionAdapter
     private lateinit var menuIcon: AppCompatImageView
-    private lateinit var title: AppCompatTextView
+    private lateinit var title: CustomTextview
+    private lateinit var onlineclasses:CustomTextview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,6 +249,18 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
 //        setSupportActionBar(toolbar)
         menuIcon = toolbar.findViewById(R.id.menu_icon)
         title = toolbar.findViewById(R.id.toolbarTitle)
+        onlineclasses = findViewById(R.id.onlineclasses)
+        onlineclasses.setOnClickListener {
+            var fragment = CertificateDetailFrag()
+            var bundle = Bundle()
+            bundle.putString(WEB_LOAD_URL, "https://www.nakshatradesigners.com/aari-embroidery-classes-materials.html")
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction().add(
+                R.id.nav_host_frag,
+                fragment
+                , "" + 1
+            ).addToBackStack(null).commit()
+        }
         menuIcon.setOnClickListener { if(menuIcon.getTag()=="0")
         onBackPressed()else
         { if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
