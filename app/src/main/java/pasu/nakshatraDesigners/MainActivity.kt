@@ -19,13 +19,20 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.frag_profile.*
 import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.adapter.NavigataionAdapter
 import pasu.nakshatraDesigners.data.NavData
-import pasu.nakshatraDesigners.fragments.*
+import pasu.nakshatraDesigners.fragments.Certificates
+import pasu.nakshatraDesigners.fragments.DashboardFrag
+import pasu.nakshatraDesigners.fragments.ProfileFrag
 import pasu.nakshatraDesigners.signIn.SignInActivity
 import pasu.nakshatraDesigners.signIn.SignupActivity
-import pasu.nakshatraDesigners.utils.*
+import pasu.nakshatraDesigners.utils.DialogOnClickInterface
+import pasu.nakshatraDesigners.utils.Session
+import pasu.nakshatraDesigners.utils.USER_NAME
+import pasu.nakshatraDesigners.utils.USER_PHONE_NO
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -74,45 +81,59 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
                 println("Nandhini clickedID onFragmentResumed ${f.tag} ")
 //                menuIcon.tag="0"
 //                menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                if (f?.tag == "-6") {
-                    menuIcon.tag="1"
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    title.setText(getString(R.string.menu_dashboard))
-                } else if (f?.tag == "-9") {
-
-                    title.setText(getString(R.string.online_classess))
-                } else if (f?.tag == "-8") {
-                    title.setText(getString(R.string.profile))
-                }else if (f?.tag == "1000") {
-                    title.setText(getString(R.string.contact_us))
-                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                    menuIcon.tag="0"
-                }else if(f?.tag == "5"){
-                    //testimonials
-                    title.setText(getString(R.string.testimonial))
-                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                    menuIcon.tag="0"
-                }else if(f?.tag == "4"){
-                    //about us
-                    title.setText(getString(R.string.menu_about))
-                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                    menuIcon.tag="0"
-                }else if(f?.tag == "3"){
-                    //pricing
-                    title.setText(getString(R.string.price))
-                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                    menuIcon.tag="0"
-                }else if(f?.tag == "2"){
-                    //Materials
-                    title.setText(getString(R.string.material))
-                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                    menuIcon.tag="0"
-                }else if(f?.tag == "1"){
-                    //online class
-                    title.setText(getString(R.string.online_classess))
-                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-                    menuIcon.tag="0"
+                var data: NavData? = null
+                try {
+                    data = Gson().fromJson(f.tag, NavData::class.java)
+                } catch (e: Exception) {
                 }
+                if (data != null)
+                    if (data?.id == -6) {
+                        menuIcon.tag = "1"
+                        menuIcon.setImageResource(R.drawable.ic_menu)
+                        title.setText(getString(R.string.menu_dashboard))
+                        onlineclasses.visibility = View.VISIBLE
+                    } else {
+                        title.setText(data?.name)
+                        onlineclasses.visibility = View.GONE
+                        menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+                        menuIcon.tag = "0"
+                    }
+//                else if (f?.tag == "1000") {
+//                    title.setText(getString(R.string.contact_us))
+//                    onlineclasses.visibility=View.GONE
+//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+//                    menuIcon.tag="0"
+//                }else if(f?.tag == "5"){
+//                    //testimonials
+//                    onlineclasses.visibility=View.GONE
+//                    title.setText(getString(R.string.testimonial))
+//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+//                    menuIcon.tag="0"
+//                }else if(f?.tag == "4"){
+//                    //about us
+//                    onlineclasses.visibility=View.GONE
+//                    title.setText(getString(R.string.menu_about))
+//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+//                    menuIcon.tag="0"
+//                }else if(f?.tag == "3"){
+//                    //pricing
+//                    onlineclasses.visibility=View.GONE
+//                    title.setText(getString(R.string.price))
+//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+//                    menuIcon.tag="0"
+//                }else if(f?.tag == "2"){
+//                    //Materials
+//                    title.setText(getString(R.string.material))
+//                    onlineclasses.visibility=View.GONE
+//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+//                    menuIcon.tag="0"
+//                }else if(f?.tag == "1"){
+//                    //online class
+//                    onlineclasses.visibility=View.GONE
+//                    title.setText(getString(R.string.online_classess))
+//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+//                    menuIcon.tag="0"
+//                }
                 adapter.selectedItem = (f?.tag ?: "-6")
                 adapter.notifyDataSetChanged()
             }
@@ -145,45 +166,71 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
             override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
                 super.onFragmentDetached(fm, f)
                 Log.v("FragXX13", f.getTag() ?: "")
-                if (f?.tag == "-6") {
-                    menuIcon.tag="1"
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    title.setText(getString(R.string.menu_dashboard))
-                } else if (f?.tag == "-9") {
-
-                    title.setText(getString(R.string.online_classess))
-                } else if (f?.tag == "-8") {
-                    title.setText(getString(R.string.profile))
-                }else if (f?.tag == "1000") {
-                    menuIcon.tag="1"
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    title.setText(getString(R.string.menu_dashboard))
-                }else if(f?.tag == "5"){
-                    //testimonials
-                    title.setText(getString(R.string.menu_dashboard))
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    menuIcon.tag="1"
-                }else if(f?.tag == "4"){
-                    //about us
-                    title.setText(getString(R.string.menu_dashboard))
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    menuIcon.tag="1"
-                }else if(f?.tag == "3"){
-                    //pricing
-                    title.setText(getString(R.string.menu_dashboard))
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    menuIcon.tag="1"
-                }else if(f?.tag == "2"){
-                    //Materials
-                    title.setText(getString(R.string.menu_dashboard))
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    menuIcon.tag="1"
-                }else if(f?.tag == "1"){
-                    //online  classses
-                    title.setText(getString(R.string.menu_dashboard))
-                    menuIcon.setImageResource(R.drawable.ic_menu)
-                    menuIcon.tag="1"
+                var data: NavData? = null
+                try {
+                    data = Gson().fromJson(f.tag, NavData::class.java)
+                } catch (e: Exception) {
                 }
+                if (data?.id != -6) {
+                    menuIcon.tag = "1"
+                    onlineclasses.visibility = View.VISIBLE
+                    menuIcon.setImageResource(R.drawable.ic_menu)
+                    title.setText(getString(R.string.menu_dashboard))
+                }
+
+//                if (f?.tag == "-6") {
+//                    menuIcon.tag="1"
+//                    onlineclasses.visibility=View.VISIBLE
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    title.setText(getString(R.string.menu_dashboard))
+//                } else if (f?.tag == "-9") {
+//
+//                    title.setText(getString(R.string.online_classess))
+//                    onlineclasses.visibility=View.VISIBLE
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    title.setText(getString(R.string.menu_dashboard))
+//                } else if (f?.tag == "-8") {
+//                    title.setText(getString(R.string.profile))
+//                    onlineclasses.visibility=View.VISIBLE
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    title.setText(getString(R.string.menu_dashboard))
+//                }else if (f?.tag == "1000") {
+//                    menuIcon.tag="1"
+//                    onlineclasses.visibility=View.VISIBLE
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    title.setText(getString(R.string.menu_dashboard))
+//
+//                }else if(f?.tag == "5"){
+//                    //testimonials
+//                    onlineclasses.visibility=View.VISIBLE
+//                    title.setText(getString(R.string.menu_dashboard))
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    menuIcon.tag="1"
+//                }else if(f?.tag == "4"){
+//                    //about us
+//                    title.setText(getString(R.string.menu_dashboard))
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    menuIcon.tag="1"
+//                    onlineclasses.visibility=View.VISIBLE
+//                }else if(f?.tag == "3"){
+//                    //pricing
+//                    title.setText(getString(R.string.menu_dashboard))
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    menuIcon.tag="1"
+//                    onlineclasses.visibility=View.VISIBLE
+//                }else if(f?.tag == "2"){
+//                    //Materials
+//                    title.setText(getString(R.string.menu_dashboard))
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    menuIcon.tag="1"
+//                    onlineclasses.visibility=View.VISIBLE
+//                }else if(f?.tag == "1"){
+//                    //online  classses
+//                    title.setText(getString(R.string.menu_dashboard))
+//                    onlineclasses.visibility=View.VISIBLE
+//                    menuIcon.setImageResource(R.drawable.ic_menu)
+//                    menuIcon.tag="1"
+//                }
             }
         }, true)
     }
@@ -192,37 +239,37 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         }
-        println("Nandhini clickedID $position $data.id")
-        if (data.id == 1) {
-            if (Session.getUserID(this@MainActivity).equals("")) {
-                startActivity(Intent(this@MainActivity, SignInActivity::class.java))
-            } else {
-                supportFragmentManager.beginTransaction().add(
-                    R.id.nav_host_frag,
-                    Certificates()
-                    , "" + data.id
-                ).addToBackStack(null).commit()
-            }
-        } else if (data.id == -6) {
-
-        } else if (data.id == 1000) {
-            supportFragmentManager.beginTransaction().add(
-                R.id.nav_host_frag,
-                ContactUsFragment()
-                , "" + data.id
-            ).addToBackStack(null).commit()
-        } else {
-            var fragment = CertificateDetailFrag()
-            var bundle = Bundle()
-            bundle.putString(WEB_LOAD_URL, data.url)
-            fragment.arguments = bundle
-            supportFragmentManager.beginTransaction().add(
-                R.id.nav_host_frag,
-                fragment
-                , "" + data.id
-            ).addToBackStack(null).commit()
-//            onBackPressed()
-        }
+//        println("Nandhini clickedID $position $data.id")
+//        if (data.id == 1) {
+//            if (Session.getUserID(this@MainActivity).equals("")) {
+//                startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+//            } else {
+//                supportFragmentManager.beginTransaction().add(
+//                    R.id.nav_host_frag,
+//                    Certificates()
+//                    , "" + data.id
+//                ).addToBackStack(null).commit()
+//            }
+//        } else if (data.id == -6) {
+//
+//        } else if (data.id == 1000) {
+//            supportFragmentManager.beginTransaction().add(
+//                R.id.nav_host_frag,
+//                ContactUsFragment()
+//                , "" + data.id
+//            ).addToBackStack(null).commit()
+//        } else {
+//            var fragment = CertificateDetailFrag()
+//            var bundle = Bundle()
+//            bundle.putString(WEB_LOAD_URL, data.url)
+//            fragment.arguments = bundle
+//            supportFragmentManager.beginTransaction().add(
+//                R.id.nav_host_frag,
+//                fragment
+//                , "" + data.id
+//            ).addToBackStack(null).commit()
+////            onBackPressed()
+//        }
     }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -233,11 +280,14 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
     private lateinit var adapter: NavigataionAdapter
     private lateinit var menuIcon: AppCompatImageView
     private lateinit var title: CustomTextview
-    private lateinit var onlineclasses:CustomTextview
+    private lateinit var onlineclasses: CustomTextview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
 
         drawerLayout = findViewById(R.id.drawer_layout)
 //        navController = Navigation.findNavController(this, R.id.nav_host_frag)
@@ -251,56 +301,69 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         title = toolbar.findViewById(R.id.toolbarTitle)
         onlineclasses = findViewById(R.id.onlineclasses)
         onlineclasses.setOnClickListener {
-            var fragment = CertificateDetailFrag()
-            var bundle = Bundle()
-            bundle.putString(WEB_LOAD_URL, "https://www.nakshatradesigners.com/aari-embroidery-classes-materials.html")
-            fragment.arguments = bundle
-            supportFragmentManager.beginTransaction().add(
-                R.id.nav_host_frag,
-                fragment
-                , "" + 1
-            ).addToBackStack(null).commit()
-        }
-        menuIcon.setOnClickListener { if(menuIcon.getTag()=="0")
-        onBackPressed()else
-        { if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.openDrawer(GravityCompat.START)
+            if (Session.getUserID(this@MainActivity!!).equals("")) {
+                this@MainActivity.startActivity(Intent(this@MainActivity!!, SignInActivity::class.java))
+            } else {
+                (this@MainActivity as AppCompatActivity).supportFragmentManager.beginTransaction().add(
+                    R.id.nav_host_frag,
+                    Certificates()
+                    , Gson().toJson(NavData(getString(R.string.online_classess), 1, ""))
+                ).addToBackStack(null).commit()
+            }
         }
 
-        }}
+
+        menuIcon.setOnClickListener {
+            if (menuIcon.getTag() == "0")
+                onBackPressed() else {
+                if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.openDrawer(GravityCompat.START)
+                }
+
+            }
+        }
         val navigationView = findViewById<RecyclerView>(R.id.nav_rv_list)
         var fm = supportFragmentManager
         fragmentList(fm)
-        fm.beginTransaction().add(R.id.nav_host_frag, DashboardFrag(), "-6").commit()
+        fm.beginTransaction().add(
+            R.id.nav_host_frag,
+            DashboardFrag(),
+            Gson().toJson(NavData(getString(R.string.menu_dashboard), -6, ""))
+        ).commit()
         navigationView.layoutManager = LinearLayoutManager(this@MainActivity)
         adapter =
             NavigataionAdapter(this@MainActivity, Session.getNavData(this@MainActivity), this@MainActivity)
 
         navigationView.adapter = adapter
 //        navigationView.addItemDecoration(DividerItemDecoration(navigationView.getContext(), DividerItemDecoration.VERTICAL));
-
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         val userLay = findViewById<View>(R.id.userLay)
         val guestLay = findViewById<View>(R.id.guestLay)
         val userName = findViewById<TextView>(R.id.userName)
         val userPhNo = findViewById<TextView>(R.id.userPhNo)
         val loginButton = findViewById<View>(R.id.login)
         val registerButton = findViewById<View>(R.id.register)
-        findViewById<View>(R.id.logOut).setOnClickListener {
-            CommonFunctions.alertDialog(
-                this@MainActivity,
-                this,
-                getString(R.string.logout_msg),
-                getString(R.string.ok),
-                getString(R.string.cancel),
-                false, logoutAlert, getString(R.string.confirm_logout)
-            )
-        }
+        val logoutButton = findViewById<View>(R.id.logOut)
+
         if (Session.getUserID(this@MainActivity).equals("")) {
             guestLay.visibility = View.VISIBLE
             userLay.visibility = View.GONE
             loginButton.setOnClickListener { startActivity(Intent(this@MainActivity, SignInActivity::class.java)) }
             registerButton.setOnClickListener { startActivity(Intent(this@MainActivity, SignupActivity::class.java)) }
+            logoutButton.visibility = View.GONE
+
         } else {
+            logOut.visibility = View.VISIBLE
+            logoutButton.setOnClickListener {
+                CommonFunctions.alertDialog(
+                    this@MainActivity,
+                    this,
+                    getString(R.string.logout_msg),
+                    getString(R.string.ok),
+                    getString(R.string.cancel),
+                    false, logoutAlert, getString(R.string.confirm_logout)
+                )
+            }
             guestLay.visibility = View.GONE
             userLay.visibility = View.VISIBLE
             userLay.setOnClickListener {
@@ -310,7 +373,7 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
                 supportFragmentManager.beginTransaction().add(
                     R.id.nav_host_frag,
                     ProfileFrag()
-                    , "-8"
+                    , Gson().toJson(NavData(getString(R.string.profile), -8, ""))
                 ).addToBackStack(null).commit()
             }
             userName.text = Session.getSession(USER_NAME, this@MainActivity)

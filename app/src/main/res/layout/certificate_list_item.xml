@@ -35,7 +35,7 @@ android:layout_marginStart="4dp"
                 android:layout_marginBottom="8dp"/>
 
 
-        - <TextView
+        - <pasu.nakshatraDesigners.utils.widgets.CustomTextview
             android:layout_marginStart="4dp"
             android:layout_marginEnd="@dimen/dp4"
             android:layout_height="wrap_content"
@@ -45,8 +45,6 @@ android:layout_marginStart="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="visible"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:gravity="center|top"
             android:layout_marginBottom="8dp"
             android:text="@{listItem.aari_name}"

@@ -121,9 +121,10 @@ class SignInActivity : AppCompatActivity(), DialogOnClickInterface {
     }
 
     private fun callSignIn() {
-        if (CommonFunctions.isValidPhone(binding.phoneEdt, binding.phoneEdtLay, this)) {
+        if (CommonFunctions.isValidEmail(binding.phoneEdt, binding.phoneEdtLay, this)) {
             if (CommonFunctions.isValidPwd(binding.etPassword, binding.pwdLay, this)) {
                 layoutLoading.visibility = View.VISIBLE
+
                 viewModel.callSignIn(phoneEdt.text.toString(), "+91", et_password.text.toString())
             }
         }

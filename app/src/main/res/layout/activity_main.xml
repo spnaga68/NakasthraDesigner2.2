@@ -38,6 +38,7 @@
      -->
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
+                    android:background="@color/white"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -46,7 +47,6 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dp10"
                         android:id="@+id/menu_icon"
                         app:srcCompat="@drawable/ic_menu"/>
 
@@ -68,8 +68,17 @@
                         android:layout_marginEnd="@dimen/dp10"
                         android:text="@string/online_classess"
                         app:srcCompat="@drawable/launcher_icon"/>
+
             </androidx.appcompat.widget.Toolbar>
 
+
+            <!--app:navGraph="@navigation/nav_main"-->
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/nav_host_frag"
+                    android:tag="-6"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"/>
             <FrameLayout
                     android:id="@+id/shadow"
                     android:layout_width="match_parent"
@@ -80,13 +89,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
-            <!--app:navGraph="@navigation/nav_main"-->
-            <FrameLayout
-                    android:layout_width="match_parent"
-                    android:id="@+id/nav_host_frag"
-                    android:tag="-6"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"/>
+            <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+android:visibility="gone"
+                    android:layout_width="320dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="BANNER"
+                    >
+            </com.google.android.gms.ads.AdView>
 
         </FrameLayout>
 

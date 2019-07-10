@@ -40,7 +40,7 @@ const val REDIRECT_TO_CART = "redirectToCart"
 const val WEB_LOAD_URL="toLoad"
 const val RETURN_TO="returnTo"
 const val SITE_CURRENCY ="siteCurrency"
-const val DEVICE_ID ="deviceId"
+const val DEVICE_ID ="mobiledeviceid"
 const val DEVICE_TOKEN ="deviceToken"
 const val DEVICE_TYPE ="1"
 

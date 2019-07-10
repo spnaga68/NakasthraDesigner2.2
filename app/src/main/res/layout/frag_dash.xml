@@ -12,6 +12,7 @@
     <androidx.core.widget.NestedScrollView
             android:id="@+id/rootScrollView"
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:orientation="vertical">
@@ -47,17 +48,48 @@
                     app:layout_constraintStart_toStartOf="@+id/tvTitle"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"/>
 
-            <HorizontalScrollView
-                    android:id="@+id/banner_list"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp8"
-                    android:layout_marginTop="@dimen/dp8"
-                    android:layout_marginEnd="@dimen/dp8"
-                    android:scrollbars="none"
+            <FrameLayout
+                    android:id="@+id/banner_list_lay"
+                    android:layout_width="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleLine"/>
+                    app:layout_constraintTop_toBottomOf="@id/titleLine"
+                    android:layout_height="wrap_content">
+
+                <HorizontalScrollView
+                        android:id="@+id/banner_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:scrollbars="none"
+                        />
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:scaleType="fitXY"
+                        android:visibility="gone"
+                        android:backgroundTint="@color/white"
+                        android:padding="@dimen/dp_16"
+                        android:background="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+            </FrameLayout>
+            <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/banner_list_lay"
+                    android:layout_width="320dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="LARGE_BANNER"
+                    android:layout_marginTop="24dp"
+                    ads:adUnitId="@string/ad_mob_id">
+            </com.google.android.gms.ads.AdView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/info_list"
@@ -66,7 +98,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/banner_list"
+                    app:layout_constraintTop_toBottomOf="@id/adView"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/rect_drawable_box"
                     android:padding="16dp"
@@ -80,6 +112,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="@dimen/dp8"
                         android:padding="@dimen/dp3"
+                        android:textSize="@dimen/sp18"
                         android:text="@string/intro_sample"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -165,6 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp8"
                         android:layout_marginTop="@dimen/dp8"
+                        android:textSize="@dimen/sp18"
                         android:layout_marginEnd="8dp"
                         android:paddingTop="@dimen/dp3"
                         android:paddingBottom="@dimen/dp3"
@@ -213,6 +247,21 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/reviewLay"
+                    android:layout_width="320dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="LARGE_BANNER"
+                    android:layout_marginTop="24dp"
+                    ads:adUnitId="@string/ad_mob_id1">
+            </com.google.android.gms.ads.AdView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -220,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rect_drawable_box"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reviewLay"
+                    app:layout_constraintTop_toBottomOf="@+id/adView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -234,6 +283,7 @@
                         android:layout_marginTop="@dimen/dp8"
                         android:layout_marginEnd="8dp"
                         android:paddingTop="@dimen/dp3"
+                        android:textSize="@dimen/sp18"
                         android:paddingBottom="@dimen/dp3"
                         android:text="@string/whatILearn"
                         android:textAllCaps="true"
@@ -284,12 +334,12 @@
 
             <include
                     android:layout_width="match_parent"
-android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_height="match_parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/layoutLoading"
-                layout="@layout/layout_loading"/>
+                    layout="@layout/layout_loading"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

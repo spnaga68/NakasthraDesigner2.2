@@ -73,14 +73,14 @@ abstract class GpsFrag : Fragment(), GoogleApiClient.ConnectionCallbacks, Google
         if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 //            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show()
         } else {
-            CommonFunctions.alertDialog(
-                context!!,
-                this@GpsFrag,
-                getString(R.string.gps_enable),
-                getString(R.string.go_to_settings),
-                getString(R.string.cancel),
-                false
-            ).show()
+//            CommonFunctions.alertDialog(
+//                context!!,
+//                this@GpsFrag,
+//                getString(R.string.gps_enable),
+//                getString(R.string.go_to_settings),
+//                getString(R.string.cancel),
+//                false
+//            ).show()
         }
 
 

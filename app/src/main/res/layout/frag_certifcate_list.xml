@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="match_parent">
+
     <pasu.nakshatraDesigners.utils.widgets.CustomTextview
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -15,7 +16,6 @@
             android:layout_marginEnd="@dimen/dp8"
             android:padding="@dimen/dp3"
             android:text="@string/welcome_to_frd"
-            android:textSize="@dimen/sp16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,43 +39,112 @@
             app:layout_constraintTop_toTopOf="parent"
             android:paddingRight="@dimen/dp_10"
             app:layout_constraintHorizontal_chainStyle="spread"
-            android:textSize="@dimen/sp_18"
             android:gravity="center"
+            android:visibility="gone"
             android:textAllCaps="true"
             android:textColor="@color/alert_color"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="24dp"/>
 
     <pasu.nakshatraDesigners.utils.widgets.CustomTextview
-            tools:text="23d : 34m :00s"
+            tools:text="23days : 34mins :00sec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/validDate"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/validDateLabel"
             app:layout_constraintHorizontal_chainStyle="spread"
-            android:textSize="@dimen/sp_18"
             android:gravity="center"
-
+            android:textSize="@dimen/sp18"
             android:textColor="@color/alert_color"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/validDateLabel"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/validDateLabel"/>
+            android:paddingEnd="@dimen/dp8"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp_24"
             app:layout_constraintTop_toBottomOf="@+id/titleLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:layout_marginTop="@dimen/dp_24"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    <androidx.core.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@+id/titleLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:fillViewport="true"
+            android:id="@+id/error_lay"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dp_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp">
+
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    app:layout_constraintTop_toBottomOf="@+id/titleLine"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/dp_16"
+                    android:background="@drawable/rect_drawable_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_16"
+                        android:id="@+id/title1"
+                        android:textAllCaps="true"
+                        tools:text="Sorry for the inconvinserer..! your accoiunt is not activated "/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/title2"
+                        android:layout_margin="@dimen/dp_16"
+                        tools:text="Sorry for the inconvinserer..! your accoiunt is not activated "/>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/contact_us_link"
+                        android:textColor="@color/alert_color"
+                        android:layout_margin="@dimen/dp_16"
+                        android:padding="@dimen/dp10"
+                        />
+            </LinearLayout>
+
+            <pasu.nakshatraDesigners.utils.widgets.SocialLinkView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></pasu.nakshatraDesigners.utils.widgets.SocialLinkView>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <include
             android:visibility="gone"
             android:id="@+id/layoutLoading"
-        layout="@layout/layout_loading"/>
+            layout="@layout/layout_loading"
+            android:layout_width="match_parent"
+            tools:layout_editor_absoluteY="4dp"
+            android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,146 +2,167 @@
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-
-            android:layout_width="match_parent"
-            android:background="@drawable/rect_drawable_box"
-
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-    <ImageView
-            android:layout_margin="16dp"
-            android:id="@+id/imageview"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:src="@drawable/launcher_icon"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            />
 
     <LinearLayout
 
             android:layout_width="match_parent"
-            android:background="@drawable/rect_drawable_box"
-            android:layout_margin="16dp"
+
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameLay"
-                android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/imageview"
-                >
-
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/nameEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:drawableTint="@color/icon_tint"
-                    android:maxLength="@integer/phNoLength"
-                    android:imeOptions="actionNext"
-                    android:textColor="@color/textviewcolor_dark"
-                    android:drawablePadding="@dimen/dp_10"
-                    />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailLay"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/imageview"
-                >
-
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/emailEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:drawableTint="@color/icon_tint"
-                    android:maxLength="@integer/phNoLength"
-                    android:imeOptions="actionNext"
-                    android:textColor="@color/textviewcolor_dark"
-
-                    android:drawablePadding="@dimen/dp_10"
-                    />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneEdtLay"
-                android:layout_height="wrap_content"
-                android:hint="@string/phn_no"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/imageview"
-                >
-
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/phoneEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:drawableTint="@color/icon_tint"
-                    android:maxLength="@integer/phNoLength"
-                    android:imeOptions="actionNext"
-                    android:textColor="@color/textviewcolor_dark"
-
-                    android:drawablePadding="@dimen/dp_10"
-                    />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pwdEdtLay"
-                android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/imageview"
-                >
-
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/pwdEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:drawableTint="@color/icon_tint"
-                    android:maxLength="@integer/phNoLength"
-                    android:imeOptions="actionDone"
-
-                    android:textColor="@color/textviewcolor_dark"
-
-                    android:drawablePadding="@dimen/dp_10"
-                    />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <include
-                android:visibility="gone"
-                android:id="@+id/layoutLoading"
-                layout="@layout/layout_loading"/>
+                layout="@layout/include_header"/>
 
-        <pasu.nakshatraDesigners.utils.widgets.CustomButton
-                android:layout_width="wrap_content"
-                android:text="@string/submit"
-                android:id="@+id/submit"
-                android:layout_margin="16dp"
-                android:layout_gravity="center_horizontal"
-                app:type="@string/postive_button"
-                android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
-        <pasu.nakshatraDesigners.utils.widgets.SocialLinkView
+        <ScrollView
                 android:layout_width="match_parent"
-                android:layout_margin="@dimen/dp_16"
-                android:layout_height="wrap_content"></pasu.nakshatraDesigners.utils.widgets.SocialLinkView></LinearLayout>
+                android:background="@color/white"
+                android:layout_height="match_parent">
+
+
+            <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_margin="16dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <ImageView
+                        android:id="@+id/imageview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="90dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="60dp"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:src="@drawable/signinlogo"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/nameEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:drawableStart="@drawable/ic_person_outline_black_24dp"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/emailLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/emailEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/emailLength"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+                            android:drawableStart="@drawable/ic_mail_outline_black_24dp"
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phoneEdtLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phn_no"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/phoneEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:digits="98765436210"
+                            android:drawableStart="@drawable/ic_phone"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/textviewcolor_dark"
+
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/pwdEdtLay"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/imageview"
+                        >
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/pwdEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableTint="@color/icon_tint"
+                            android:maxLength="@integer/phNoLength"
+                            android:maxLines="1"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionDone"
+                            android:drawableStart="@drawable/ic_password"
+                            android:textColor="@color/textviewcolor_dark"
+
+                            android:drawablePadding="@dimen/dp_10"
+                            />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <include
+                        android:visibility="gone"
+                        android:id="@+id/layoutLoading"
+                        layout="@layout/layout_loading"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                        android:layout_width="wrap_content"
+                        android:text="@string/submit"
+                        android:id="@+id/submit"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="center_horizontal"
+                        app:type="@string/postive_button"
+                        android:layout_height="wrap_content"/>
+
+                <pasu.nakshatraDesigners.utils.widgets.SocialLinkView
+                        android:layout_width="match_parent"
+                        android:layout_margin="@dimen/dp_16"
+                        android:layout_height="wrap_content"></pasu.nakshatraDesigners.utils.widgets.SocialLinkView>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+    </LinearLayout>
 </layout>

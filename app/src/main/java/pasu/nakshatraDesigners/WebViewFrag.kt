@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import kotlinx.android.synthetic.main.activity_webview.*
 
 
@@ -22,7 +24,9 @@ open class WebViewFrag : Fragment() {
                 layoutLoading?.visibility = View.GONE
             }
         }
-
+        val mAdView = v.findViewById<AdView>(R.id.adView2)
+        val adRequest2 = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest2)
 
 
         return v;

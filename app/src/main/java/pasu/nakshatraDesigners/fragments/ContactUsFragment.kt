@@ -128,6 +128,13 @@ class ContactUsFragment : MapFragment(), DialogOnClickInterface {
     }
 
     private fun isFeedBackValid(): Boolean {
+        if (CommonFunctions.isEmpty(
+                nameEdt,
+                nameLay,
+                context!!,
+                getString(R.string.error_please_enter_name)
+            )
+        )
         if (CommonFunctions.isValidEmail(emailEdt, emailLay, context!!))
             if (CommonFunctions.isValidPhone(phoneEdt, phoneEdtLay, context!!))
                 if (CommonFunctions.isEmpty(
@@ -137,13 +144,7 @@ class ContactUsFragment : MapFragment(), DialogOnClickInterface {
                         getString(R.string.error_please_enter_description)
                     )
                 )
-                    if (CommonFunctions.isEmpty(
-                            nameEdt,
-                            nameLay,
-                            context!!,
-                            getString(R.string.error_please_enter_name)
-                        )
-                    )
+
                         return true
 
         return false

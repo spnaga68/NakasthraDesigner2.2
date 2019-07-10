@@ -1,4 +1,5 @@
 package pasu.nakshatraDesigners.data
 
-data class CertificateListRequest(val userid:String, val accesskey:String, val countPerPage: Int, val pageNumber: String) {
+data class CertificateListRequest(val userid:String, val accesskey:String,
+                                  val countPerPage: Int, val pageNumber: String, val mobiledeviceid: String) {
 }

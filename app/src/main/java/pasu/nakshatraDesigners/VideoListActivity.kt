@@ -18,6 +18,8 @@ import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import pasu.nakshatraDesigners.R
 import pasu.nakshatraDesigners.utils.VIDEO_URL
 
@@ -34,16 +36,28 @@ class VideoListActivity : AppCompatActivity() {
     private var mProgressBar: ProgressBar? = null
 
     var mUrl: String = ""
-
+    lateinit var mAdView:AdView;
     override fun onCreate(savedInstanceState: Bundle?) {
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
             WindowManager.LayoutParams.FLAG_SECURE
         );
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+
+
+        mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+        mAdView.visibility=View.GONE
+
         playerView = findViewById(R.id.video_view)
         mProgressBar = findViewById(R.id.progressBar)
+//        playerView.findViewById<View>(R.id.exo_next).visibility=View.GONE
+//        playerView.findViewById<View>(R.id.exo_prev).visibility=View.GONE
         playerView.setFastForwardIncrementMs(30000)
         playerView.setRewindIncrementMs(30000)
         findViewById<View>(R.id.back).setOnClickListener { finish() }
@@ -124,6 +138,7 @@ class VideoListActivity : AppCompatActivity() {
                 when (playbackState) {
 
                     Player.STATE_BUFFERING -> {
+                        println("iddleeeebbbb")
                         playerView.setAlpha(0.5f)
                         Log.e("", "onPlayerStateChanged: Buffering ")
                         if (mProgressBar != null) {
@@ -132,8 +147,15 @@ class VideoListActivity : AppCompatActivity() {
                     }
                     Player.STATE_ENDED -> player!!.seekTo(0)
                     Player.STATE_IDLE -> {
+                        println("iddleeee")
                     }
                     Player.STATE_READY -> {
+                        println("iddleeeerrrrr $playWhenReady")
+                        if(!playWhenReady){
+                            mAdView.visibility=View.VISIBLE
+                        }else{
+                            mAdView.visibility=View.GONE
+                        }
                         Log.e("", "onPlayerStateChanged: Ready ")
                         if (mProgressBar != null) {
                             mProgressBar!!.setVisibility(View.GONE)
@@ -142,6 +164,7 @@ class VideoListActivity : AppCompatActivity() {
                         playerView.setAlpha(1f)
                     }
                     else -> {
+                        println("iddleeeellll")
                     }
                 }
             }

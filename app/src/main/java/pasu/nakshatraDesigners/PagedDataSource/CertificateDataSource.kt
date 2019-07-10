@@ -3,12 +3,13 @@ package pasu.nakshatraDesigners.PagedDataSource
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.google.gson.Gson
+import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.data.VideoListItem
 import pasu.nakshatraDesigners.data.CertificateListRequest
 import pasu.nakshatraDesigners.network.CoreClient
 import pasu.nakshatraDesigners.network.ServiceGenerator
 import pasu.nakshatraDesigners.utils.*
-import pasu.nakshatraDesigners.utils.TimeUtils.Companion.convertFromDuration
 import java.io.IOException
 
 
@@ -75,7 +76,8 @@ class CertificateDataSource(val context: Context) : PageKeyedDataSource<String, 
 
 
         val request = ServiceGenerator(context).createService(CoreClient::class.java).getTop(
-            CertificateListRequest(Session.getSession(USER_ID, context), Session.getAccessKey(context), 10, "1")
+            CertificateListRequest(Session.getSession(USER_ID, context), Session.getAccessKey(context),
+                10, "1",CommonFunctions.getDeviceID(context))
         )
 
 
@@ -90,9 +92,17 @@ class CertificateDataSource(val context: Context) : PageKeyedDataSource<String, 
             val arrayList = ArrayList<VideoListItem>()
             Session.save(VIDEO_URL, data?.data?.videourl, context)
             Session.save(IMAGE_URL, data?.data?.imageurl, context)
-            Session.save("ses_showExp",data?.data?.timedisplay,context)
+            Session.save("ses_showExp", data?.data?.timedisplay, context)
+            if (data?.responseCode == 401)
+                Session.save("ses_video_401", Gson().toJson(data?.data), context)
+            else
+                Session.save("ses_video_401", "", context)
             //convertFromDuration(((socialmedialink?.socialmedialink?.expirydatetime ?:0)-(socialmedialink?.socialmedialink?.currenttime ?:0))).toString()
-            Session.save(EXPIRY_TIME,((data?.data?.expirydatetime ?:0)-(data?.data?.currenttime ?:0)).toString(),context)
+            Session.save(
+                EXPIRY_TIME,
+                ((data?.data?.expirydatetime ?: 0) - (data?.data?.currenttime ?: 0)).toString(),
+                context
+            )
             if (data?.data?.start != null) {
                 arrayList.add(VideoListItem(data.data.start_title, "", "", 1))
                 arrayList.addAll(data?.data?.start)

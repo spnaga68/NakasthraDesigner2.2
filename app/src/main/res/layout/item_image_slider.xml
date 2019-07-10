@@ -29,7 +29,7 @@
             android:focusableInTouchMode="false"
             android:layout_margin="8dp"/>
 
-    <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+    <androidx.appcompat.widget.AppCompatTextView
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"

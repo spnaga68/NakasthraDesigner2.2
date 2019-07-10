@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import pasu.nakshatraDesigners.R
+import pasu.nakshatraDesigners.WebActivity
 import pasu.nakshatraDesigners.data.NavData
 import pasu.nakshatraDesigners.fragments.CertificateDetailFrag
 import pasu.nakshatraDesigners.fragments.Certificates
@@ -22,8 +23,8 @@ import pasu.nakshatraDesigners.utils.WEB_LOAD_URL
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 
 
-class NavigataionAdapter(val context: Context, val myDataSet: ArrayList<NavData>, val clickListener: rvItemClick?) :
-    RecyclerView.Adapter<NavigataionAdapter.MyViewHolder>() {
+class DynamicNavAdapter(val context: Context, val myDataSet: ArrayList<NavData>, val clickListener: rvItemClick?) :
+    RecyclerView.Adapter<DynamicNavAdapter.MyViewHolder>() {
     // Create new views (invoked by the layout manager)
 
     var selectedItem = "-6"
@@ -39,7 +40,7 @@ class NavigataionAdapter(val context: Context, val myDataSet: ArrayList<NavData>
 //    override fun onCreateViewHolder(
 //        parent: ViewGroup,
 //        viewType: Int
-//    ): NavigataionAdapter.MyViewHolder {
+//    ): DynamicNavAdapter.MyViewHolder {
 //        // create a new view
 //        val textView = CustomTextview(context)
 //        textView.layoutParams =
@@ -50,22 +51,21 @@ class NavigataionAdapter(val context: Context, val myDataSet: ArrayList<NavData>
 //        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_star_black_24dp, 0, 0, 0);
 //
 //        // set the view's size, margins, paddings and layout parameters
-//        return NavigataionAdapter.MyViewHolder(textView)
+//        return DynamicNavAdapter.MyViewHolder(textView)
 //    }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: NavigataionAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DynamicNavAdapter.MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.textView.setOnClickListener {
-            if(clickListener!=null)
-            clickListener.itemClicked(position,myDataSet[position])
 
-
-            itemClicked(position,myDataSet[position])
-
-            selectedItem = ""+myDataSet[position].id
-notifyDataSetChanged()
+            var intent = Intent(context!!, WebActivity::class.java)
+            intent.putExtra(WEB_LOAD_URL, myDataSet[position].url)
+            intent.putExtra("title", myDataSet[position].name)
+            context.startActivity(intent)
+            selectedItem = "" + position
+            notifyDataSetChanged()
 
 //            val url = myDataSet[position].url
 //            val i = Intent(Intent.ACTION_VIEW)
@@ -73,8 +73,8 @@ notifyDataSetChanged()
 //            context.startActivity(i)
         }
         holder.textView.text = myDataSet[position].name
-
-        if (selectedItem == ""+myDataSet[position].id)
+//holder.textView.
+        if (selectedItem == "" + myDataSet[position].id)
             holder.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
         else
             holder.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
@@ -92,32 +92,24 @@ notifyDataSetChanged()
     class MyViewHolder(val textView: CustomTextview) : RecyclerView.ViewHolder(textView)
 
 
-
-
-
-
-
-
-     fun itemClicked(position: Int, data: NavData) {
+    fun itemClicked(position: Int, data: NavData) {
         if (data.id == 1) {
             if (Session.getUserID(context!!).equals("")) {
                 context.startActivity(Intent(context!!, SignInActivity::class.java))
             } else {
-
                 (context as AppCompatActivity).supportFragmentManager.beginTransaction().add(
                     R.id.nav_host_frag,
                     Certificates()
-                    ,  Gson().toJson(data)
+                    , "" + Gson().toJson(data)
                 ).addToBackStack(null).commit()
             }
         } else if (data.id == -6) {
 
         } else if (data.id == 1000) {
-            println("this is data $data")
             (context as AppCompatActivity).supportFragmentManager.beginTransaction().add(
                 R.id.nav_host_frag,
                 ContactUsFragment()
-                , Gson().toJson(data)
+                , "" +Gson().toJson(data)
             ).addToBackStack(null).commit()
         } else {
             var fragment = CertificateDetailFrag()
@@ -127,16 +119,11 @@ notifyDataSetChanged()
             (context as AppCompatActivity).supportFragmentManager.beginTransaction().add(
                 R.id.nav_host_frag,
                 fragment
-                , "" +Gson().toJson(data)
+                , "" + Gson().toJson(data)
             ).addToBackStack(null).commit()
 //            onBackPressed()
         }
     }
-
-
-
-
-
 
 
 }

@@ -167,7 +167,7 @@ object CommonFunctions {
     }
 
     fun isValidEmail(editView: EditText, textInputLayout: TextInputLayout, context: Context): Boolean {
-        if (isValidEmail(editView.text.toString())) {
+        if (!isValidEmail(editView.text.toString())) {
             textInputLayout.error =context.getString(R.string.email_validataion)
             editView.requestFocus()
             return false

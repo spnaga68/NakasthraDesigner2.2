@@ -15,6 +15,9 @@
                 name="signInViewModel"
                 type="pasu.nakshatraDesigners.signIn.viewModel.SignInViewModel"/>
     </data>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
             android:id="@+id/signinlayout"
@@ -30,6 +33,7 @@
                 android:layout_alignParentTop="true"
                 layout="@layout/include_header"
                 android:layout_width="fill_parent"
+
                 android:layout_height="60dp"/>
 
         <androidx.core.widget.NestedScrollView
@@ -50,7 +54,11 @@
                         android:id="@+id/imageview"
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
-                        android:src="@drawable/launcher_icon"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="60dp"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:src="@drawable/signinlogo"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         />
@@ -68,12 +76,12 @@
                             android:id="@+id/phoneEdt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
+                            android:inputType="textWebEmailAddress"
                             android:drawableTint="@color/icon_tint"
-                            android:maxLength="@integer/phNoLength"
+                            android:maxLength="@integer/emailLength"
                             android:imeOptions="actionNext"
                             android:textColor="@color/textviewcolor_dark"
-                            android:drawableStart="@drawable/ic_phone"
+                            android:drawableStart="@drawable/ic_mail_outline_black_24dp"
                             android:drawablePadding="@dimen/dp_10"
                             />
 
@@ -164,9 +172,11 @@
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
+
+    </LinearLayout>
         <include
                 android:visibility="gone"
                 android:id="@+id/layoutLoading"
                 layout="@layout/layout_loading"/>
-    </LinearLayout>
+    </FrameLayout>
 </layout>

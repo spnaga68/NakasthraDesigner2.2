@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.navigation.Navigation
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import pasu.nakshatraDesigners.R
 import pasu.nakshatraDesigners.VideoListActivity
 import pasu.nakshatraDesigners.data.VideoListItem
@@ -24,6 +28,7 @@ import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 class CertificateAdapter internal constructor(val context: Context) :
     PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     private var networkState: NetworkState? = null
+    var positions=0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View
@@ -65,9 +70,9 @@ class CertificateAdapter internal constructor(val context: Context) :
                             val action = CertificatesDirections.actionCertificatesToCertificateDetailFrag(
                                 getItem(position)?.aari_video_url ?: ""
                             )
-                            val intent= Intent(context,VideoListActivity::class.java)
+                            val intent = Intent(context, VideoListActivity::class.java)
                             intent.apply {
-                                putExtra(VIDEO_URL,getItem(position)?.getVideoUrl(context))
+                                putExtra(VIDEO_URL, getItem(position)?.getVideoUrl(context))
                                 context.startActivity(intent)
                             }
 
@@ -86,6 +91,20 @@ class CertificateAdapter internal constructor(val context: Context) :
                         bind(this@run)
                         itemView.tag = this@run
 
+                        val mAdViewLay = itemView.findViewById<LinearLayout>(R.id.adViewLay)
+                        val mAdView=AdView(context)
+//                        println("posssitionnn $positions")
+                        when (positions) {
+                            0 -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id4));
+                            1 -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id2));
+                            2 -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id3));
+                            else-> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id4));
+                        }
+                        if(position>3)positions=0 else positions++
+                        mAdView.adSize = AdSize.LARGE_BANNER;
+                        val adRequest = AdRequest.Builder().build()
+                        mAdViewLay.addView(mAdView)
+                        mAdView.loadAd(adRequest)
                     }
                 }
             }

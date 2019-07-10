@@ -3,6 +3,7 @@ package pasu.nakshatraDesigners
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -14,10 +15,11 @@ import pasu.nakshatraDesigners.viewModel.SplashViewModel
 import pasu.nakshatraDesigners.viewModel.ViewmodelFactory
 import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.data.NavData
+import java.security.AccessController.getContext
 
 class SplashActivity : AppCompatActivity(), DialogOnClickInterface {
     override fun onPositiveButtonCLick(dialog: DialogInterface, alertType: Int) {
-        layoutLoading.visibility = View.VISIBLE
+//        layoutLoading.visibility = View.VISIBLE
         splashViewModel.callGetCore()
         dialog.dismiss()
     }
@@ -25,6 +27,14 @@ class SplashActivity : AppCompatActivity(), DialogOnClickInterface {
     override fun onNegativeButtonCLick(dialog: DialogInterface, alertType: Int) {
         finish()
         dialog.dismiss()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Session.save(
+            DEVICE_ID, Settings.Secure.getString(getContentResolver(),
+            Settings.Secure.ANDROID_ID),this@SplashActivity);
     }
 
 
@@ -59,7 +69,7 @@ class SplashActivity : AppCompatActivity(), DialogOnClickInterface {
                         Session.saveSplashDATA(this@SplashActivity,response.data)
                         Session.saveSocialLink(this@SplashActivity, response.data.socialmedialink)
                         var link=response.data.webpageurl
-                        link.add(0, NavData("Dashboard",-6,""))
+                        link.add(0, NavData(getString(R.string.menu_dashboard),-6,""))
                         Session.saveNavData(this@SplashActivity,link)
 //                        if (Session.getSession(USER_ID, this@SplashActivity).equals(""))
 //                            startActivity(Intent(this@SplashActivity, SignInActivity::class.java))

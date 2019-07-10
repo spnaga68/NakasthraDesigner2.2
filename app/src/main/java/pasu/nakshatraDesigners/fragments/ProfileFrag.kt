@@ -213,10 +213,10 @@ class ProfileFrag : Fragment(), DialogOnClickInterface {
         })
 
 
-        binding.etPhone.setOnClickListener {
+        binding.etEmail.setOnClickListener {
             Toast.makeText(
                 context,
-                getString(R.string.cant_edit_phone),
+                getString(R.string.cant_edit_email),
                 Toast.LENGTH_LONG
             ).show()
         }

@@ -3,8 +3,8 @@
     <integer name="fnameLength">32</integer>
     <integer name="lnameLength">32</integer>
     <integer name="pwdLength">32</integer>
-    <integer name="emailLength">64</integer>
-    <integer name="phNoLength">64</integer>
+    <integer name="emailLength">300</integer>
+    <integer name="phNoLength">20</integer>
     <integer name="phMinNoLength">10</integer>
     <integer name="fnameMinLength">3</integer>
     <integer name="pwdMinLength">3</integer>

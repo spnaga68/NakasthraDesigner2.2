@@ -13,18 +13,41 @@
 
 
     </data>
-<LinearLayout
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
 
-    <pasu.nakshatraDesigners.utils.widgets.CustomButton
-            android:layout_width="match_parent"
-            android:padding="@dimen/dp10"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:id="@+id/header"
-            android:text="@{listItem.aari_name}"
+    <LinearLayout
+            android:orientation="vertical"
             android:background="#f2f6fc"
-            android:layout_height="wrap_content"/>
-</LinearLayout></layout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:id="@+id/adViewLay"
+                android:orientation="vertical"
+                android:layout_width="320dp"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom|center"
+               /> >
+        <pasu.nakshatraDesigners.utils.widgets.CustomButton
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_gravity="center"
+
+                android:gravity="center_horizontal|bottom"
+                android:textSize="@dimen/sp18"
+                android:id="@+id/header"
+                tools:text="sdfsaddsfsdf"
+                android:text="@{listItem.aari_name}"
+                android:background="#f2f6fc"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:id="@+id/titleLine"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                android:layout_width="@dimen/dp70"
+                android:layout_marginBottom="@dimen/dp16"
+                android:layout_height="@dimen/dp_2"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintEnd_toEndOf="@+id/tvTitle"/>
+    </LinearLayout>
+</layout>

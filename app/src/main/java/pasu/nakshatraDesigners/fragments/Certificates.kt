@@ -1,5 +1,6 @@
 package pasu.nakshatraDesigners.fragments
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,8 +24,15 @@ import pasu.nakshatraDesigners.viewModel.CertificateListViewModel
 import pasu.nakshatraDesigners.viewModel.ViewmodelFactory
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.os.CountDownTimer
+import com.google.gson.Gson
+import pasu.nakshatraDesigners.adapter.NavigataionAdapter
+import pasu.nakshatraDesigners.data.CertificateListResponse
+import pasu.nakshatraDesigners.data.NavData
 import pasu.nakshatraDesigners.utils.TimeUtils.Companion.convertFromDuration
+import pasu.nakshatraDesigners.utils.USER_NAME
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import android.graphics.Paint.UNDERLINE_TEXT_FLAG
 
 
 class Certificates : Fragment() {
@@ -40,9 +48,12 @@ class Certificates : Fragment() {
         val v = inflater.inflate(R.layout.frag_certifcate_list, container, false)
         // This method will be called when a MessageEvent is posted (in the UI thread for Toast)
 
-        //setting up recyclerview
+
+        //setting up recyclerview1
         recyclerView = v.findViewById(R.id.rv_list)
+        v.findViewById<TextView>(R.id.tvTitle).setText("WELCOME " + Session.getSession(USER_NAME, context!!))
         var layoutManager = GridLayoutManager(activity, 2)
+//        layoutManager.isAutoMeasureEnabled = true;
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 when (adapter.getItemViewType(position)) {
@@ -54,6 +65,42 @@ class Certificates : Fragment() {
                 }
             }
         }
+
+
+        recyclerView!!.layoutManager = layoutManager
+        recyclerView!!.setHasFixedSize(true)
+        adapter = CertificateAdapter(context!!)
+
+
+//        //setting up recyclerview2
+//      var  recyclerView2 = v.findViewById<RecyclerView>(R.id.rv_list2)
+//        var layoutManager2 = GridLayoutManager(activity, 2)
+////        layoutManager2.isAutoMeasureEnabled = true;
+//        var adapter2 =  NavigataionAdapter(context!!, Session.getNavData(context!!), null)
+//        layoutManager2.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//            override fun getSpanSize(position: Int): Int {
+//                when (adapter2.getItemViewType(position)) {
+//
+//
+//                    R.layout.simple_textview -> return 1
+//
+//                    else -> return 2
+//                }
+//            }
+//        }
+//
+//
+//        recyclerView2!!.layoutManager = layoutManager2
+//        recyclerView2!!.setHasFixedSize(true)
+//
+//
+//        recyclerView2.adapter = adapter2
+//
+//
+//
+//
+
+
         var expText = v.findViewById<CustomTextview>(R.id.validDate)
         var expTime = 0L
         var ct = object : CountDownTimer(300000, 1000) {
@@ -61,7 +108,6 @@ class Certificates : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 //((socialmedialink?.socialmedialink?.expirydatetime ?:0)-(socialmedialink?.socialmedialink?.currenttime ?:0))
 
-                println("expir dataaaa $expTime  ${convertFromDuration(expTime).toString()}")
                 expText.text = convertFromDuration(expTime).toString()
                 expTime = expTime - 1;
 
@@ -75,13 +121,9 @@ class Certificates : Fragment() {
 
         }
 
+        var contactUs = v.findViewById<TextView>(R.id.contact_us_link)
+        contactUs.setPaintFlags(contactUs.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
 
-
-
-
-        recyclerView!!.layoutManager = layoutManager
-        recyclerView!!.setHasFixedSize(true)
-        adapter = CertificateAdapter(context!!)
         val factory = ViewmodelFactory(context!!)
         //getting our ItemViewModel
         itemViewModel = ViewModelProviders.of(this, factory).get(CertificateListViewModel::class.java)
@@ -91,16 +133,45 @@ class Certificates : Fragment() {
 //            skeletonScreen?.hide()
             println("Detaildata observed   $items")
 
-            if(Session.getSession("ses_showExp",context!!).equals("1")){
-                validDate.visibility=View.VISIBLE
-                validDateLabel.visibility=View.VISIBLE
-            }else{
-                validDate.visibility=View.GONE
-                validDateLabel.visibility=View.GONE
+            if (Session.getSession("ses_showExp", context!!).equals("1")) {
+                validDate.visibility = View.VISIBLE
+                validDateLabel.visibility = View.VISIBLE
+            } else {
+                validDate.visibility = View.GONE
+                validDateLabel.visibility = View.GONE
+            }
+            if (!Session.getSession("ses_video_401", context!!).equals("")) {
+                v.findViewById<View>(R.id.error_lay).visibility = View.VISIBLE
+                val data = Gson().fromJson(
+                    Session.getSession("ses_video_401", context!!),
+                    CertificateListResponse.ListDetail::class.java
+                )
+                v.findViewById<TextView>(R.id.title1).setText(data.title)
+                v.findViewById<TextView>(R.id.title2).setText(data.doc1)
+//                var contactUs = v.findViewById<TextView>(R.id.contactUs)
+//                contactUs.setPaintFlags(contactUs.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+                contactUs.setText(data.doc2)
+//                contactUs.setOnClickListener {  println("contact us clicked") }
+                contactUs.setOnClickListener {
+                    println("contact us clicked")
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(
+                        R.id.nav_host_frag,
+                        ContactUsFragment()
+                        , "" + NavData("Contact Us", 1000, "")
+                    )?.addToBackStack(null)?.commit()
+                }
+            } else {
+                v.findViewById<View>(R.id.error_lay).visibility = View.GONE
+                v.findViewById<View>(R.id.rv_list).visibility = View.VISIBLE
             }
 
+
             if (items != null) {
-                if (!Session.getSession(EXPIRY_TIME, context).equals("")) {
+                if (!Session.getSession(EXPIRY_TIME, context).equals("") && Session.getSession(
+                        "ses_video_401",
+                        context!!
+                    ).equals("")
+                ) {
                     expTime = Session.getSession(EXPIRY_TIME, context).toLong()
                     ct.start()
                 }

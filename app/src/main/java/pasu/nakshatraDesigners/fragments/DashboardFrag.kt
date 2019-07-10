@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
@@ -19,6 +20,9 @@ import androidx.viewpager.widget.ViewPager
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.ViewSkeletonScreen
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.R
 import pasu.nakshatraDesigners.VideoListActivity
@@ -26,6 +30,7 @@ import pasu.nakshatraDesigners.adapter.bindImageFromUrl
 import pasu.nakshatraDesigners.data.Review
 import pasu.nakshatraDesigners.utils.DisplayUtils
 import pasu.nakshatraDesigners.utils.Session
+import pasu.nakshatraDesigners.utils.USER_NAME
 import pasu.nakshatraDesigners.utils.VIDEO_URL
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 import pasu.nakshatraDesigners.viewModel.DashboardViewModel
@@ -108,6 +113,10 @@ class DashboardFrag : Fragment() {
             }
         })
 
+        if(!Session.getUserID(context!!).equals("")){
+            binding.root.findViewById<TextView>(R.id.tvTitle).setText("WELCOME "+Session.getSession(USER_NAME,context!!))
+        }
+
 
         return binding.root
     }
@@ -135,8 +144,8 @@ class DashboardFrag : Fragment() {
         binding.bannerList.removeAllViews()
         val layoutParams =
             LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        layoutParams.setMargins(0, 5, 10, 5)
-        val imgLayoutParams = LinearLayout.LayoutParams(DisplayUtils.getWidth(activity!!), 500)
+        layoutParams.setMargins(0, 5, 20, 5)
+        val imgLayoutParams = LinearLayout.LayoutParams(DisplayUtils.getWidth(activity!!)-DisplayUtils.dpToPxInt(50), 500)
 //        imgLayoutParams.setMargins(0, 0, 10, 0)
         val linearLayout = LinearLayout(activity)
         linearLayout.layoutParams = layoutParams
@@ -162,6 +171,19 @@ class DashboardFrag : Fragment() {
             linearLayout.addView(card)
         }
         binding.bannerList.addView(linearLayout)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val mAdView = binding.root.findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
+        val mAdView2 = binding.root.findViewById<AdView>(R.id.adView2)
+        val adRequest2 = AdRequest.Builder().build()
+        mAdView2.loadAd(adRequest2)
+
     }
 
 
@@ -217,9 +239,9 @@ class DashboardFrag : Fragment() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.item_image_slider, container, false)
-            val cusName = view.findViewById<CustomTextview>(R.id.customerName)
+            val cusName = view.findViewById<AppCompatTextView>(R.id.customerName)
             val cusRating = view.findViewById<RatingBar>(R.id.ratingBar)
-            val cusReview = view.findViewById<CustomTextview>(R.id.reviewText)
+            val cusReview = view.findViewById<AppCompatTextView>(R.id.reviewText)
             cusName.text = imageArray[position].name + "-" + imageArray[position].city
             cusReview.text = imageArray[position].description
             cusRating.rating = imageArray[position].star?.toFloat() ?: 0f

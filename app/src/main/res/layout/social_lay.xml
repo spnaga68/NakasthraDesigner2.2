@@ -12,7 +12,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/info_list"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp">
 
     <pasu.nakshatraDesigners.utils.widgets.CustomTextview
@@ -23,6 +22,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="8dp"
             android:paddingTop="@dimen/dp3"
+            android:textSize="@dimen/sp18"
             android:paddingBottom="@dimen/dp3"
             android:text="@string/socialLinks"
             android:textAllCaps="true"

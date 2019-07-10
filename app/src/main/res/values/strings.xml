@@ -44,7 +44,7 @@
     <string name="valid_upto">Classes validity</string>
     <string name="certificates">Certificates</string>
     <string name="view">View</string>
-    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_dashboard">Home</string>
     <string name="menu_track_vehicle">Track your vehicle</string>
     <string name="menu_certificates">Certificates</string>
     <string name="menu_about">About</string>
@@ -52,7 +52,7 @@
     <string name="fetching">Fetching</string>
     <string name="cancel">Cancel</string>
 
-
+    <string name="otherwise_contactus"><u>Otherwise please contactus</u></string>
 
 
 <!--SignIn-->
@@ -141,7 +141,7 @@
     <string name="guest_user">Guest User</string>
     <string name="reviews">Customer Reviews</string>
     <string name="whatILearn">WHAT I WILL LEARN</string>
-    <string name="online_classess">OnlineClasses</string>
+    <string name="online_classess">Online Classes</string>
     <string name="intro_sample">INTRODUCTION AND SAMPLE VIDEOS</string>
     <string name="socialLinks">Social Links</string>
     <string name="whatsapp">Whatsapp</string>
@@ -158,4 +158,23 @@
     <string name="testimonial">Testimonial</string>
     <string name="price">Pricing</string>
     <string name="material">Materials</string>
+    <string name="cant_edit_email">You cant edit email address</string>
+
+
+   <!-- -->
+    <string name="ad_mob_app_id">ca-app-pub-5654653244641853~7968742058</string>
+
+   <!-- <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_mob_id1">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_mob_id2">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_mob_id3">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_mob_id4">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_mob_id5">ca-app-pub-3940256099942544/6300978111</string>-->
+
+    <string name="ad_mob_id1">ca-app-pub-5654653244641853/4295048323</string>
+    <string name="ad_mob_id">ca-app-pub-5654653244641853/5454259351</string>
+    <string name="ad_mob_id2">ca-app-pub-5654653244641853/6861501919</string>
+    <string name="ad_mob_id3">ca-app-pub-5654653244641853/6268327747</string>
+    <string name="ad_mob_id4">ca-app-pub-5654653244641853/5206527510</string>
+    <string name="ad_mob_id5">ca-app-pub-5654653244641853/5206527510</string>
 </resources>

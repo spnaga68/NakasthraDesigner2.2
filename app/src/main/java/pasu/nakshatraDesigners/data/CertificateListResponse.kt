@@ -6,20 +6,28 @@ package pasu.nakshatraDesigners.data
 //"imageurl": "https://www.nakshatradesigners.com/aari_image/",
 //"videourl": "https://www.nakshatradesigners.com/public/aari_online_classes/",
 //"start_title": "How To Start",
-data class CertificateListResponse(val status: Int,val webpageurl: ArrayList<NavData>, val message: String, val data: ListDetail) {
+data class CertificateListResponse(
+    val responseCode: Int,
+    val webpageurl: ArrayList<NavData>,
+    val message: String,
+    val data: ListDetail
+) {
     data class ListDetail(
-        val timedisplay:String,
+        val timedisplay: String,
         val welcomeuser: String,
-        val currenttime: Long=0L,
-        val expirydatetime: Long=0L,
+        val currenttime: Long = 0L,
+        val expirydatetime: Long = 0L,
         val imageurl: String,
         val videourl: String,
-        val start_title: String
-        , val basic_title: String,
+        val start_title: String,
+        val basic_title: String,
         val advance_title: String,
         val message: String,
         val start: List<VideoListItem>,
         val basic: List<VideoListItem>,
-        val advance: List<VideoListItem>
+        val advance: List<VideoListItem>,
+        val title: String? = "",
+        val doc1: String? = "",
+        val doc2: String? = ""
     )
 }
