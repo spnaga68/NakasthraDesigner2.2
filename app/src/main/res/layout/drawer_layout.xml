@@ -61,9 +61,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/nav_rv_list"
-
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="wrap_content"/>
 
             <pasu.nakshatraDesigners.utils.widgets.CustomButton
                     android:layout_width="wrap_content"

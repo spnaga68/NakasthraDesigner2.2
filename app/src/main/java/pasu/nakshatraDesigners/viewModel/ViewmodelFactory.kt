@@ -7,15 +7,15 @@ import pasu.nakshatraDesigners.MyApplication
 import pasu.nakshatraDesigners.PagedDataSource.DataSourceFactory
 import pasu.nakshatraDesigners.repository.AppRepository
 
-class ViewmodelFactory(val context: Context) : ViewModelProvider.Factory {
+class ViewmodelFactory(val context: Context,val courseUrl:String = "") : ViewModelProvider.Factory {
 
 
     private fun getAppRepository(context: Context): AppRepository {
         return AppRepository.getInstance(context)
     }
 
-    private fun getDataSourceFactory(context: Context): DataSourceFactory {
-        return DataSourceFactory(context)
+    private fun getDataSourceFactory(context: Context,courseUrl:String): DataSourceFactory {
+        return DataSourceFactory(context,courseUrl)
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -25,7 +25,7 @@ class ViewmodelFactory(val context: Context) : ViewModelProvider.Factory {
             "CertificateListViewModel" ->
                 return CertificateListViewModel(
                     context.applicationContext as MyApplication,
-                    getDataSourceFactory(context)
+                    getDataSourceFactory(context,courseUrl)
                 ) as T
             "ProfileViewModel" ->
                 return ProfileViewModel(context.applicationContext as MyApplication, getAppRepository(context)) as T

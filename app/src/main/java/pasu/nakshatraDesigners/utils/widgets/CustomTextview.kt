@@ -21,31 +21,36 @@ class CustomTextview @JvmOverloads constructor(
                     R.styleable.CustomTextview, defStyle, 0)
             val type = typedArray.getString(R.styleable.CustomTextview_textview_type)
 
-            var typeface: Typeface? = null
 
 
-            when (type) {
-                context.getString(R.string.style_text_header) -> {
-                    typeface = Typeface.createFromAsset(context.getAssets(),
-                            context.getString(R.string.header_text_font))
-                    setTextColor(ContextCompat.getColor(context, R.color.black))
-                    println("text default" + text)
-                }
-                context.getString(R.string.style_sub_text) -> {
-                    typeface = Typeface.createFromAsset(context.getAssets(),
-                            context.getString(R.string.sub_text_font))
-                    setTextColor(ContextCompat.getColor(context, R.color.black))
-                    println("text default" + text)
-                }
+            setType(type)
 
-            }
-            if (typeface == null)
-                typeface = Typeface.createFromAsset(context.getAssets(), context.getString(R.string.normal_text_font))
-
-
-            setTypeface(typeface)
             typedArray.recycle()
         }
     }
+
+  fun  setType(type : String? ){
+      var typeface: Typeface? = null
+      when (type) {
+          context.getString(R.string.style_text_header) -> {
+              typeface = Typeface.createFromAsset(context.getAssets(),
+                  context.getString(R.string.header_text_font))
+              setTextColor(ContextCompat.getColor(context, R.color.black))
+              println("text default" + text)
+          }
+          context.getString(R.string.style_sub_text) -> {
+              typeface = Typeface.createFromAsset(context.getAssets(),
+                  context.getString(R.string.sub_text_font))
+              setTextColor(ContextCompat.getColor(context, R.color.black))
+              println("text default" + text)
+          }
+
+      }
+      if (typeface == null)
+          typeface = Typeface.createFromAsset(context.getAssets(), context.getString(R.string.normal_text_font))
+
+
+      setTypeface(typeface)
+  }
 
 }

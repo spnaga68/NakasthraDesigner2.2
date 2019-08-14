@@ -15,6 +15,7 @@ import pasu.nakshatraDesigners.data.NavData
 import pasu.nakshatraDesigners.fragments.CertificateDetailFrag
 import pasu.nakshatraDesigners.fragments.Certificates
 import pasu.nakshatraDesigners.fragments.ContactUsFragment
+import pasu.nakshatraDesigners.fragments.SelectCoursesFragment
 import pasu.nakshatraDesigners.rvItemClick
 import pasu.nakshatraDesigners.signIn.SignInActivity
 import pasu.nakshatraDesigners.utils.Session
@@ -103,12 +104,18 @@ notifyDataSetChanged()
             if (Session.getUserID(context!!).equals("")) {
                 context.startActivity(Intent(context!!, SignInActivity::class.java))
             } else {
-
                 (context as AppCompatActivity).supportFragmentManager.beginTransaction().add(
                     R.id.nav_host_frag,
-                    Certificates()
-                    ,  Gson().toJson(data)
+                    SelectCoursesFragment.newInstance()
+                    , Gson().toJson(
+                        NavData(context.getString(R.string.online_classess), 76, "")
+                    )
                 ).addToBackStack(null).commit()
+//                (context as AppCompatActivity).supportFragmentManager.beginTransaction().add(
+//                    R.id.nav_host_frag,
+//                    Certificates()
+//                    ,  Gson().toJson(data)
+//                ).addToBackStack(null).commit()
             }
         } else if (data.id == -6) {
 

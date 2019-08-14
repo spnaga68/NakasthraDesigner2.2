@@ -5,15 +5,15 @@
 
         <variable
                 name="listViewModel"
-                type="pasu.nakshatraDesigners.data.DashboardResponseData"/>
+                type="pasu.nakshatraDesigners.data.DashboardResponseData" />
 
     </data>
 
     <androidx.core.widget.NestedScrollView
             android:id="@+id/rootScrollView"
             android:layout_width="match_parent"
-            android:background="@color/white"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:fillViewport="true"
             android:orientation="vertical">
 
@@ -34,27 +34,27 @@
                     android:text="@string/welcome_to_frd"
                     android:textSize="@dimen/sp16"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <View
                     android:id="@+id/titleLine"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                     android:layout_width="@dimen/dp70"
                     android:layout_height="@dimen/dp_2"
-
                     android:background="@color/black"
+
+                    app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@+id/tvTitle"
-                    app:layout_constraintEnd_toEndOf="@+id/tvTitle"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
             <FrameLayout
                     android:id="@+id/banner_list_lay"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleLine"
-                    android:layout_height="wrap_content">
+                    app:layout_constraintTop_toBottomOf="@id/titleLine">
 
                 <HorizontalScrollView
                         android:id="@+id/banner_list"
@@ -63,110 +63,88 @@
                         android:layout_marginStart="@dimen/dp8"
                         android:layout_marginTop="@dimen/dp8"
                         android:layout_marginEnd="@dimen/dp8"
-                        android:scrollbars="none"
-                        />
+                        android:scrollbars="none" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="end|center_vertical"
-                        android:scaleType="fitXY"
-                        android:visibility="gone"
+                        android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
                         android:backgroundTint="@color/white"
                         android:padding="@dimen/dp_16"
-                        android:background="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
             </FrameLayout>
-            <com.google.android.gms.ads.AdView
-                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/adView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/banner_list_lay"
                     android:layout_width="320dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
-                    ads:adSize="LARGE_BANNER"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="bottom|center"
                     android:layout_marginTop="24dp"
-                    ads:adUnitId="@string/ad_mob_id">
-            </com.google.android.gms.ads.AdView>
+                    ads:adSize="LARGE_BANNER"
+                    ads:adUnitId="@string/ad_mob_id"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/banner_list_lay"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/info_list"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rect_drawable_box"
+                    android:orientation="vertical"
+                    android:padding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/adView"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/rect_drawable_box"
-                    android:padding="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="24dp">
+                    app:layout_constraintTop_toBottomOf="@id/adView">
 
                 <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:id="@+id/introVideo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/introVideo"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="@dimen/dp8"
                         android:padding="@dimen/dp3"
-                        android:textSize="@dimen/sp18"
                         android:text="@string/intro_sample"
+                        android:textSize="@dimen/sp18"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                         android:id="@+id/introtitleLine"
-                        app:layout_constraintTop_toBottomOf="@+id/introVideo"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp_2"
-
                         android:background="@color/black"
+
+                        app:layout_constraintEnd_toEndOf="@+id/introVideo"
                         app:layout_constraintStart_toStartOf="@+id/introVideo"
-                        app:layout_constraintEnd_toEndOf="@+id/introVideo"/>
+                        app:layout_constraintTop_toBottomOf="@+id/introVideo" />
 
-                <LinearLayout
-
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/introtitleLine"
+<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/viedosList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/introtitleLine"/>
+               <!-- <HorizontalScrollView
+                        android:id="@+id/viedosList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/dp16"
+                        android:scrollbars="none"
                         app:layout_constraintEnd_toEndOf="parent"
-                        >
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivOne"
-                            android:layout_width="0dp"
-                            android:layout_height="120dp"
-                            android:layout_weight="1"
-                            android:scaleType="fitXY"
-                            android:layout_marginEnd="@dimen/dp4"
-                            android:background="@color/colorLine"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-
-                            />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivTwo"
-                            android:layout_width="0dp"
-                            android:layout_height="120dp"
-                            android:layout_weight="1"
-                            android:scaleType="fitXY"
-                            android:layout_marginStart="@dimen/dp4"
-                            android:background="@color/colorLine"
-                            app:layout_constraintStart_toEndOf="@+id/ivOne"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            />
-
-                </LinearLayout>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/introtitleLine" />-->
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!--<HorizontalScrollView
                     android:id="@+id/info_list"
@@ -181,16 +159,16 @@
                     app:layout_constraintTop_toBottomOf="@id/banner_list" />
 -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/reviewLay"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rect_drawable_box"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/info_list"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginTop="24dp">
+                    android:background="@drawable/rect_drawable_box"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_list">
 
                 <pasu.nakshatraDesigners.utils.widgets.CustomTextview
                         android:id="@+id/txt_noOfRes"
@@ -198,25 +176,25 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp8"
                         android:layout_marginTop="@dimen/dp8"
-                        android:textSize="@dimen/sp18"
                         android:layout_marginEnd="8dp"
                         android:paddingTop="@dimen/dp3"
                         android:paddingBottom="@dimen/dp3"
                         android:text="@string/reviews"
                         android:textAllCaps="true"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:textSize="@dimen/sp18"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                         android:id="@+id/reviewLine"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_noOfRes"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp_2"
-
                         android:background="@color/black"
+
+                        app:layout_constraintEnd_toEndOf="@+id/txt_noOfRes"
                         app:layout_constraintStart_toStartOf="@+id/txt_noOfRes"
-                        app:layout_constraintEnd_toEndOf="@+id/txt_noOfRes"/>
+                        app:layout_constraintTop_toBottomOf="@+id/txt_noOfRes" />
 
                 <pasu.nakshatraDesigners.utils.widgets.CustomTextview
                         android:id="@+id/tvSort"
@@ -231,49 +209,48 @@
                         app:layout_constraintBottom_toBottomOf="@id/txt_noOfRes"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/txt_noOfRes"
-                        app:layout_constraintTop_toTopOf="@id/txt_noOfRes"/>
+                        app:layout_constraintTop_toTopOf="@id/txt_noOfRes" />
 
                 <androidx.viewpager.widget.ViewPager
                         android:id="@+id/imageViewPager"
                         android:layout_width="match_parent"
-                        android:layout_margin="16dp"
                         android:layout_height="150dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/txt_noOfRes"
+                        android:layout_margin="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_noOfRes" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.google.android.gms.ads.AdView
-                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/adView2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/reviewLay"
                     android:layout_width="320dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
-                    ads:adSize="LARGE_BANNER"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="bottom|center"
                     android:layout_marginTop="24dp"
-                    ads:adUnitId="@string/ad_mob_id1">
-            </com.google.android.gms.ads.AdView>
+                    ads:adSize="LARGE_BANNER"
+                    ads:adUnitId="@string/ad_mob_id1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/reviewLay"></com.google.android.gms.ads.AdView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/pointsLay"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rect_drawable_box"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/adView2"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginTop="24dp">
+                    android:background="@drawable/rect_drawable_box"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/adView2">
 
                 <pasu.nakshatraDesigners.utils.widgets.CustomTextview
                         android:id="@+id/whatLearn"
@@ -283,63 +260,63 @@
                         android:layout_marginTop="@dimen/dp8"
                         android:layout_marginEnd="8dp"
                         android:paddingTop="@dimen/dp3"
-                        android:textSize="@dimen/sp18"
                         android:paddingBottom="@dimen/dp3"
                         android:text="@string/whatILearn"
                         android:textAllCaps="true"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:textSize="@dimen/sp18"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                         android:id="@+id/whtLine"
-                        app:layout_constraintTop_toBottomOf="@+id/whatLearn"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp_2"
-
                         android:background="@color/black"
+
+                        app:layout_constraintEnd_toEndOf="@+id/whatLearn"
                         app:layout_constraintStart_toStartOf="@+id/whatLearn"
-                        app:layout_constraintEnd_toEndOf="@+id/whatLearn"/>
+                        app:layout_constraintTop_toBottomOf="@+id/whatLearn" />
 
 
                 <LinearLayout
                         android:id="@+id/points"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp10"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical"
                         android:padding="@dimen/dp8"
                         android:textSize="@dimen/sp18"
-                        android:layout_width="match_parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/whtLine"
-                        android:layout_margin="@dimen/dp10"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/whtLine" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <pasu.nakshatraDesigners.utils.widgets.SocialLinkView
-                    app:layout_constraintTop_toBottomOf="@+id/pointsLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="24dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pointsLay" />
 
             <include
-                    android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:layout_height="match_parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/layoutLoading"
-                    layout="@layout/layout_loading"/>
+                    layout="@layout/layout_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

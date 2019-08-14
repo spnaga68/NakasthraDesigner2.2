@@ -6,7 +6,7 @@ import androidx.paging.DataSource
 import pasu.nakshatraDesigners.data.VideoListItem
 
 
-class DataSourceFactory(val context: Context) : DataSource.Factory<String, VideoListItem>() {
+class DataSourceFactory(val context: Context, val courseUrl: String) : DataSource.Factory<String, VideoListItem>() {
 
 
     //getter for itemlivedatasource
@@ -15,7 +15,7 @@ class DataSourceFactory(val context: Context) : DataSource.Factory<String, Video
 
     override fun create(): DataSource<String, VideoListItem> {
         //getting our Detaildata source object
-        itemDataSource = CertificateDataSource(context)
+        itemDataSource = CertificateDataSource(context,courseUrl)
 
         //posting the datasource to get the values
         itemLiveDataSource.postValue(itemDataSource);

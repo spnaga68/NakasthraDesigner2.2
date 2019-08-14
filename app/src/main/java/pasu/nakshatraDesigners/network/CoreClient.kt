@@ -10,6 +10,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 /**
  * Created by developer on 8/31/16.
@@ -40,8 +41,8 @@ interface CoreClient {
     @POST("mobileapi100/user_logout")
     fun logout(@Body logoutRequestData: LogoutRequestData): Call<LogoutResponse>
 
-    @POST("aarionlineclasses.html")
-    fun getTop(@Body certificateListRequest: CertificateListRequest): Call<CertificateListResponse>
+    @POST("{courseUrl}")
+    fun getTop(@Path("courseUrl") courseUrl:String, @Body certificateListRequest: CertificateListRequest): Call<CertificateListResponse>
 
     @POST("aarionlineclasses.html")
     fun getTopAfter(@Body certificateListRequest: CertificateListRequest): Call<CertificateListResponse>

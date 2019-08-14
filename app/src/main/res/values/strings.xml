@@ -37,7 +37,6 @@
     <string name="aCertificates">Active Certificates</string>
 
 
-
     <!--Certificates-->
     <string name="vNum">Vehicle Num</string>
     <string name="mobile">Mobile</string>
@@ -55,7 +54,7 @@
     <string name="otherwise_contactus"><u>Otherwise please contactus</u></string>
 
 
-<!--SignIn-->
+    <!--SignIn-->
     <string name="hint_enter_your_phone_number">Mobile Number</string>
     <string name="search_hint">Search…</string>
     <string name="no_result_found">Results not found</string>
@@ -161,10 +160,10 @@
     <string name="cant_edit_email">You cant edit email address</string>
 
 
-   <!-- -->
+    <!-- -->
     <string name="ad_mob_app_id">ca-app-pub-5654653244641853~7968742058</string>
 
-   <!-- <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
+   <!--  <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id1">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id2">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id3">ca-app-pub-3940256099942544/6300978111</string>
@@ -177,4 +176,7 @@
     <string name="ad_mob_id3">ca-app-pub-5654653244641853/6268327747</string>
     <string name="ad_mob_id4">ca-app-pub-5654653244641853/5206527510</string>
     <string name="ad_mob_id5">ca-app-pub-5654653244641853/5206527510</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

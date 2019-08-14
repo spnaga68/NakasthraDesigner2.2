@@ -43,7 +43,7 @@ class VideoListActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_SECURE
         );
 
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 

@@ -25,6 +25,9 @@
                 app:popExitAnim="@anim/slide_out_right"
                 app:destination="@id/profileFrag"/>
         <action android:id="@+id/action_dashboard_to_about" app:destination="@id/about"/>
+        <action
+                android:id="@+id/action_dashboard_to_selectCoursesFragment"
+                app:destination="@id/selectCoursesFragment" />
 
     </fragment>
     <fragment
@@ -63,5 +66,9 @@
               android:label="CertificateDetailFrag">
         <argument android:name="toLoad" app:argType="string" android:defaultValue="hai"/>
     </fragment>
+    <fragment
+            android:id="@+id/selectCoursesFragment"
+            android:name="pasu.nakshatraDesigners.fragments.SelectCoursesFragment"
+            android:label="SelectCoursesFragment" />
 
 </navigation>

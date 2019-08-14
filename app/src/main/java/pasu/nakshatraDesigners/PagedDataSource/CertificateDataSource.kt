@@ -13,7 +13,7 @@ import pasu.nakshatraDesigners.utils.*
 import java.io.IOException
 
 
-class CertificateDataSource(val context: Context) : PageKeyedDataSource<String, VideoListItem>() {
+class CertificateDataSource(val context: Context, val courseUrl: String) : PageKeyedDataSource<String, VideoListItem>() {
 
 
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<String, VideoListItem>) {
@@ -75,7 +75,7 @@ class CertificateDataSource(val context: Context) : PageKeyedDataSource<String, 
         networkState.postValue(NetworkState.LOADING)
 
 
-        val request = ServiceGenerator(context).createService(CoreClient::class.java).getTop(
+        val request = ServiceGenerator(context).createService(CoreClient::class.java).getTop(courseUrl,
             CertificateListRequest(Session.getSession(USER_ID, context), Session.getAccessKey(context),
                 10, "1",CommonFunctions.getDeviceID(context))
         )

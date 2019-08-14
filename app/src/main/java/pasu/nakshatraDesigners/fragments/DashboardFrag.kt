@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -15,23 +18,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.ViewSkeletonScreen
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import nakshatraDesigners.utils.CommonFunctions
+import com.google.gson.Gson
+import pasu.nakshatraDesigners.MainActivity
 import pasu.nakshatraDesigners.R
-import pasu.nakshatraDesigners.VideoListActivity
+import pasu.nakshatraDesigners.adapter.VideoBaseAdapter
 import pasu.nakshatraDesigners.adapter.bindImageFromUrl
-import pasu.nakshatraDesigners.data.Review
+import pasu.nakshatraDesigners.data.*
+import pasu.nakshatraDesigners.signIn.SignInActivity
 import pasu.nakshatraDesigners.utils.DisplayUtils
 import pasu.nakshatraDesigners.utils.Session
 import pasu.nakshatraDesigners.utils.USER_NAME
-import pasu.nakshatraDesigners.utils.VIDEO_URL
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 import pasu.nakshatraDesigners.viewModel.DashboardViewModel
 import pasu.nakshatraDesigners.viewModel.ViewmodelFactory
@@ -40,19 +44,30 @@ import kotlin.collections.ArrayList
 
 
 class DashboardFrag : Fragment() {
+    private lateinit var adapter: VideoBaseAdapter
     private lateinit var skeletonBanner: ViewSkeletonScreen
     private lateinit var skeletonInfo: ViewSkeletonScreen
     private lateinit var skeletonList: RecyclerViewSkeletonScreen
     private lateinit var itemListViewModel: DashboardViewModel
     private lateinit var binding: pasu.nakshatraDesigners.databinding.FragDashBinding
-    private var bannerListData = ArrayList<String>()
     private var reviewArraySize = 0
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  //  private var onlineClassesList: ArrayList<OnlineClasses>? = null
+
+    companion object{
+         var onlineClassesList: ArrayList<OnlineClasses>? = null
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.frag_dash, container, false)
 
         //getting our ItemViewModel
-        itemListViewModel = ViewModelProviders.of(this, ViewmodelFactory(context!!)).get(DashboardViewModel::class.java)
+        itemListViewModel = ViewModelProviders.of(this, ViewmodelFactory(context!!))
+            .get(DashboardViewModel::class.java)
 
         binding.apply {
             lifecycleOwner = this@DashboardFrag
@@ -62,59 +77,51 @@ class DashboardFrag : Fragment() {
         itemListViewModel.getDashboardData()
 
 
-        binding.ivOne.setOnClickListener {
-            it.getTag()?.let {
-                val intent = Intent(context, VideoListActivity::class.java)
-                intent.apply {
-                    putExtra(VIDEO_URL, it.toString())
-                    startActivity(intent)
-                }
-            }
-        }
-        binding.ivTwo.setOnClickListener {
-            it.getTag()?.let {
-                val intent = Intent(context, VideoListActivity::class.java)
-                intent.apply {
-                    putExtra(VIDEO_URL, it.toString())
-                    startActivity(intent)
-                }
-            }
-        }
+        /* binding.ivOne.setOnClickListener {
+             it.getTag()?.let {
+                 val intent = Intent(context, VideoListActivity::class.java)
+                 intent.apply {
+                     putExtra(VIDEO_URL, it.toString())
+                     startActivity(intent)
+                 }
+             }
+         }
+         binding.ivTwo.setOnClickListener {
+             it.getTag()?.let {
+                 val intent = Intent(context, VideoListActivity::class.java)
+                 intent.apply {
+                     putExtra(VIDEO_URL, it.toString())
+                     startActivity(intent)
+                 }
+             }
+         }*/
 
         itemListViewModel.dashboardResponse.observe(this, Observer {
             if (it != null) {
-                var bannerArray = listOf<String>(it.data?.banner1!!, it.data?.banner2!!, it.data?.banner3!!)
-                bannerListData = ArrayList(bannerArray)
-                binding.ivOne.setTag(it?.data?.video1)
-                binding.ivTwo.setTag(it?.data?.video2)
+                it.data?.let { data ->
+                    data.review?.let {
+                        setImageSlider(it)
+                        reviewArraySize = it.size
 
-                bindImageFromUrl(binding.ivOne, it?.data?.video1img)
-                bindImageFromUrl(binding.ivTwo, it?.data?.video2img)
-                it?.data?.review?.let {
-                    setImageSlider(it)
-                    reviewArraySize = it.size
+                    }
+                    addLearn(data.points ?: ArrayList<String>())
+                    binding.rootScrollView.scrollTo(0, 0)
+                    binding.layoutLoading.visibility = View.GONE
+                    if (data.banner.isNotEmpty())
+                        addBannerView(data.banner)
+                    if (data.video.isNotEmpty())
+                        addVideosView(data.video)
+                    onlineClassesList = data.onlineclasses
+                    print("onlineSelection@ ${Gson().toJson(onlineClassesList)}")
+                    Session.save("onlineSelection",Gson().toJson(onlineClassesList),context)
 
                 }
-                addLearn(it?.data?.points ?: ArrayList<String>())
-//                featureListData = it.featuredItem
-//                Detaildata = it.vendorList
-//                adapter = ItemListAdapter(context!!,Detaildata)
-                binding.rootScrollView.scrollTo(0, 0)
-//                adapter.updateData(Detaildata)
-//                binding.rvList.adapter = adapter
-                binding.layoutLoading.visibility = View.GONE
-//                hideSkimmerViews()
-                if (bannerListData.size > 0) {
-                    addBannerView(bannerListData)
-                }
-//                if (featureListData.size > 0) {
-//                    addBannerFeatureView(featureListData)
-//                }
             }
         })
 
-        if(!Session.getUserID(context!!).equals("")){
-            binding.root.findViewById<TextView>(R.id.tvTitle).setText("WELCOME "+Session.getSession(USER_NAME,context!!))
+        if (!Session.getUserID(context!!).equals("")) {
+            binding.root.findViewById<TextView>(R.id.tvTitle)
+                .setText("WELCOME " + Session.getSession(USER_NAME, context!!))
         }
 
 
@@ -140,12 +147,18 @@ class DashboardFrag : Fragment() {
 //            .show()
     }
 
-    private fun addBannerView(bannerListData: ArrayList<String>) {
+    private fun addBannerView(bannerListData: ArrayList<BannerImageData>) {
         binding.bannerList.removeAllViews()
         val layoutParams =
-            LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         layoutParams.setMargins(0, 5, 20, 5)
-        val imgLayoutParams = LinearLayout.LayoutParams(DisplayUtils.getWidth(activity!!)-DisplayUtils.dpToPxInt(50), 500)
+        val imgLayoutParams = LinearLayout.LayoutParams(
+            DisplayUtils.getWidth(activity!!) - DisplayUtils.dpToPxInt(50),
+            500
+        )
 //        imgLayoutParams.setMargins(0, 0, 10, 0)
         val linearLayout = LinearLayout(activity)
         linearLayout.layoutParams = layoutParams
@@ -155,7 +168,7 @@ class DashboardFrag : Fragment() {
             ivItem.id = i
             ivItem.layoutParams = imgLayoutParams
             ivItem.scaleType = ImageView.ScaleType.FIT_XY
-            bindImageFromUrl(ivItem, bannerListData[i])
+            bindImageFromUrl(ivItem, bannerListData[i].bannerimg)
             val card = CardView(requireContext()).apply {
                 this.layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -173,6 +186,105 @@ class DashboardFrag : Fragment() {
         binding.bannerList.addView(linearLayout)
     }
 
+    private fun addVideosView(videoListData: ArrayList<BannerVideoData>) {
+
+        var layoutManager = GridLayoutManager(activity, 2)
+//        layoutManager.isAutoMeasureEnabled = true;
+//        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//            override fun getSpanSize(position: Int): Int {
+//                when (adapter.getItemViewType(position)) {
+//
+//
+//                    R.layout.certificate_list_item -> return 2
+//
+//                    else -> return 2
+//                }
+//            }
+//        }
+
+
+        binding.viedosList!!.layoutManager = layoutManager
+        binding.viedosList!!.setHasFixedSize(true)
+
+
+        var videolist = ArrayList<VideoListItem>()
+        adapter = VideoBaseAdapter(context!!,videolist)
+        for(video in videoListData){
+            videolist.add(VideoListItem(video.name,video.imageurl,video.videourl,0))
+        }
+        adapter = VideoBaseAdapter(context!!,videolist)
+        binding.viedosList.adapter = adapter
+
+//        binding.viedosList.removeAllViews()
+//        val mLayoutParams = LinearLayout.LayoutParams(
+//            ViewGroup.LayoutParams.WRAP_CONTENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//        mLayoutParams.setMargins(0, 5, 20, 5)
+//        val imgLayoutParams = LinearLayout.LayoutParams(
+//            (DisplayUtils.getWidth(requireActivity()) - DisplayUtils.dpToPxInt(70)) / 2,
+//            400
+//        )
+//        val linearLayout = LinearLayout(requireContext())
+//        linearLayout.layoutParams = mLayoutParams
+//        linearLayout.orientation = LinearLayout.HORIZONTAL
+//        for (i in 0 until bannerListData.size) {
+//            val card = CardView(requireContext()).apply {
+//                this.layoutParams = LinearLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.WRAP_CONTENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//                ).apply { setMargins(0, 5, 10, 5) }
+//                radius = 9f
+//                setContentPadding(0, 0, 0, 0)
+//                setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+//                maxCardElevation = 0f
+//                cardElevation = 0f
+//                addView(LinearLayout(requireContext()).apply {
+//                    orientation = LinearLayout.VERTICAL
+//                    layoutParams = LinearLayout.LayoutParams(
+//                        ViewGroup.LayoutParams.WRAP_CONTENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT
+//                    )
+//                    addView(ImageView(requireContext()).apply {
+//                        id = i
+//                        tag = bannerListData[i].videourl
+//                        layoutParams = imgLayoutParams
+//                        scaleType = ImageView.ScaleType.FIT_XY
+//                        bindImageFromUrl(this, bannerListData[i].imageurl)
+//                        setOnClickListener {
+//                            it.tag?.let {
+//                                val intent = Intent(context, VideoListActivity::class.java)
+//                                intent.apply {
+//                                    putExtra(VIDEO_URL, it.toString())
+//                                    startActivity(intent)
+//                                }
+//                            }
+//                        }
+//                    })
+//
+//
+//                    addView(CustomTextview(requireContext()).apply {
+//                        id = i
+//                        tag = bannerListData[i].videourl
+//                        layoutParams = LinearLayout.LayoutParams(
+//                            (DisplayUtils.getWidth(requireActivity()) - DisplayUtils.dpToPxInt(70)) / 2,
+//                            ViewGroup.LayoutParams.WRAP_CONTENT
+//                        )
+//                        text = bannerListData[i].name
+//                        setTextColor(Color.BLACK)
+//                        setType(getString(R.string.style_sub_text))
+//                        gravity = Gravity.BOTTOM or Gravity.CENTER
+//                    })
+//
+//                })
+//
+//
+//            }
+//            linearLayout.addView(card)
+//        }
+//        binding.viedosList.addView(linearLayout)
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -184,13 +296,33 @@ class DashboardFrag : Fragment() {
         val adRequest2 = AdRequest.Builder().build()
         mAdView2.loadAd(adRequest2)
 
+        with(requireActivity() as MainActivity) {
+            onlineclasses.setOnClickListener {
+                if (Session.getUserID(this).isEmpty()) {
+                    this.startActivity(Intent(this, SignInActivity::class.java))
+                } else {
+                    onlineClassesList?.let { it1 ->
+                        supportFragmentManager.beginTransaction().add(
+                            R.id.nav_host_frag,
+                            SelectCoursesFragment.newInstance()
+                            , Gson().toJson(
+                                NavData(getString(R.string.online_classess), 76, "")
+                            )
+                        ).addToBackStack(null).commit()
+                    }
+                }
+            }
+        }
     }
 
 
     private fun addLearn(data: ArrayList<String>) {
         binding.points.removeAllViews()
         val layoutParams =
-            LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         layoutParams.setMargins(4, 8, 4, 8)
         for (i in 0 until data.size) {
             val ivItem = CustomTextview(context!!)
@@ -225,7 +357,10 @@ class DashboardFrag : Fragment() {
     }
 
 
-    inner class SliderAdapter(private val context: Context, private val imageArray: ArrayList<Review>) :
+    inner class SliderAdapter(
+        private val context: Context,
+        private val imageArray: ArrayList<Review>
+    ) :
         PagerAdapter() {
 
         override fun getCount(): Int {
@@ -237,7 +372,8 @@ class DashboardFrag : Fragment() {
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val inflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.item_image_slider, container, false)
             val cusName = view.findViewById<AppCompatTextView>(R.id.customerName)
             val cusRating = view.findViewById<RatingBar>(R.id.ratingBar)

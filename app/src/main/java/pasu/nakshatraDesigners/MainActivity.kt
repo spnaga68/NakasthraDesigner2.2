@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.frag_profile.*
 import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.adapter.NavigataionAdapter
 import pasu.nakshatraDesigners.data.NavData
-import pasu.nakshatraDesigners.fragments.Certificates
 import pasu.nakshatraDesigners.fragments.DashboardFrag
 import pasu.nakshatraDesigners.fragments.ProfileFrag
 import pasu.nakshatraDesigners.signIn.SignInActivity
@@ -58,7 +57,8 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
     }
 
     fun fragmentList(fm: FragmentManager) {
-        fm.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
+        fm.registerFragmentLifecycleCallbacks(object :
+            FragmentManager.FragmentLifecycleCallbacks() {
             override fun onFragmentPreAttached(fm: FragmentManager, f: Fragment, context: Context) {
                 super.onFragmentPreAttached(fm, f, context)
                 Log.v("FragXX1", f.getTag() ?: "")
@@ -98,42 +98,7 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
                         menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
                         menuIcon.tag = "0"
                     }
-//                else if (f?.tag == "1000") {
-//                    title.setText(getString(R.string.contact_us))
-//                    onlineclasses.visibility=View.GONE
-//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-//                    menuIcon.tag="0"
-//                }else if(f?.tag == "5"){
-//                    //testimonials
-//                    onlineclasses.visibility=View.GONE
-//                    title.setText(getString(R.string.testimonial))
-//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-//                    menuIcon.tag="0"
-//                }else if(f?.tag == "4"){
-//                    //about us
-//                    onlineclasses.visibility=View.GONE
-//                    title.setText(getString(R.string.menu_about))
-//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-//                    menuIcon.tag="0"
-//                }else if(f?.tag == "3"){
-//                    //pricing
-//                    onlineclasses.visibility=View.GONE
-//                    title.setText(getString(R.string.price))
-//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-//                    menuIcon.tag="0"
-//                }else if(f?.tag == "2"){
-//                    //Materials
-//                    title.setText(getString(R.string.material))
-//                    onlineclasses.visibility=View.GONE
-//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-//                    menuIcon.tag="0"
-//                }else if(f?.tag == "1"){
-//                    //online class
-//                    onlineclasses.visibility=View.GONE
-//                    title.setText(getString(R.string.online_classess))
-//                    menuIcon.setImageResource(R.drawable.ic_arrow_back_black_24dp)
-//                    menuIcon.tag="0"
-//                }
+//
                 adapter.selectedItem = (f?.tag ?: "-6")
                 adapter.notifyDataSetChanged()
             }
@@ -148,7 +113,11 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
                 Log.v("FragXX9", f.getTag() ?: "")
             }
 
-            override fun onFragmentSaveInstanceState(fm: FragmentManager, f: Fragment, outState: Bundle) {
+            override fun onFragmentSaveInstanceState(
+                fm: FragmentManager,
+                f: Fragment,
+                outState: Bundle
+            ) {
                 super.onFragmentSaveInstanceState(fm, f, outState)
                 Log.v("FragXX10", f.getTag() ?: "")
             }
@@ -171,66 +140,15 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
                     data = Gson().fromJson(f.tag, NavData::class.java)
                 } catch (e: Exception) {
                 }
-                if (data?.id != -6) {
+                if (data?.id != -6 && data?.id != 1) {
+                    println("frag back13 ${data?.id}")
                     menuIcon.tag = "1"
                     onlineclasses.visibility = View.VISIBLE
                     menuIcon.setImageResource(R.drawable.ic_menu)
                     title.setText(getString(R.string.menu_dashboard))
                 }
 
-//                if (f?.tag == "-6") {
-//                    menuIcon.tag="1"
-//                    onlineclasses.visibility=View.VISIBLE
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    title.setText(getString(R.string.menu_dashboard))
-//                } else if (f?.tag == "-9") {
 //
-//                    title.setText(getString(R.string.online_classess))
-//                    onlineclasses.visibility=View.VISIBLE
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    title.setText(getString(R.string.menu_dashboard))
-//                } else if (f?.tag == "-8") {
-//                    title.setText(getString(R.string.profile))
-//                    onlineclasses.visibility=View.VISIBLE
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    title.setText(getString(R.string.menu_dashboard))
-//                }else if (f?.tag == "1000") {
-//                    menuIcon.tag="1"
-//                    onlineclasses.visibility=View.VISIBLE
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    title.setText(getString(R.string.menu_dashboard))
-//
-//                }else if(f?.tag == "5"){
-//                    //testimonials
-//                    onlineclasses.visibility=View.VISIBLE
-//                    title.setText(getString(R.string.menu_dashboard))
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    menuIcon.tag="1"
-//                }else if(f?.tag == "4"){
-//                    //about us
-//                    title.setText(getString(R.string.menu_dashboard))
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    menuIcon.tag="1"
-//                    onlineclasses.visibility=View.VISIBLE
-//                }else if(f?.tag == "3"){
-//                    //pricing
-//                    title.setText(getString(R.string.menu_dashboard))
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    menuIcon.tag="1"
-//                    onlineclasses.visibility=View.VISIBLE
-//                }else if(f?.tag == "2"){
-//                    //Materials
-//                    title.setText(getString(R.string.menu_dashboard))
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    menuIcon.tag="1"
-//                    onlineclasses.visibility=View.VISIBLE
-//                }else if(f?.tag == "1"){
-//                    //online  classses
-//                    title.setText(getString(R.string.menu_dashboard))
-//                    onlineclasses.visibility=View.VISIBLE
-//                    menuIcon.setImageResource(R.drawable.ic_menu)
-//                    menuIcon.tag="1"
-//                }
             }
         }, true)
     }
@@ -280,7 +198,7 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
     private lateinit var adapter: NavigataionAdapter
     private lateinit var menuIcon: AppCompatImageView
     private lateinit var title: CustomTextview
-    private lateinit var onlineclasses: CustomTextview
+    public lateinit var onlineclasses: CustomTextview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -300,18 +218,6 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         menuIcon = toolbar.findViewById(R.id.menu_icon)
         title = toolbar.findViewById(R.id.toolbarTitle)
         onlineclasses = findViewById(R.id.onlineclasses)
-        onlineclasses.setOnClickListener {
-            if (Session.getUserID(this@MainActivity!!).equals("")) {
-                this@MainActivity.startActivity(Intent(this@MainActivity!!, SignInActivity::class.java))
-            } else {
-                (this@MainActivity as AppCompatActivity).supportFragmentManager.beginTransaction().add(
-                    R.id.nav_host_frag,
-                    Certificates()
-                    , Gson().toJson(NavData(getString(R.string.online_classess), 1, ""))
-                ).addToBackStack(null).commit()
-            }
-        }
-
 
         menuIcon.setOnClickListener {
             if (menuIcon.getTag() == "0")
@@ -332,7 +238,11 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         ).commit()
         navigationView.layoutManager = LinearLayoutManager(this@MainActivity)
         adapter =
-            NavigataionAdapter(this@MainActivity, Session.getNavData(this@MainActivity), this@MainActivity)
+            NavigataionAdapter(
+                this@MainActivity,
+                Session.getNavData(this@MainActivity),
+                this@MainActivity
+            )
 
         navigationView.adapter = adapter
 //        navigationView.addItemDecoration(DividerItemDecoration(navigationView.getContext(), DividerItemDecoration.VERTICAL));
@@ -348,8 +258,22 @@ class MainActivity : AppCompatActivity(), rvItemClick, FragmentManager.OnBackSta
         if (Session.getUserID(this@MainActivity).equals("")) {
             guestLay.visibility = View.VISIBLE
             userLay.visibility = View.GONE
-            loginButton.setOnClickListener { startActivity(Intent(this@MainActivity, SignInActivity::class.java)) }
-            registerButton.setOnClickListener { startActivity(Intent(this@MainActivity, SignupActivity::class.java)) }
+            loginButton.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@MainActivity,
+                        SignInActivity::class.java
+                    )
+                )
+            }
+            registerButton.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@MainActivity,
+                        SignupActivity::class.java
+                    )
+                )
+            }
             logoutButton.visibility = View.GONE
 
         } else {

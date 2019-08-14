@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        >
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
                 name="dashboard"
-                type="pasu.nakshatraDesigners.data.DashboardResponse"/>
+                type="pasu.nakshatraDesigners.data.DashboardResponse" />
 
         <variable
                 name="dashboardViewmodel"
-                type="pasu.nakshatraDesigners.viewModel.DashboardViewModel"/>
+                type="pasu.nakshatraDesigners.viewModel.DashboardViewModel" />
     </data>
 
     <!-- Use DrawerLayout as root container for activity -->
@@ -38,47 +37,48 @@
      -->
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
-                    android:background="@color/white"
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="@color/white"
+                    android:gravity="center"
                     app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/menu_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/menu_icon"
-                        app:srcCompat="@drawable/ic_menu"/>
+                        app:srcCompat="@drawable/ic_menu" />
 
                 <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:id="@+id/toolbarTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp10"
-                        android:id="@+id/toolbarTitle"
-                        app:srcCompat="@drawable/launcher_icon"/>
+                        app:srcCompat="@drawable/launcher_icon" />
 
                 <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:id="@+id/onlineclasses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dp8"
-                        android:gravity="center"
-                        android:id="@+id/onlineclasses"
                         android:layout_gravity="right"
-                        android:background="@drawable/rect_drawable_box"
                         android:layout_marginEnd="@dimen/dp10"
+                        android:background="@drawable/rect_drawable_box"
+                        android:gravity="center"
+                        android:padding="@dimen/dp8"
                         android:text="@string/online_classess"
-                        app:srcCompat="@drawable/launcher_icon"/>
+                        app:srcCompat="@drawable/launcher_icon" />
 
             </androidx.appcompat.widget.Toolbar>
 
 
             <!--app:navGraph="@navigation/nav_main"-->
             <FrameLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/nav_host_frag"
-                    android:tag="-6"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"/>
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:tag="-6" />
+
             <FrameLayout
                     android:id="@+id/shadow"
                     android:layout_width="match_parent"
@@ -86,21 +86,19 @@
                     android:layout_marginTop="?attr/actionBarSize"
                     android:foreground="@drawable/background_shadow"
                     android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-            <com.google.android.gms.ads.AdView
-                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/adView"
-android:visibility="gone"
                     android:layout_width="320dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
-                    ads:adSize="BANNER"
-                    >
-            </com.google.android.gms.ads.AdView>
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="bottom|center"
+                    android:visibility="gone"
+                    ads:adSize="BANNER"></com.google.android.gms.ads.AdView>
 
         </FrameLayout>
 
@@ -118,11 +116,11 @@ android:visibility="gone"
                   app:headerLayout="@layout/nav_header"
                   app:menu="@menu/drawer_view"/>-->
         <include
-                android:fitsSystemWindows="true"
+                layout="@layout/drawer_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                layout="@layout/drawer_layout"/>
+                android:fitsSystemWindows="true" />
 
 
     </androidx.drawerlayout.widget.DrawerLayout>
