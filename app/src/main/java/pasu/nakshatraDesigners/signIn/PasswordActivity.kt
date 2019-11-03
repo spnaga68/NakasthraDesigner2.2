@@ -36,7 +36,7 @@ class PasswordActivity : AppCompatActivity(), DialogOnClickInterface {
         viewModel = ViewModelProviders.of(this, CommonViewModelFactory(this)).get(PasswordViewModel::class.java)
         binding.apply {
             passwordViewModel = viewModel
-            lifecycleOwner = this@PasswordActivity
+            setLifecycleOwner( this@PasswordActivity)
             executePendingBindings()
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

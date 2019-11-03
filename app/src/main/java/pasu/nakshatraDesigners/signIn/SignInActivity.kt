@@ -41,7 +41,7 @@ class SignInActivity : AppCompatActivity(), DialogOnClickInterface {
         binding = DataBindingUtil.setContentView(this, pasu.nakshatraDesigners.R.layout.activity_signin)
         binding.apply {
             signInViewModel = viewModel
-            lifecycleOwner = this@SignInActivity
+            setLifecycleOwner( this@SignInActivity)
             executePendingBindings()
         }
         forgotpswdTxt.setOnClickListener {

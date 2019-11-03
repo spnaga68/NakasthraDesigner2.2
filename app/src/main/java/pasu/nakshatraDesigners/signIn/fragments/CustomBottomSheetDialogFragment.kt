@@ -73,7 +73,7 @@ class CustomBottomSheetDialogFragment : BottomSheetDialogFragment(), DialogOnCli
             ViewModelProviders.of(this, context?.let { CommonViewModelFactory(it) }).get(PasswordViewModel::class.java)
         binding.apply {
             passwordViewModel = viewModel
-            lifecycleOwner = this@CustomBottomSheetDialogFragment
+            setLifecycleOwner(this@CustomBottomSheetDialogFragment)
             executePendingBindings()
         }
         return binding.root

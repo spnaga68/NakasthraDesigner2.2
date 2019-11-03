@@ -30,11 +30,13 @@ buildscript {
 
     repositories {
         google()
+        maven {
+            url "https://maven.google.com"
+        }
         jcenter()
-
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0-alpha01"
         classpath 'com.google.gms:google-services:4.2.0'
@@ -46,12 +48,9 @@ buildscript {
 allprojects {
     repositories {
         google()
-
         jcenter()
         maven { url "https://jitpack.io" }
-        maven {
-            url 'https://maven.google.com'
-        }
+        maven { url 'https://maven.google.com' }
     }
 }
 

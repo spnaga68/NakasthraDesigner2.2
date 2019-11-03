@@ -60,7 +60,7 @@ class PhoneVerificationActivity : AppCompatActivity(), DialogOnClickInterface {
             setEnterAnimations()
         binding.apply {
             phoneVerificationViewModel = viewModel
-            lifecycleOwner = this@PhoneVerificationActivity
+            setLifecycleOwner(this@PhoneVerificationActivity)
             executePendingBindings()
         }
         intent?.extras?.run {

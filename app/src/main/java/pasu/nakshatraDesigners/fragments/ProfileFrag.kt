@@ -268,7 +268,7 @@ class ProfileFrag : Fragment(), DialogOnClickInterface {
 //        binding.profilePic.loadImage
         binding.apply {
             this.profileViewModel = this@ProfileFrag.profileViewModel
-            lifecycleOwner = this@ProfileFrag
+            setLifecycleOwner( this@ProfileFrag)
             executePendingBindings()
         }
 
