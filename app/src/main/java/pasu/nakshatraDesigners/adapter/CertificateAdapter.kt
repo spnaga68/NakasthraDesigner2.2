@@ -1,6 +1,7 @@
 package pasu.nakshatraDesigners.adapter
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Environment
@@ -18,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.R
 import pasu.nakshatraDesigners.VideoListActivity
 import pasu.nakshatraDesigners.data.VideoListItem
+import pasu.nakshatraDesigners.utils.DialogOnClickInterface
 import pasu.nakshatraDesigners.utils.DownloadListener
 import pasu.nakshatraDesigners.utils.NetworkState
 import pasu.nakshatraDesigners.utils.VIDEO_URL
@@ -33,7 +36,8 @@ import javax.crypto.spec.SecretKeySpec
 
 
 class CertificateAdapter internal constructor(val context: Context) :
-    PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK),DownloadListener {
+    PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK),DownloadListener ,
+    DialogOnClickInterface {
     private var networkState: NetworkState? = null
     var positions=0
 
@@ -43,6 +47,7 @@ class CertificateAdapter internal constructor(val context: Context) :
     private val KEY = "cybervaultsecure"
     private var mSecretKeySpec: SecretKeySpec? = null
     private var mIvParameterSpec: IvParameterSpec? = null
+    private lateinit var file:File
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -84,6 +89,8 @@ class CertificateAdapter internal constructor(val context: Context) :
                         val imgDownload = rootLayout.findViewById<AppCompatImageView>(R.id.imgDownload)
 
                         val url = getItem(position)!!.getVideoUrl(context)
+                        rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.VISIBLE
+                        rootLayout.findViewById<View>(R.id.download_progress).visibility = View.GONE
                         val isPresentFile = getFileNameFromFolder(url)
                         if (isPresentFile) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -127,7 +134,29 @@ class CertificateAdapter internal constructor(val context: Context) :
                                 val newFileName = getFolderName() + originalFileName
                                 encryptVideo(url, File(newFileName), context)
                             } else {
+                                val sdCardRoot = Environment.getExternalStorageDirectory()
+                                val yourDir = File(sdCardRoot, "HariBackup/")
+                                var name = ""
+                                if (yourDir.exists() && yourDir.listFiles() != null) {
+                                    for (f in yourDir.listFiles()) {
+                                        if (f.isFile) {
+                                            file = f
+                                            name = f.name
+                                            println("NAMEEEEEEEE $name")
+                                            if (name == url.substring(url.lastIndexOf('/') + 1)) {
 
+                                                CommonFunctions.alertDialog(
+                                                    context,
+                                                    this@CertificateAdapter,
+                                                    context.getString(R.string.delete_file),
+                                                    context.getString(R.string.btn_yes),
+                                                    context.getString(R.string.btn_no),
+                                                    false, 1, ""
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
 
@@ -190,6 +219,15 @@ class CertificateAdapter internal constructor(val context: Context) :
         updateDownloadIcon()
     }
 
+    override fun onPositiveButtonCLick(dialog: DialogInterface, alertType: Int) {
+        file.delete()
+        notifyDataSetChanged()
+        dialog.dismiss()
+    }
+
+    override fun onNegativeButtonCLick(dialog: DialogInterface, alertType: Int) {
+        dialog.dismiss()
+    }
 
     private fun updateDownloadIcon(){
         notifyDataSetChanged()

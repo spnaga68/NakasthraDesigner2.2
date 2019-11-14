@@ -2,6 +2,7 @@ package pasu.nakshatraDesigners.adapter
 
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Environment
@@ -11,11 +12,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import nakshatraDesigners.utils.CommonFunctions
 import pasu.nakshatraDesigners.R
 import pasu.nakshatraDesigners.VideoListActivity
 import pasu.nakshatraDesigners.adapter.VideoBaseAdapter.PostItemViewHolder
 import pasu.nakshatraDesigners.data.VideoListItem
 import pasu.nakshatraDesigners.databinding.CertificateListItemBinding
+import pasu.nakshatraDesigners.utils.DialogOnClickInterface
 import pasu.nakshatraDesigners.utils.DownloadListener
 import pasu.nakshatraDesigners.utils.VIDEO_URL
 import pasu.nakshatraDesigners.video.DownloadAndEncryptFileTask
@@ -27,7 +30,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListItem>) :
-    RecyclerView.Adapter<PostItemViewHolder>(), DownloadListener {
+    RecyclerView.Adapter<PostItemViewHolder>(), DownloadListener,DialogOnClickInterface{
 
     val AES_ALGORITHM = "AES"
     val AES_TRANSFORMATION = "AES/CTR/NoPadding"
@@ -35,6 +38,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
     private var mSecretKeySpec: SecretKeySpec? = null
     private var mIvParameterSpec: IvParameterSpec? = null
 
+    private lateinit var file:File
     init {
         val secureRandom = SecureRandom()
         var key = ByteArray(16)
@@ -67,7 +71,10 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                 val imgDownload = rootLayout.findViewById<AppCompatImageView>(R.id.imgDownload)
                 val url = myDataSet[position].getVideoUrl(context)
                 createNewDirectory()
+                rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.VISIBLE
+                rootLayout.findViewById<View>(R.id.download_progress).visibility = View.GONE
                 val isPresentFile = getFileNameFromFolder(url)
+                println("isPresentFile $isPresentFile "+"____"+getFileNameFromFolder(url))
                 if (isPresentFile) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         imgDownload.setImageDrawable(
@@ -107,10 +114,34 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                     val isPresentFile = getFileNameFromFolder(url)
                     val originalFileName = getFilenameFromUrlWithFormat(url)
                     if (!isPresentFile) {
+                        rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.GONE
+                        rootLayout.findViewById<View>(R.id.download_progress).visibility = View.VISIBLE
                         val newFileName = getFolderName() + originalFileName
                         encryptVideo(url, File(newFileName), context)
                     } else {
+                        val sdCardRoot = Environment.getExternalStorageDirectory()
+                        val yourDir = File(sdCardRoot, "HariBackup/")
+                        var name = ""
+                        if (yourDir.exists() && yourDir.listFiles() != null) {
+                            for (f in yourDir.listFiles()) {
+                                if (f.isFile) {
+                                    file = f
+                                    name = f.name
+                                    println("NAMEEEEEEEE $name")
+                                    if (name == url.substring(url.lastIndexOf('/') + 1)) {
 
+                                        CommonFunctions.alertDialog(
+                                            context,
+                                            this@VideoBaseAdapter,
+                                            context.getString(R.string.delete_file),
+                                            context.getString(R.string.btn_yes),
+                                            context.getString(R.string.btn_no),
+                                            false, 1, ""
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -139,14 +170,26 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
         }
     }
 
+
+
     override fun downloadCompleted() {
         println("downloadCompleted")
         updateDownloadIcon()
     }
 
-    private fun updateDownloadIcon(){
+    override fun onPositiveButtonCLick(dialog: DialogInterface, alertType: Int) {
+        file.delete()
+        notifyDataSetChanged()
+        dialog.dismiss()
+    }
+
+    override fun onNegativeButtonCLick(dialog: DialogInterface, alertType: Int) {
+        dialog.dismiss()
+    }
+    private fun updateDownloadIcon() {
         notifyDataSetChanged()
     }
+
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataSet.size
 
@@ -218,7 +261,13 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
             // the ciphers, key and iv used in this demo, or to see it from top to bottom,
             // supply a url to a remote unencrypted file - this method will download and encrypt it
             // this first argument needs to be that url, not null or empty...
-            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context,this).execute()
+            DownloadAndEncryptFileTask(
+                mUrl,
+                mEncryptedFile,
+                encryptionCipher,
+                context,
+                this
+            ).execute()
         } catch (e: Exception) {
             e.printStackTrace()
         }

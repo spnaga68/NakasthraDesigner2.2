@@ -191,4 +191,8 @@
         viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
         tortor.
     </string>
+
+
+    <string name="delete_file">Are you sure want to to delete a downloaded video from a folder?</string>
+    <string name="btn_no">No</string>
 </resources>

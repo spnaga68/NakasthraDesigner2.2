@@ -58,11 +58,18 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgDownload"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/dp50"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp5"
                         android:src="@drawable/ic_cancel" />
 
+                <ProgressBar
+                        android:visibility="gone"
+                        android:layout_width="@dimen/dp50"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/download_progress"
+                        style="@style/GenericProgressIndicator"
+                        android:layout_marginStart="@dimen/dp5" />
             </LinearLayout>
         </FrameLayout>
 
