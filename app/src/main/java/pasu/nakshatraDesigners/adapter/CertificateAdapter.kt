@@ -21,6 +21,7 @@ import com.google.android.gms.ads.AdView
 import pasu.nakshatraDesigners.R
 import pasu.nakshatraDesigners.VideoListActivity
 import pasu.nakshatraDesigners.data.VideoListItem
+import pasu.nakshatraDesigners.utils.DownloadListener
 import pasu.nakshatraDesigners.utils.NetworkState
 import pasu.nakshatraDesigners.utils.VIDEO_URL
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
@@ -32,7 +33,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 class CertificateAdapter internal constructor(val context: Context) :
-    PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+    PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK),DownloadListener {
     private var networkState: NetworkState? = null
     var positions=0
 
@@ -184,6 +185,15 @@ class CertificateAdapter internal constructor(val context: Context) :
         }
     }
 
+    override fun downloadCompleted() {
+        println("downloadCompleted certificate")
+        updateDownloadIcon()
+    }
+
+
+    private fun updateDownloadIcon(){
+        notifyDataSetChanged()
+    }
     private fun hasExtraRow(): Boolean {
         return networkState != null && networkState !== NetworkState.LOADED && networkState !== NetworkState.MAXPAGE
     }
@@ -353,7 +363,7 @@ class CertificateAdapter internal constructor(val context: Context) :
             // the ciphers, key and iv used in this demo, or to see it from top to bottom,
             // supply a url to a remote unencrypted file - this method will download and encrypt it
             // this first argument needs to be that url, not null or empty...
-            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context).execute()
+            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context,this).execute()
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -26,6 +26,7 @@ import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
 
 import pasu.nakshatraDesigners.R;
+import pasu.nakshatraDesigners.utils.DownloadListener;
 
 /**
  * Created by michaeldunn on 3/13/17.
@@ -39,8 +40,8 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
     private Context context;
     NotificationManager notificationManager;
     int Notification_ID = 121;
-
-    public DownloadAndEncryptFileTask(String url, File file, Cipher cipher,Context context) {
+    DownloadListener downloadListener;
+    public DownloadAndEncryptFileTask(String url, File file, Cipher cipher, Context context, DownloadListener listener) {
         if (url == null || url.isEmpty()) {
             throw new IllegalArgumentException("You need to supply a url to a clear MP4 file to download and encrypt, or modify the code to use a local encrypted mp4");
         }
@@ -48,6 +49,7 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
         mFile = file;
         mCipher = cipher;
         this.context = context;
+        downloadListener = listener;
     }
 
     private void downloadAndEncrypt() throws Exception {
@@ -95,6 +97,7 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         Log.d(getClass().getCanonicalName(), "done");
+        downloadListener.downloadCompleted();
         clearNotification(context);
     }
 

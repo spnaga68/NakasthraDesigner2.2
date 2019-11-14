@@ -16,6 +16,7 @@ import pasu.nakshatraDesigners.VideoListActivity
 import pasu.nakshatraDesigners.adapter.VideoBaseAdapter.PostItemViewHolder
 import pasu.nakshatraDesigners.data.VideoListItem
 import pasu.nakshatraDesigners.databinding.CertificateListItemBinding
+import pasu.nakshatraDesigners.utils.DownloadListener
 import pasu.nakshatraDesigners.utils.VIDEO_URL
 import pasu.nakshatraDesigners.video.DownloadAndEncryptFileTask
 import java.io.File
@@ -26,7 +27,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListItem>) :
-    RecyclerView.Adapter<PostItemViewHolder>() {
+    RecyclerView.Adapter<PostItemViewHolder>(), DownloadListener {
 
     val AES_ALGORITHM = "AES"
     val AES_TRANSFORMATION = "AES/CTR/NoPadding"
@@ -138,6 +139,14 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
         }
     }
 
+    override fun downloadCompleted() {
+        println("downloadCompleted")
+        updateDownloadIcon()
+    }
+
+    private fun updateDownloadIcon(){
+        notifyDataSetChanged()
+    }
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataSet.size
 
@@ -209,7 +218,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
             // the ciphers, key and iv used in this demo, or to see it from top to bottom,
             // supply a url to a remote unencrypted file - this method will download and encrypt it
             // this first argument needs to be that url, not null or empty...
-            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context).execute()
+            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context,this).execute()
         } catch (e: Exception) {
             e.printStackTrace()
         }
