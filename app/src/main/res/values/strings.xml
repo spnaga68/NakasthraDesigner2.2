@@ -163,7 +163,7 @@
     <!-- -->
     <string name="ad_mob_app_id">ca-app-pub-5654653244641853~7968742058</string>
 
-   <!--  <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!--  <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id1">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id2">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id3">ca-app-pub-3940256099942544/6300978111</string>
@@ -179,4 +179,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="new_message_notification_title_template">New message: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
+        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
+        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
+        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
+        tortor.
+    </string>
 </resources>

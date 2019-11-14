@@ -1,8 +1,12 @@
 package pasu.nakshatraDesigners.fragments
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +16,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -51,10 +57,10 @@ class DashboardFrag : Fragment() {
     private lateinit var itemListViewModel: DashboardViewModel
     private lateinit var binding: pasu.nakshatraDesigners.databinding.FragDashBinding
     private var reviewArraySize = 0
-  //  private var onlineClassesList: ArrayList<OnlineClasses>? = null
+    //  private var onlineClassesList: ArrayList<OnlineClasses>? = null
 
-    companion object{
-         var onlineClassesList: ArrayList<OnlineClasses>? = null
+    companion object {
+        var onlineClassesList: ArrayList<OnlineClasses>? = null
     }
 
     override fun onCreateView(
@@ -74,6 +80,9 @@ class DashboardFrag : Fragment() {
             executePendingBindings()
         }
 //        setSkimmerViews()
+        isStoragePermissionGranted()
+
+
         itemListViewModel.getDashboardData()
 
 
@@ -113,7 +122,7 @@ class DashboardFrag : Fragment() {
                         addVideosView(data.video)
                     onlineClassesList = data.onlineclasses
                     print("onlineSelection@ ${Gson().toJson(onlineClassesList)}")
-                    Session.save("onlineSelection",Gson().toJson(onlineClassesList),context)
+                    Session.save("onlineSelection", Gson().toJson(onlineClassesList), context)
 
                 }
             }
@@ -208,11 +217,11 @@ class DashboardFrag : Fragment() {
 
 
         var videolist = ArrayList<VideoListItem>()
-        adapter = VideoBaseAdapter(context!!,videolist)
-        for(video in videoListData){
-            videolist.add(VideoListItem(video.name,video.imageurl,video.videourl,0))
+        adapter = VideoBaseAdapter(context!!, videolist)
+        for (video in videoListData) {
+            videolist.add(VideoListItem(video.name, video.imageurl, video.videourl, 0))
         }
-        adapter = VideoBaseAdapter(context!!,videolist)
+        adapter = VideoBaseAdapter(context!!, videolist)
         binding.viedosList.adapter = adapter
 
 //        binding.viedosList.removeAllViews()
@@ -338,6 +347,28 @@ class DashboardFrag : Fragment() {
 
     }
 
+
+    fun isStoragePermissionGranted(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(context!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.v("", "Permission is granted")
+                return true
+            } else {
+                Log.v("", "Permission is revoked")
+                ActivityCompat.requestPermissions(
+                    activity!!,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    1
+                );
+                return false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("", "Permission is granted")
+            return true
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
