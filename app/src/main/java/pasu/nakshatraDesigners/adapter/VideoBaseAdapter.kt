@@ -68,13 +68,14 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
             holder.apply {
                 bind(this@run)
                 itemView.tag = this@run
-                val imgDownload = rootLayout.findViewById<AppCompatImageView>(R.id.imgDownload)
+                val imgDownload = holder.imgDownload
                 val url = myDataSet[position].getVideoUrl(context)
                 val uniqueName = myDataSet[position].getVideoUniqueName(context)
                 println("UniqueName $uniqueName "+"______ $url")
                 createNewDirectory()
-                rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.VISIBLE
-                rootLayout.findViewById<View>(R.id.download_progress).visibility = View.GONE
+                bindImageFromUrl(holder.imageView,item.aari_url+".png")
+                imgDownload.visibility = View.VISIBLE
+                downloadProgress.visibility = View.GONE
                 val isPresentFile = getFileNameFromFolder(uniqueName)
                 if (isPresentFile) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -115,8 +116,8 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                     val fileUniqueName = myDataSet[position].getVideoUniqueName(context)
                     val isPresentFile = getFileNameFromFolder(fileUniqueName)
                     if (!isPresentFile) {
-                        rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.GONE
-                        rootLayout.findViewById<View>(R.id.download_progress).visibility = View.VISIBLE
+                        imgDownload.visibility = View.GONE
+                        downloadProgress.visibility = View.VISIBLE
                         val newFileName = getFolderName() + getFileUniqueName(position)
                         encryptVideo(url, File(newFileName), context)
                     } else {
@@ -129,7 +130,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                                     file = f
                                     name = f.name
                                     println("NAMEEEEEEEE $name")
-                                    if (name == url.substring(url.lastIndexOf('/') + 1)) {
+                                    if (name == fileUniqueName) {
 
                                         CommonFunctions.alertDialog(
                                             context,
@@ -197,6 +198,9 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
         private val binding: CertificateListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         var rootLayout = binding.root
+        var imageView = binding.imageView
+        val imgDownload = binding.imgDownload
+        val downloadProgress = binding.downloadProgress
         fun bind(item: VideoListItem) {
             binding.apply {
                 listItem = item

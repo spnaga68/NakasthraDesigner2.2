@@ -99,13 +99,14 @@ class CertificateAdapter internal constructor(val context: Context) :
                     (holder as PostItemViewHolder).apply {
                         bind(this@run)
                         itemView.tag = this@run
-                        val imgDownload = rootLayout.findViewById<AppCompatImageView>(R.id.imgDownload)
+                        val imgDownload = holder.imgDownload
 
                         val url = getItem(position)!!.getVideoUrl(context)
                         val uniqueName = getItem(position)!!.getVideoUniqueName(context)
                         println("UniqueName certificate $uniqueName" + "______$url")
-                        rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.VISIBLE
-                        rootLayout.findViewById<View>(R.id.download_progress).visibility = View.GONE
+                        bindImageFromUrl(imageView,getItem(position)!!.getImageUrl(context))
+                        imgDownload.visibility = View.VISIBLE
+                        downloadProgress.visibility = View.GONE
                         val isPresentFile = getFileNameFromFolder(uniqueName)
                         if (isPresentFile) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -147,8 +148,8 @@ class CertificateAdapter internal constructor(val context: Context) :
                             val isPresentFile = getFileNameFromFolder(fileUniqueName)
 //                            val originalFileName = getFilenameFromUrlWithFormat(url)
                             if (!isPresentFile) {
-                                rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.GONE
-                                rootLayout.findViewById<View>(R.id.download_progress).visibility = View.VISIBLE
+                                imgDownload.visibility = View.GONE
+                                downloadProgress.visibility = View.VISIBLE
                                 val newFileName = getFolderName() + getFileUniqueName(position)
                                 encryptVideo(url, File(newFileName), context)
                             } else {
@@ -161,7 +162,7 @@ class CertificateAdapter internal constructor(val context: Context) :
                                             file = f
                                             name = f.name
                                             println("NAMEEEEEEEE $name")
-                                            if (name == url.substring(url.lastIndexOf('/') + 1)) {
+                                            if (name == fileUniqueName) {
 
                                                 CommonFunctions.alertDialog(
                                                     context,
@@ -288,7 +289,9 @@ class CertificateAdapter internal constructor(val context: Context) :
         private val binding: pasu.nakshatraDesigners.databinding.CertificateListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         var rootLayout = binding.root
-
+val imageView = binding.imageView
+        val imgDownload = binding.imgDownload
+        val downloadProgress = binding.downloadProgress
         fun bind(item: VideoListItem) {
             binding.apply {
                 listItem = item

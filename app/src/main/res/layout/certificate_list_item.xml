@@ -33,7 +33,6 @@
                     android:layout_marginEnd="@dimen/dp4"
                     android:layout_marginBottom="8dp"
                     android:scaleType="fitXY"
-                    app:imageFromUrl="@{listItem.getImageUrl(context)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 

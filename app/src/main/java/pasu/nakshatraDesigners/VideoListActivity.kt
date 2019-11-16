@@ -2,18 +2,18 @@ package pasu.nakshatraDesigners
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.ExoPlayerFactory
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -220,6 +220,82 @@ class VideoListActivity : AppCompatActivity() {
             player!!.seekTo(currentWindow, playbackPosition)
         }
         player!!.prepare(mediaSource, true, false)
+        
+        player!!.addListener(object : Player.EventListener{
+            override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onSeekProcessed() {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTracksChanged(trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onPlayerError(error: ExoPlaybackException?) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onLoadingChanged(isLoading: Boolean) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onPositionDiscontinuity(reason: Int) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onRepeatModeChanged(repeatMode: Int) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
+                 //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                 //To change body of created functions use File | Settings | File Templates.
+
+                when (playbackState) {
+                    Player.STATE_BUFFERING -> {
+                        println("iddleeeebbbb")
+                        playerView.alpha = 0.5f
+                        Log.e("", "onPlayerStateChanged: Buffering ")
+                        if (mProgressBar != null) {
+                            mProgressBar!!.visibility = View.VISIBLE
+                        }
+                    }
+                    Player.STATE_ENDED -> player!!.seekTo(0)
+                    Player.STATE_IDLE -> {
+                        println("iddleeee")
+                    }
+                    Player.STATE_READY -> {
+                        println("iddleeeerrrrr $playWhenReady")
+                        if (!playWhenReady) {
+                            mAdView.visibility = View.VISIBLE
+                        } else {
+                            mAdView.visibility = View.GONE
+                        }
+                        Log.e("", "onPlayerStateChanged: Ready ")
+                        if (mProgressBar != null) {
+                            mProgressBar!!.visibility = View.GONE
+                        }
+                        playerView.visibility = View.VISIBLE
+                        playerView.alpha = 1f
+                    }
+                    else -> {
+                        println("iddleeeellll")
+                    }
+                }
+
+            }
+
+        })
 
 /*
         if(player != null) {
