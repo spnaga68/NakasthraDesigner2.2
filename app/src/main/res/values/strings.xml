@@ -51,7 +51,9 @@
     <string name="fetching">Fetching</string>
     <string name="cancel">Cancel</string>
 
-    <string name="otherwise_contactus"><u>Otherwise please contactus</u></string>
+    <string name="otherwise_contactus">
+        <u>Otherwise please contactus</u>
+    </string>
 
 
     <!--SignIn-->
@@ -66,7 +68,9 @@
     <string name="error_please_enter_pin">Please enter PIN</string>
     <string name="error_valid_password">Please Enter Valid Password</string>
     <string name="error_valid_length_password">Password length must be atleast six characters!</string>
-    <string name="label_smssendacknowledge">We have sent you an SMS with a code to the number above. \n\nTo complete your phone number verification, please enter the 5-digit activation code.</string>
+    <string name="label_smssendacknowledge">We have sent you an SMS with a code to the number above. \n\nTo complete
+        your phone number verification, please enter the 5-digit activation code.
+    </string>
     <string name="error_valid_code">Enter valid code</string>
     <string name="server_error">Couldn\'t Connect to Server</string>
     <string name="join_with_facebook">Join us with facebook</string>
@@ -88,7 +92,9 @@
     <string name="facebook_app_id">507303559780336</string>
     <string name="fb_login_protocol_scheme">fb507303559780336</string>
     <string name="app_desc">Only destination for your daily needs</string>
-    <string name="outlet_change_alert">Your cart contains groceries from ##old_outlet##. Do you want to discard the selection and add groceries from ##new_outlet## </string>
+    <string name="outlet_change_alert">Your cart contains groceries from ##old_outlet##. Do you want to discard the
+        selection and add groceries from ##new_outlet##
+    </string>
 
     <string name="btn_login">Login</string>
 
@@ -101,19 +107,25 @@
     <string name="edit">Edit</string>
     <string name="btn_yes">Yes</string>
     <string name="number_correct">Is your phone number correct?</string>
-    <string name="why_need_user_number">Nakshatra Designers uses  phone number to uniquely identify customers. Others would never have access to your phone number without your consent. Keep shopping Have a Good Day!</string>
+    <string name="why_need_user_number">Nakshatra Designers uses phone number to uniquely identify customers. Others
+        would never have access to your phone number without your consent. Keep shopping Have a Good Day!
+    </string>
     <string name="msg_verify_phone">Verifying %s</string>
     <string name="hint_code">code</string>
     <string name="btn_login_via_otp">Login</string>
     <string name="i_m_done">Done</string>
     <string name="didn_t_receive_the_code">Didn\'t receive the code?</string>
     <string name="btn_resend_otp">Resend OTP</string>
-    <string name="label_enter6digit">To complete your phone number verification, please enter the 5-digit activation code.</string>
+    <string name="label_enter6digit">To complete your phone number verification, please enter the 5-digit activation
+        code.
+    </string>
     <string name="maximum_limit_reached">Maximum limit reached</string>
     <string name="verify_number">Verify Mobile Number</string>
     <string name="verify_otp_msg">Please enter OTP received via SMS to verify your mobile number.</string>
     <string name="please_wait">Please wait</string>
-    <string name="label_please_confirm_your_country_code_and_enter_your_phone_number">Please confirm your country code and enter your phone number.</string>
+    <string name="label_please_confirm_your_country_code_and_enter_your_phone_number">Please confirm your country code
+        and enter your phone number.
+    </string>
     <string name="login_by">Login By</string>
     <string name="send_otp">Send OTP</string>
     <string name="pin">PIN</string>
@@ -163,7 +175,7 @@
     <!-- -->
     <string name="ad_mob_app_id">ca-app-pub-5654653244641853~7968742058</string>
 
-   <!--  <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!--  <string name="ad_mob_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id1">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id2">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_mob_id3">ca-app-pub-3940256099942544/6300978111</string>
@@ -179,4 +191,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="new_message_notification_title_template">New message: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel semper venenatis, magna odio volutpat
+        velit, at ullamcorper nulla lacus sed turpis. Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed
+        nisl sem, ullamcorper ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec tortor.
+    </string>
 </resources>

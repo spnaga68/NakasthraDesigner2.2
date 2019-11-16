@@ -5,54 +5,84 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
                 name="listItem"
-                type="pasu.nakshatraDesigners.data.VideoListItem"/>
+                type="pasu.nakshatraDesigners.data.VideoListItem" />
 
 
     </data>
 
     <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/ViewImage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:orientation="vertical">
 
-
-        <androidx.appcompat.widget.AppCompatImageView
-                android:layout_height="150dp"
+        <FrameLayout
                 android:layout_width="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/imageView"
-                android:layout_gravity="top"
-android:layout_marginStart="4dp"
+                android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="@dimen/dp4"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="fitXY"
+                    app:imageFromUrl="@{listItem.getImageUrl(context)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="15dp"
+                    android:layout_marginEnd="@dimen/dp4"
+                    android:orientation="horizontal">
+
+                <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                        android:id="@+id/textViewDownload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Download"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Was india " />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgDownload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp5"
+                        android:src="@drawable/ic_cancel" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <pasu.nakshatraDesigners.utils.widgets.CustomTextview
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:layout_marginStart="4dp"
                 android:layout_marginEnd="@dimen/dp4"
-                android:scaleType="fitXY"
-                app:imageFromUrl="@{listItem.getImageUrl(context)}"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-                android:layout_marginBottom="8dp"/>
-
-
-         <pasu.nakshatraDesigners.utils.widgets.CustomTextview
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="@dimen/dp4"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            tools:text="Was india "
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="visible"
-            android:gravity="center|top"
-            android:layout_marginBottom="8dp"
-            android:text="@{listItem.aari_name}"
-            android:layout_gravity="center|top"
-            android:lineSpacingExtra="5sp"
-            android:letterSpacing="-0.02"
-            android:id="@+id/textViewTitle"/>
-
+                android:layout_marginBottom="8dp"
+                android:gravity="center|top"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="5sp"
+                android:text="@{listItem.aari_name}"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Was india " />
 
 
     </LinearLayout>

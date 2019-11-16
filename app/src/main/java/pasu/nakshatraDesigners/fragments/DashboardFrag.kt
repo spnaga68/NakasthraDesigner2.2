@@ -70,7 +70,7 @@ class DashboardFrag : Fragment() {
             .get(DashboardViewModel::class.java)
 
         binding.apply {
-            setLifecycleOwner(this@DashboardFrag)
+            setLifecycleOwner( this@DashboardFrag)
             executePendingBindings()
         }
 //        setSkimmerViews()
