@@ -41,4 +41,12 @@
         <item name="listPreferredItemPaddingRight">8dp</item>
     </style>
 
+
+    <style name="GenericProgressIndicator" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+       <!-- <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/colorAccent</item>-->
+    </style>
 </resources>

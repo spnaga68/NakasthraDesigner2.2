@@ -2,29 +2,25 @@ package pasu.nakshatraDesigners
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.DefaultLoadControl
+import com.google.android.exoplayer2.DefaultRenderersFactory
+import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.*
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import pasu.nakshatraDesigners.adapter.getFilenameFromUrlWithFormat
-import pasu.nakshatraDesigners.adapter.getFolderName
-import pasu.nakshatraDesigners.utils.Session
 import pasu.nakshatraDesigners.utils.VIDEO_URL
-import pasu.nakshatraDesigners.video.DownloadAndEncryptFileTask
 import pasu.nakshatraDesigners.video.EncryptedFileDataSourceFactory
 import java.io.File
 import java.security.SecureRandom
@@ -123,44 +119,18 @@ class VideoListActivity : AppCompatActivity() {
                 if (isFilePresent) {
                     playVideo()
                 } else {
-//                    encryptVideo()
                     var mediaSource: MediaSource = buildMediaSource(Uri.parse(mUrl))
                     if ( player == null) {
                         initializePlayer(mediaSource)
                     }
                 }
         } else {
-//            encryptVideo()
             var mediaSource: MediaSource = buildMediaSource(Uri.parse(mUrl))
             if ( player == null) {
                 initializePlayer(mediaSource)
             }
         }
-
-        println("filePath $filePath" + "_________mUrl $mUrl" + "_____mEncryptedFile ${mEncryptedFile.absolutePath}")
     }
-
-
-    private fun encryptVideo() {
-        //        if (hasFile()) {
-        //            Log.d(getClass().getCanonicalName(), "encrypted file found, no need to recreate");
-        //            return;
-//        //        }
-//        try {
-//            val encryptionCipher = Cipher.getInstance(AES_TRANSFORMATION)
-//            encryptionCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, mIvParameterSpec)
-//            // TODO:
-//            // you need to encrypt a video somehow with the same key and iv...  you can do that yourself and update
-//            // the ciphers, key and iv used in this demo, or to see it from top to bottom,
-//            // supply a url to a remote unencrypted file - this method will download and encrypt it
-//            // this first argument needs to be that url, not null or empty...
-//            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher,context).execute()
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-
-    }
-
 
     private fun playVideo() {
 
@@ -342,28 +312,9 @@ class VideoListActivity : AppCompatActivity() {
 //            currentWindow = player!!.currentWindowIndex
             playWhenReady = false
             player!!.release()
-            player!!.stop()
             player!!.seekTo(0)
             player = null
         }
-    }
-
-    private fun renameFileName(name: String) {
-        val from = File(getFolderName(), name)
-        val to = File(getFolderName(), getFileNameAdd(name))
-        println("renameFileName From ACTIVI ${from.absolutePath}__${to.absolutePath}")
-        from.renameTo(to)
-        playbackPosition = player!!.currentPosition
-        currentWindow = player!!.currentWindowIndex
-        playWhenReady = player!!.playWhenReady
-        player!!.release()
-        player = null
-    }
-
-
-    private fun getFileNameAdd(name: String): String {
-//        return "$name.crypt"
-        return name
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {
