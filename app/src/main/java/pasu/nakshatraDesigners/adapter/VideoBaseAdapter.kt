@@ -70,16 +70,17 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                 itemView.tag = this@run
                 val imgDownload = rootLayout.findViewById<AppCompatImageView>(R.id.imgDownload)
                 val url = myDataSet[position].getVideoUrl(context)
+                val uniqueName = myDataSet[position].getVideoUniqueName(context)
+                println("UniqueName $uniqueName "+"______ $url")
                 createNewDirectory()
                 rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.VISIBLE
                 rootLayout.findViewById<View>(R.id.download_progress).visibility = View.GONE
-                val isPresentFile = getFileNameFromFolder(url)
-                println("isPresentFile $isPresentFile "+"____"+getFileNameFromFolder(url))
+                val isPresentFile = getFileNameFromFolder(uniqueName)
                 if (isPresentFile) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         imgDownload.setImageDrawable(
                             context.resources.getDrawable(
-                                R.drawable.ic_check,
+                                R.drawable.cross_icon,
                                 context.theme
                             )
                         )
@@ -87,7 +88,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                         imgDownload.setImageDrawable(
                             ContextCompat.getDrawable(
                                 context,
-                                R.drawable.ic_check
+                                R.drawable.cross_icon
                             )
                         )
                     }
@@ -95,7 +96,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         imgDownload.setImageDrawable(
                             context.resources.getDrawable(
-                                R.drawable.ic_file_download,
+                                R.drawable.download_icon,
                                 context.theme
                             )
                         )
@@ -103,7 +104,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                         imgDownload.setImageDrawable(
                             ContextCompat.getDrawable(
                                 context,
-                                R.drawable.ic_file_download
+                                R.drawable.download_icon
                             )
                         )
                     }
@@ -111,12 +112,12 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
 
                 rootLayout.findViewById<View>(R.id.imgDownload).setOnClickListener {
                     val url = myDataSet[position].getVideoUrl(context)
-                    val isPresentFile = getFileNameFromFolder(url)
-                    val originalFileName = getFilenameFromUrlWithFormat(url)
+                    val fileUniqueName = myDataSet[position].getVideoUniqueName(context)
+                    val isPresentFile = getFileNameFromFolder(fileUniqueName)
                     if (!isPresentFile) {
                         rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.GONE
                         rootLayout.findViewById<View>(R.id.download_progress).visibility = View.VISIBLE
-                        val newFileName = getFolderName() + originalFileName
+                        val newFileName = getFolderName() + getFileUniqueName(position)
                         encryptVideo(url, File(newFileName), context)
                     } else {
                         val sdCardRoot = Environment.getExternalStorageDirectory()
@@ -147,12 +148,11 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
 
                 rootLayout.findViewById<View>(R.id.imageView).setOnClickListener {
                     val url = myDataSet[position].getVideoUrl(context)
-                    val isPresentFile = getFileNameFromFolder(url)
-
-                    val originalFileName = getFilenameFromUrlWithFormat(url)
+                    val fileUniqueNameImg = myDataSet[position].getVideoUniqueName(context)
+                    val isPresentFile = getFileNameFromFolder(fileUniqueNameImg)
                     if (isPresentFile) {
                         redirectToPlayerView(
-                            originalFileName,
+                            getFileUniqueName(position),
                             url,
                             isPresentFile
                         )
@@ -205,7 +205,11 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
         }
     }
 
-    private fun getFileNameFromFolder(url: String): Boolean {
+    fun getFileUniqueName(position: Int) : String{
+        return myDataSet[position].getVideoUniqueName(context)
+    }
+
+    private fun getFileNameFromFolder(uniqueName: String): Boolean {
         val sdCardRoot = Environment.getExternalStorageDirectory()
         val yourDir = File(sdCardRoot, "HariBackup/")
         var name = ""
@@ -214,17 +218,12 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
             for (f in yourDir.listFiles()) {
                 if (f.isFile) {
                     name = f.name
-                    if (name.contains(".mp4.crypt")) {
-                        name = name.substring(0, name.lastIndexOf("."))
-                    }
-                    if (name.contains(".mp4")) {
-                        name = name.substring(0, name.lastIndexOf("."))
-                    }
-                    if (name == getFilenameFromUrl(url)) {
+                    if (name == uniqueName) {
                         temp = true
                     }
+                    println("File Name $name")
                 } else {
-                    if (name == getFilenameFromUrl(url)) {
+                    if (name == uniqueName) {
                         temp = true
                     }
                 }
@@ -232,6 +231,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
         }
         return temp
     }
+
 
     private fun redirectToPlayerView(
         originalFileName: String,

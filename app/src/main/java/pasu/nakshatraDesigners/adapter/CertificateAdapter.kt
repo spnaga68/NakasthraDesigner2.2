@@ -30,16 +30,17 @@ import pasu.nakshatraDesigners.utils.VIDEO_URL
 import pasu.nakshatraDesigners.utils.widgets.CustomTextview
 import pasu.nakshatraDesigners.video.DownloadAndEncryptFileTask
 import java.io.File
+import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 
 class CertificateAdapter internal constructor(val context: Context) :
-    PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK),DownloadListener ,
+    PagedListAdapter<VideoListItem, RecyclerView.ViewHolder>(DIFF_CALLBACK), DownloadListener,
     DialogOnClickInterface {
     private var networkState: NetworkState? = null
-    var positions=0
+    var positions = 0
 
 
     val AES_ALGORITHM = "AES"
@@ -47,7 +48,19 @@ class CertificateAdapter internal constructor(val context: Context) :
     private val KEY = "cybervaultsecure"
     private var mSecretKeySpec: SecretKeySpec? = null
     private var mIvParameterSpec: IvParameterSpec? = null
-    private lateinit var file:File
+    private lateinit var file: File
+
+    init {
+        val secureRandom = SecureRandom()
+        var key = ByteArray(16)
+        var iv = ByteArray(16)
+        secureRandom.nextBytes(key)
+        secureRandom.nextBytes(iv)
+        key = KEY.toByteArray()
+        iv = KEY.toByteArray()
+        mSecretKeySpec = SecretKeySpec(key, AES_ALGORITHM)
+        mIvParameterSpec = IvParameterSpec(iv)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -89,14 +102,16 @@ class CertificateAdapter internal constructor(val context: Context) :
                         val imgDownload = rootLayout.findViewById<AppCompatImageView>(R.id.imgDownload)
 
                         val url = getItem(position)!!.getVideoUrl(context)
+                        val uniqueName = getItem(position)!!.getVideoUniqueName(context)
+                        println("UniqueName certificate $uniqueName" + "______$url")
                         rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.VISIBLE
                         rootLayout.findViewById<View>(R.id.download_progress).visibility = View.GONE
-                        val isPresentFile = getFileNameFromFolder(url)
+                        val isPresentFile = getFileNameFromFolder(uniqueName)
                         if (isPresentFile) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 imgDownload.setImageDrawable(
                                     context.resources.getDrawable(
-                                        R.drawable.ic_check,
+                                        R.drawable.cross_icon,
                                         context.theme
                                     )
                                 )
@@ -104,7 +119,7 @@ class CertificateAdapter internal constructor(val context: Context) :
                                 imgDownload.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         context,
-                                        R.drawable.ic_check
+                                        R.drawable.cross_icon
                                     )
                                 )
                             }
@@ -112,7 +127,7 @@ class CertificateAdapter internal constructor(val context: Context) :
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 imgDownload.setImageDrawable(
                                     context.resources.getDrawable(
-                                        R.drawable.ic_file_download,
+                                        R.drawable.download_icon,
                                         context.theme
                                     )
                                 )
@@ -120,7 +135,7 @@ class CertificateAdapter internal constructor(val context: Context) :
                                 imgDownload.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         context,
-                                        R.drawable.ic_file_download
+                                        R.drawable.download_icon
                                     )
                                 )
                             }
@@ -128,10 +143,13 @@ class CertificateAdapter internal constructor(val context: Context) :
 
                         rootLayout.findViewById<View>(R.id.imgDownload).setOnClickListener {
                             val url = getItem(position)!!.getVideoUrl(context)
-                            val isPresentFile = getFileNameFromFolder(url)
-                            val originalFileName = getFilenameFromUrlWithFormat(url)
+                            val fileUniqueName = getItem(position)!!.getVideoUniqueName(context)
+                            val isPresentFile = getFileNameFromFolder(fileUniqueName)
+//                            val originalFileName = getFilenameFromUrlWithFormat(url)
                             if (!isPresentFile) {
-                                val newFileName = getFolderName() + originalFileName
+                                rootLayout.findViewById<View>(R.id.imgDownload).visibility = View.GONE
+                                rootLayout.findViewById<View>(R.id.download_progress).visibility = View.VISIBLE
+                                val newFileName = getFolderName() + getFileUniqueName(position)
                                 encryptVideo(url, File(newFileName), context)
                             } else {
                                 val sdCardRoot = Environment.getExternalStorageDirectory()
@@ -162,12 +180,13 @@ class CertificateAdapter internal constructor(val context: Context) :
 
                         rootLayout.findViewById<View>(R.id.imageView).setOnClickListener {
                             val url = getItem(position)!!.getVideoUrl(context)
-                            val isPresentFile = getFileNameFromFolder(url)
+                            val fileUniqueNameImg = getItem(position)!!.getVideoUniqueName(context)
+                            val isPresentFile = getFileNameFromFolder(fileUniqueNameImg)
 
-                            val originalFileName = getFilenameFromUrlWithFormat(url)
+//                            val originalFileName = getFilenameFromUrlWithFormat(url)
                             if (isPresentFile) {
                                 redirectToPlayerView(
-                                    originalFileName,
+                                    getFileUniqueName(position),
                                     url,
                                     isPresentFile
                                 )
@@ -195,15 +214,15 @@ class CertificateAdapter internal constructor(val context: Context) :
                         itemView.tag = this@run
 
                         val mAdViewLay = itemView.findViewById<LinearLayout>(R.id.adViewLay)
-                        val mAdView=AdView(context)
+                        val mAdView = AdView(context)
 //                        println("posssitionnn $positions")
                         when (positions) {
                             0 -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id4));
                             1 -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id2));
                             2 -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id3));
-                            else-> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id4));
+                            else -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id4));
                         }
-                        if(position>3)positions=0 else positions++
+                        if (position > 3) positions = 0 else positions++
                         mAdView.adSize = AdSize.LARGE_BANNER;
                         val adRequest = AdRequest.Builder().build()
                         mAdViewLay.addView(mAdView)
@@ -229,9 +248,10 @@ class CertificateAdapter internal constructor(val context: Context) :
         dialog.dismiss()
     }
 
-    private fun updateDownloadIcon(){
+    private fun updateDownloadIcon() {
         notifyDataSetChanged()
     }
+
     private fun hasExtraRow(): Boolean {
         return networkState != null && networkState !== NetworkState.LOADED && networkState !== NetworkState.MAXPAGE
     }
@@ -344,7 +364,11 @@ class CertificateAdapter internal constructor(val context: Context) :
     }
 
 
-    private fun getFileNameFromFolder(url: String): Boolean {
+    fun getFileUniqueName(position: Int): String {
+        return getItem(position)!!.getVideoUniqueName(context)
+    }
+
+    private fun getFileNameFromFolder(uniqueName: String): Boolean {
         val sdCardRoot = Environment.getExternalStorageDirectory()
         val yourDir = File(sdCardRoot, "HariBackup/")
         var name = ""
@@ -353,18 +377,12 @@ class CertificateAdapter internal constructor(val context: Context) :
             for (f in yourDir.listFiles()) {
                 if (f.isFile) {
                     name = f.name
-                    if (name.contains(".mp4.crypt")) {
-                        name = name.substring(0, name.lastIndexOf("."))
-                    }
-                    if (name.contains(".mp4")) {
-                        name = name.substring(0, name.lastIndexOf("."))
-                    }
-                    if (name == getFilenameFromUrl(url)) {
+                    if (name == uniqueName) {
                         temp = true
                     }
                     println("File Name $name")
                 } else {
-                    if (name == getFilenameFromUrl(url)) {
+                    if (name == uniqueName) {
                         temp = true
                     }
                 }
@@ -401,7 +419,7 @@ class CertificateAdapter internal constructor(val context: Context) :
             // the ciphers, key and iv used in this demo, or to see it from top to bottom,
             // supply a url to a remote unencrypted file - this method will download and encrypt it
             // this first argument needs to be that url, not null or empty...
-            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context,this).execute()
+            DownloadAndEncryptFileTask(mUrl, mEncryptedFile, encryptionCipher, context, this).execute()
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -5,5 +5,6 @@ data class BannerVideoData(
     val name: String,
     val imageurl: String,
     val videourl: String,
-    val status: String
+    val status: String,
+    val uniquename : String
 )

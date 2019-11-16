@@ -219,7 +219,7 @@ class DashboardFrag : Fragment() {
         var videolist = ArrayList<VideoListItem>()
         adapter = VideoBaseAdapter(context!!, videolist)
         for (video in videoListData) {
-            videolist.add(VideoListItem(video.name, video.imageurl, video.videourl, 0))
+            videolist.add(VideoListItem(video.name, video.imageurl, video.videourl, 0,video.uniquename))
         }
         adapter = VideoBaseAdapter(context!!, videolist)
         binding.viedosList.adapter = adapter

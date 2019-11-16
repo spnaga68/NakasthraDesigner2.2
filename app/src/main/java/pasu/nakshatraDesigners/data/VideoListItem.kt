@@ -7,7 +7,7 @@ import pasu.nakshatraDesigners.utils.VIDEO_URL
 
 data class VideoListItem(
     val aari_name: String, val aari_url: String,
-    val aari_video_url: String, val listType: Int = 0
+    val aari_video_url: String, val listType: Int = 0,val uniquename : String = ""
 ) {
 
     fun getVideoUrl(context: Context) :String{
@@ -18,4 +18,7 @@ return Session.getSession(VIDEO_URL,context )+aari_video_url+".mp4"
         return Session.getSession(IMAGE_URL,context )+aari_url+".png"
     }
 
+    fun getVideoUniqueName(context: Context) : String{
+        return uniquename+".mp4"
+    }
 }

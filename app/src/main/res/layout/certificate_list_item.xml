@@ -61,7 +61,7 @@
                         android:layout_width="@dimen/dp50"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp5"
-                        android:src="@drawable/ic_cancel" />
+                        android:src="@drawable/cross_icon" />
 
                 <ProgressBar
                         android:visibility="gone"
