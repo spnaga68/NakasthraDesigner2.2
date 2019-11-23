@@ -3,6 +3,7 @@ package pasu.nakshatraDesigners.video;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -41,6 +42,10 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
     NotificationManager notificationManager;
     int Notification_ID = 121;
     DownloadListener downloadListener;
+
+    private ProgressDialog dialog;
+
+
     public DownloadAndEncryptFileTask(String url, File file, Cipher cipher, Context context, DownloadListener listener) {
         if (url == null || url.isEmpty()) {
             throw new IllegalArgumentException("You need to supply a url to a clear MP4 file to download and encrypt, or modify the code to use a local encrypted mp4");
@@ -50,6 +55,8 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
         mCipher = cipher;
         this.context = context;
         downloadListener = listener;
+        dialog = new ProgressDialog(context);
+        dialog.setCancelable(false);
     }
 
     private void downloadAndEncrypt() throws Exception {
@@ -81,6 +88,8 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        dialog.setMessage("Download in progress.....");
+        dialog.show();
         generateNotifications(context,"Download in progress",true);
     }
 
@@ -98,6 +107,10 @@ public class DownloadAndEncryptFileTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         Log.d(getClass().getCanonicalName(), "done");
         downloadListener.downloadCompleted();
+        dialog.setMessage("Download completed.");
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
         clearNotification(context);
     }
 

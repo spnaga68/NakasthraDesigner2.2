@@ -74,7 +74,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                 println("UniqueName $uniqueName "+"______ $url")
                 createNewDirectory()
                 bindImageFromUrl(holder.imageView,item.aari_url+".png")
-                imgDownload.visibility = View.VISIBLE
+                imgDownload.visibility = View.GONE
                 downloadProgress.visibility = View.GONE
                 val isPresentFile = getFileNameFromFolder(uniqueName)
                 if (isPresentFile) {
@@ -111,7 +111,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                     }
                 }
 
-                rootLayout.findViewById<View>(R.id.imgDownload).setOnClickListener {
+                imgDownload.setOnClickListener {
                     val url = myDataSet[position].getVideoUrl(context)
                     val fileUniqueName = myDataSet[position].getVideoUniqueName(context)
                     val isPresentFile = getFileNameFromFolder(fileUniqueName)
