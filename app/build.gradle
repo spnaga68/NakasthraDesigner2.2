@@ -15,8 +15,8 @@ android {
         applicationId "pasu.nakshatraDesigners"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 8
-        versionName "1.0.8"
+        versionCode 9
+        versionName "1.0.9"
         multiDexEnabled true
         resValue "string", "ad_mob", "ca-app-pub-5654653244641853~7968742058"
     }
