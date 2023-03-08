@@ -1,26 +1,22 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'com.google.gms.google-services'
-
-apply plugin: "androidx.navigation.safeargs.kotlin"
-
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'androidx.navigation.safeargs'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 28
-    dataBinding {
-        enabled = true
-    }
+    compileSdkVersion 33
+
     defaultConfig {
         applicationId "pasu.nakshatraDesigners"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 6
-        versionName "1.0"
+        targetSdkVersion 33
+        versionCode 8
+        versionName "1.0.8"
         multiDexEnabled true
         resValue "string", "ad_mob", "ca-app-pub-5654653244641853~7968742058"
     }
@@ -31,6 +27,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     /*Added for parcellize*/
     androidExtensions {
         experimental = true
@@ -39,44 +39,42 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
 
     //recyclerview
     implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
     implementation "androidx.core:core-ktx:$ktxVersion"
-    implementation "androidx.legacy:legacy-support-v4:$supportLibraryVersion"
 
     //multidex
     implementation 'androidx.multidex:multidex:2.0.1'
 
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$log_interceptor"
+    // Api converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     //Paging
-    implementation 'androidx.paging:paging-runtime:2.0.0-rc01'
+    implementation "android.arch.paging:runtime:1.0.1"
 
     //Sms
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     //Location
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     //Easy permission
     implementation 'pub.devrel:easypermissions:3.0.0'
@@ -88,13 +86,12 @@ dependencies {
 //    implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
 
     //Skeleton loading
-    implementation 'com.ethanhua:skeleton:1.1.1'
+    implementation 'com.ethanhua:skeleton:1.1.2'
     implementation 'io.supercharge:shimmerlayout:2.1.0'
     implementation 'in.championswimmer:Android-SocialButtons:1.3'
 
     //Google ad
-    implementation 'com.google.android.gms:play-services-ads:17.2.0'
+    implementation 'com.google.android.gms:play-services-ads:21.5.0'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
 
-
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

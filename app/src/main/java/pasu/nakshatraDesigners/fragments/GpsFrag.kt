@@ -46,15 +46,13 @@ abstract class GpsFrag : Fragment(), GoogleApiClient.ConnectionCallbacks, Google
 
     private fun startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(
-                activity!!,
+                requireActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                activity!!,
+                requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-
             return
         } else {
             fusedLocationClient.requestLocationUpdates(
@@ -84,13 +82,11 @@ abstract class GpsFrag : Fragment(), GoogleApiClient.ConnectionCallbacks, Google
         }
 
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 locationResult ?: return
                 for (location in locationResult.locations) {
-                    // Update UI with location Detaildata
-                    // ...
                     println("hellllllllo $location")
                     lastKnownLatLng = LatLng(location.latitude, location.longitude)
                     getCurrentKnownLatLng(lastKnownLatLng)
@@ -120,7 +116,7 @@ abstract class GpsFrag : Fragment(), GoogleApiClient.ConnectionCallbacks, Google
     init {
         try {
             if (mGoogleApiClient != null) {
-                mGoogleApiClient = GoogleApiClient.Builder(activity!!)
+                mGoogleApiClient = GoogleApiClient.Builder(requireActivity())
                     .addApi(LocationServices.API)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)

@@ -60,7 +60,6 @@ class CertificateDataSource(val context: Context, val courseUrl: String) : PageK
     }
 
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<String, VideoListItem>) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     val initialLoading = MutableLiveData<NetworkState>()

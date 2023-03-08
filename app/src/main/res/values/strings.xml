@@ -4,6 +4,7 @@
     <string name="show">Show</string>
     <string name="password">Password</string>
     <string name="signup">SignUp</string>
+    <string name="m_signup">Sign Up</string>
     <string name="forgotpswd">Forgot Password ?</string>
     <string name="terms_condition">Terms and Conditions</string>
     <string name="signin">SignIn</string>
@@ -177,22 +178,12 @@
     <string name="ad_mob_id4">ca-app-pub-5654653244641853/5206527510</string>
     <string name="ad_mob_id5">ca-app-pub-5654653244641853/5206527510</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="new_message_notification_title_template">New message: %1$s</string>
 
-    <!-- TODO: remove this placeholder text -->
-    <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum
-        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
-        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
-        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
-        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
-        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
-        tortor.
-    </string>
 
 
-    <string name="delete_file">Are you sure want to to delete a downloaded video from a folder?</string>
+    <string name="delete_file">Are you sure want to delete a downloaded video from a folder?</string>
     <string name="btn_no">No</string>
+    <string name="dont_have_account">Don\'t have account?</string>
 </resources>

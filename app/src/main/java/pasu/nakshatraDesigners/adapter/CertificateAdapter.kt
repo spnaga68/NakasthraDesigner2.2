@@ -224,7 +224,7 @@ class CertificateAdapter internal constructor(val context: Context) :
                             else -> mAdView.setAdUnitId(context.getString(R.string.ad_mob_id4));
                         }
                         if (position > 3) positions = 0 else positions++
-                        mAdView.adSize = AdSize.LARGE_BANNER;
+                        mAdView.setAdSize(AdSize.LARGE_BANNER)
                         val adRequest = AdRequest.Builder().build()
                         mAdViewLay.addView(mAdView)
                         mAdView.loadAd(adRequest)
@@ -417,7 +417,6 @@ val imageView = binding.imageView
         try {
             val encryptionCipher = Cipher.getInstance(AES_TRANSFORMATION)
             encryptionCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, mIvParameterSpec)
-            // TODO:
             // you need to encrypt a video somehow with the same key and iv...  you can do that yourself and update
             // the ciphers, key and iv used in this demo, or to see it from top to bottom,
             // supply a url to a remote unencrypted file - this method will download and encrypt it

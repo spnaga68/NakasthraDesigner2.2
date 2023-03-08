@@ -81,11 +81,11 @@ class VideoListActivity : AppCompatActivity() {
         findViewById<View>(R.id.back).setOnClickListener { finish() }
         if (intent != null) {
             if (intent.getStringExtra(VIDEO_URL) != null) {
-                mUrl = intent.getStringExtra(VIDEO_URL)
+                mUrl = intent!!.getStringExtra(VIDEO_URL)!!
                 println("SIZE ImageURL $mUrl")
             }
             if (intent.getStringExtra("FILEPATH") != null) {
-                filePath = intent.getStringExtra("FILEPATH")
+                filePath = intent!!.getStringExtra("FILEPATH")!!
             }
             init()
         }

@@ -20,7 +20,7 @@ class CommonViewModelFactory(val context: Context) : ViewModelProvider.Factory {
     }
 
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.simpleName=="PasswordViewModel")
             return PasswordViewModel(getFilterItemsRepository(context), context.applicationContext as MyApplication) as T
         else if (modelClass.simpleName=="SignInViewModel")

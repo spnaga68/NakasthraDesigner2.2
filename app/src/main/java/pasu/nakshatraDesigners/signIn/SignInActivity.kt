@@ -2,7 +2,15 @@ package pasu.nakshatraDesigners.signIn
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -20,6 +28,7 @@ import nakshatraDesigners.utils.CommonFunctions
 import android.view.inputmethod.EditorInfo
 import android.view.KeyEvent
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
 
 class SignInActivity : AppCompatActivity(), DialogOnClickInterface {
@@ -118,6 +127,46 @@ class SignInActivity : AppCompatActivity(), DialogOnClickInterface {
 
         })
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setSpannableTextView()
+    }
+
+    /**
+     * Method to set spannable textview for clickable Terms and Condition and Privacy Policy
+     *
+     * @param view
+     */
+    private fun setSpannableTextView() {
+        val spanTxt = SpannableStringBuilder(getString(R.string.dont_have_account) + " ")
+        spanTxt.append(getString(R.string.m_signup))
+        spanTxt.setSpan(object : ClickableSpan() {
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = ContextCompat.getColor(
+                    this@SignInActivity,
+                    R.color.button_accept
+                ) // you can use custom color
+                ds.isUnderlineText = true
+            }
+
+            override fun onClick(widget: View) {
+                startActivity(
+                    Intent(
+                        this@SignInActivity,
+                        SignupActivity::class.java
+                    )
+                )
+            }
+        }, spanTxt.length - getString(R.string.m_signup).length, spanTxt.length, 0)
+        spanTxt.setSpan(StyleSpan(Typeface.BOLD), spanTxt.length - getString(R.string.m_signup).length, spanTxt.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.tvSignUp.apply {
+            movementMethod = LinkMovementMethod.getInstance()
+            setText(spanTxt, TextView.BufferType.SPANNABLE)
+        }
     }
 
     private fun callSignIn() {

@@ -18,7 +18,7 @@ class ViewmodelFactory(val context: Context,val courseUrl:String = "") : ViewMod
         return DataSourceFactory(context,courseUrl)
     }
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when (modelClass.simpleName) {
             "DashboardViewModel" ->
                 return DashboardViewModel(getAppRepository(context), context.applicationContext as MyApplication) as T

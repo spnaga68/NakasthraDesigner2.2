@@ -4,9 +4,28 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+    </queries>
+
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+        </intent>
+    </queries>
+
     <application
             android:name=".MyApplication"
             android:allowBackup="true"
@@ -21,7 +40,8 @@
 
         <activity
                 android:name=".SplashActivity"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -36,11 +56,10 @@
         <activity
                 android:name=".signIn.PhoneVerificationActivity"
                 android:screenOrientation="portrait" />
-        <activity android:name=".WebViewFrag" />
-        <!-- <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/> -->
+
         <activity
                 android:name=".signIn.SignupActivity"
-                android:screenOrientation="portrait" />
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".MainActivity"
                 android:screenOrientation="portrait" />

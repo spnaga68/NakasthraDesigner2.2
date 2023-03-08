@@ -9,8 +9,7 @@ import com.google.android.gms.ads.MobileAds
 class MyApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
-//        Fabric.with(this, Crashlytics())
-        MobileAds.initialize(this, getString(R.string.ad_mob_id))
+        MobileAds.initialize(this)
     }
 
 

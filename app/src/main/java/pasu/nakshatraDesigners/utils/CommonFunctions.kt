@@ -294,7 +294,7 @@ object CommonFunctions {
     }
 
     fun callClicked(context: Context, phone: String) {
-        var intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
         context.startActivity(intent);
     }
 

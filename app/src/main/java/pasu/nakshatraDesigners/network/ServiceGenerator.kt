@@ -4,6 +4,8 @@ import android.content.Context
 import android.text.TextUtils
 import android.util.Base64
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.Buffer
 import okio.BufferedSink
@@ -43,9 +45,9 @@ class ServiceGenerator(context: Context,  baseUrl: String = BASEURL, timeOut: Lo
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             val originalRequest = chain.request()
             var builder: Request.Builder = originalRequest.newBuilder()
-            if (originalRequest.method().equals("POST", ignoreCase = true)) {
+            if (originalRequest.method.equals("POST", ignoreCase = true)) {
                 builder = originalRequest.newBuilder()
-                    .method(originalRequest.method(), originalRequest.body()!!)
+                    .method(originalRequest.method, originalRequest.body)
 //                        .method(originalRequest.method(), encode((originalRequest.body()!!)))
             }
             builder.addHeader("Authorization","Grocery")
@@ -54,7 +56,7 @@ class ServiceGenerator(context: Context,  baseUrl: String = BASEURL, timeOut: Lo
 
 
 
-            val originalHttpUrl = originalRequest.url()
+            val originalHttpUrl = originalRequest.url
             val url = originalHttpUrl.newBuilder()
                     .addQueryParameter("v", "" + BuildConfig.VERSION_CODE)
                     .build()
@@ -70,11 +72,11 @@ class ServiceGenerator(context: Context,  baseUrl: String = BASEURL, timeOut: Lo
         override fun intercept(chain: Interceptor.Chain): Response {
 
             val response = chain.proceed(chain.request())
-            if (response.isSuccessful()) {
+            if (response.isSuccessful) {
                 val newResponse = response.newBuilder()
                 var contentType = response.header("Content-Type")
                 if (TextUtils.isEmpty(contentType)) contentType = "application/json"
-                val data = response.body()
+                val data = response.body
                 if (data != null) {
                     val cryptedStream = data.byteStream()
                     var decrypted: String? = null
@@ -91,7 +93,8 @@ class ServiceGenerator(context: Context,  baseUrl: String = BASEURL, timeOut: Lo
 //                            decrypted = AA().dd(result.toString("UTF-8"))
                         decrypted = result.toString("UTF-8")
 
-                        newResponse.body(ResponseBody.create(MediaType.parse(contentType), decrypted))
+
+                        newResponse.body(decrypted.toResponseBody(contentType!!.toMediaTypeOrNull()))
                         val ress = newResponse.build()
 //                        if (CheckStatus(JSONObject(decrypted), c).isNormal())
                             return ress

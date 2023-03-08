@@ -35,12 +35,10 @@ public class NetworkStatus extends BroadcastReceiver {
         try {
             if (!isOnline(mContext)) {
                 Toast.makeText(mContext, "No Internet", Toast.LENGTH_LONG).show();
-            } else {
             }
 //			else if (CommonData.sContext != null )
 //				new URLReachable(mContext).execute();
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
     }

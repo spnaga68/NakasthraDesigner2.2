@@ -93,12 +93,10 @@ abstract class MapFragment : GpsFrag(),
         }
         getMap(map)
         if (map != null && activity != null) {
-//            mapWrapperLayout.init(map, TaxiUtil.getPixelsFromDp(activity!!, (39 + 20).toFloat()), true, null)
+//            mapWrapperLayout.init(map, TaxiUtil.getPixelsFromDp(requireActivity(), (39 + 20).toFloat()), true, null)
             setMapStyle()
 
-            if (ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
+            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // here to request the missing permissions, and then overriding
                 //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
                 //                                          int[] grantResults)
@@ -161,7 +159,7 @@ abstract class MapFragment : GpsFrag(),
     fun setMapStyle() {
 //        try {
 //            // Customise the styling of the base map using a JSON object defined in a raw resource file.
-//            val success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(activity!!, R.raw.map_style))
+//            val success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireActivity(), R.raw.map_style))
 //            if (!success) {
 //                println("Style parsing failed.")
 //            }
