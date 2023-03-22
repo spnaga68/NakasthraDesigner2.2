@@ -9,7 +9,6 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import nakshatraDesigners.utils.CommonFunctions
@@ -30,7 +29,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListItem>) :
-    RecyclerView.Adapter<PostItemViewHolder>(), DownloadListener,DialogOnClickInterface{
+    RecyclerView.Adapter<PostItemViewHolder>(), DownloadListener, DialogOnClickInterface {
 
     val AES_ALGORITHM = "AES"
     val AES_TRANSFORMATION = "AES/CTR/NoPadding"
@@ -38,7 +37,10 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
     private var mSecretKeySpec: SecretKeySpec? = null
     private var mIvParameterSpec: IvParameterSpec? = null
 
-    private lateinit var file:File
+    private val fileRoot: File by lazy { context.filesDir }
+
+    private lateinit var file: File
+
     init {
         val secureRandom = SecureRandom()
         var key = ByteArray(16)
@@ -71,9 +73,9 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                 val imgDownload = holder.imgDownload
                 val url = myDataSet[position].getVideoUrl(context)
                 val uniqueName = myDataSet[position].getVideoUniqueName(context)
-                println("UniqueName $uniqueName "+"______ $url")
+                println("UniqueName $uniqueName " + "______ $url")
                 createNewDirectory()
-                bindImageFromUrl(holder.imageView,item.aari_url+".png")
+                bindImageFromUrl(holder.imageView, item.aari_url + ".png")
                 imgDownload.visibility = View.GONE
                 downloadProgress.visibility = View.GONE
                 val isPresentFile = getFileNameFromFolder(uniqueName)
@@ -112,17 +114,16 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                 }
 
                 imgDownload.setOnClickListener {
-                    val url = myDataSet[position].getVideoUrl(context)
+                    val videoUrl = myDataSet[position].getVideoUrl(context)
                     val fileUniqueName = myDataSet[position].getVideoUniqueName(context)
                     val isPresentFile = getFileNameFromFolder(fileUniqueName)
                     if (!isPresentFile) {
                         imgDownload.visibility = View.GONE
                         downloadProgress.visibility = View.VISIBLE
                         val newFileName = getFolderName() + getFileUniqueName(position)
-                        encryptVideo(url, File(newFileName), context)
+                        encryptVideo(videoUrl, File(newFileName), context)
                     } else {
-                        val sdCardRoot = Environment.getExternalStorageDirectory()
-                        val yourDir = File(sdCardRoot, "HariBackup/")
+                        val yourDir = File(fileRoot, "HariBackup/")
                         var name = ""
                         if (yourDir.exists() && yourDir.listFiles() != null) {
                             for (f in yourDir.listFiles()) {
@@ -148,19 +149,19 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
                 }
 
                 rootLayout.findViewById<View>(R.id.imageView).setOnClickListener {
-                    val url = myDataSet[position].getVideoUrl(context)
+                    val videoUrl = myDataSet[position].getVideoUrl(context)
                     val fileUniqueNameImg = myDataSet[position].getVideoUniqueName(context)
                     val isPresentFile = getFileNameFromFolder(fileUniqueNameImg)
                     if (isPresentFile) {
                         redirectToPlayerView(
                             getFileUniqueName(position),
-                            url,
+                            videoUrl,
                             isPresentFile
                         )
                     } else {
                         val intent = Intent(context, VideoListActivity::class.java)
                         intent.apply {
-                            putExtra(VIDEO_URL, url)
+                            putExtra(VIDEO_URL, videoUrl)
                             putExtra("FILEPATH", "")
                             putExtra("ISFILEPRESENT", false)
                             context.startActivity(intent)
@@ -170,7 +171,6 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
             }
         }
     }
-
 
 
     override fun downloadCompleted() {
@@ -187,6 +187,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
     override fun onNegativeButtonCLick(dialog: DialogInterface, alertType: Int) {
         dialog.dismiss()
     }
+
     private fun updateDownloadIcon() {
         notifyDataSetChanged()
     }
@@ -209,13 +210,12 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
         }
     }
 
-    fun getFileUniqueName(position: Int) : String{
+    private fun getFileUniqueName(position: Int): String {
         return myDataSet[position].getVideoUniqueName(context)
     }
 
     private fun getFileNameFromFolder(uniqueName: String): Boolean {
-        val sdCardRoot = Environment.getExternalStorageDirectory()
-        val yourDir = File(sdCardRoot, "HariBackup/")
+        val yourDir = File(fileRoot, "HariBackup/")
         var name = ""
         var temp = false
         if (yourDir.exists() && yourDir.listFiles() != null) {
@@ -280,7 +280,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
 
     private fun createNewDirectory() {
         val folder =
-            Environment.getExternalStorageDirectory().toString() + File.separator + "HariBackup/"
+            fileRoot.toString() + File.separator + "HariBackup/"
         val mEncryptedFile = File(folder)
         if (!mEncryptedFile.exists()) {
             mEncryptedFile.mkdirs()
@@ -288,7 +288,7 @@ class VideoBaseAdapter(val context: Context, val myDataSet: ArrayList<VideoListI
     }
 
     private fun getFolderName(): String {
-        return Environment.getExternalStorageDirectory().toString() + File.separator + "HariBackup/"
+        return fileRoot.toString() + File.separator + "HariBackup/"
     }
 
     private fun getFilenameFromUrl(url: String): String {

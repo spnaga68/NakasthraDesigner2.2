@@ -49,6 +49,7 @@ class CertificateAdapter internal constructor(val context: Context) :
     private var mSecretKeySpec: SecretKeySpec? = null
     private var mIvParameterSpec: IvParameterSpec? = null
     private lateinit var file: File
+    private val fileRoot: File by lazy { context.filesDir }
 
     init {
         val secureRandom = SecureRandom()
@@ -153,8 +154,7 @@ class CertificateAdapter internal constructor(val context: Context) :
                                 val newFileName = getFolderName() + getFileUniqueName(position)
                                 encryptVideo(url, File(newFileName), context)
                             } else {
-                                val sdCardRoot = Environment.getExternalStorageDirectory()
-                                val yourDir = File(sdCardRoot, "HariBackup/")
+                                val yourDir = File(fileRoot, "HariBackup/")
                                 var name = ""
                                 if (yourDir.exists() && yourDir.listFiles() != null) {
                                     for (f in yourDir.listFiles()) {
@@ -372,8 +372,7 @@ val imageView = binding.imageView
     }
 
     private fun getFileNameFromFolder(uniqueName: String): Boolean {
-        val sdCardRoot = Environment.getExternalStorageDirectory()
-        val yourDir = File(sdCardRoot, "HariBackup/")
+        val yourDir = File(fileRoot, "HariBackup/")
         var name = ""
         var temp = false
         if (yourDir.exists() && yourDir.listFiles() != null) {
@@ -429,7 +428,7 @@ val imageView = binding.imageView
     }
 
     private fun getFolderName(): String {
-        return Environment.getExternalStorageDirectory().toString() + File.separator + "HariBackup/"
+        return fileRoot.toString() + File.separator + "HariBackup/"
     }
 
     private fun getFilenameFromUrl(url: String): String {

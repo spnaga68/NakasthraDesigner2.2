@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            android:maxSdkVersion="28" />
 
     <queries>
         <package android:name="com.whatsapp" />
@@ -59,7 +61,7 @@
 
         <activity
                 android:name=".signIn.SignupActivity"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".MainActivity"
                 android:screenOrientation="portrait" />
